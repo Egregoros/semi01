@@ -1,0 +1,83 @@
+userInfo
+- userNum
+- id
+- pwd
+- nickname
+- name
+- addr
+- email
+- birth
+- phone 
+
+cafeMember
+- userNum
+- cafeNum
+- cafeMemNick
+- cafeMemGrade
+
+cafeList
+- cafeNum
+- gradeNum
+- catNum
+- cafeName
+- userNum
+
+catTable
+- catNum
+- catName
+
+cafeGrade
+- gradeNum
+- gradeName
+
+cafeMemGrade?
+- userNum
+- cafeNum
+- cafeMemGradeNum
+- cafeMemGradeName
+
+post (gaesigle)
+- postNum
+- boardNum
+- cafeNum
+- postTitle
+- postContent
+- postDate
+- cafeMemNick
+- userNum
+
+cafeBoard
+- boardNum
+- cafeNum
+- boardCatNum
+- boardName
+- orderNum
+
+cafeBoardCat
+- boardCatNum
+- cafeNum
+- catName
+- catOrder
+
+fileTable
+- fileNum
+- boardNum
+- postNum
+- orgFileName (파일 원본 이름 / 보일이름)
+- saveFileName (저장된 파일 이름 / 서버 원본 이름) 
+- cafeNum
+
+imgTable
+- imgNum
+- boardNum
+- postNum
+- orgImgName
+- saveImgName
+- cafeNum
+
+message
+- messNum
+- recUserNum
+- sendUserNum
+- messTitle
+- messContent
