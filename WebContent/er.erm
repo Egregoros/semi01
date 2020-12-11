@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2020-12-09 16:56:54</creation_date>
-			<updated_date>2020-12-11 15:18:10</updated_date>
+			<updated_date>2020-12-11 15:25:01</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -676,7 +676,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>postCatName</logical_name>
+			<logical_name>말머리이름</logical_name>
 			<physical_name>postCatName</physical_name>
 			<type>varchar(n)</type>
 		</word>
