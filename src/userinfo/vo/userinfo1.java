@@ -1,6 +1,6 @@
 package userinfo.vo;
 
-public class userinfo {
+public class userinfo1 {
 	private String id;
 	private String pwd;
 	private String name;
@@ -9,7 +9,7 @@ public class userinfo {
 	private String email;
 	private String birth;
 	private String phone;
-	public userinfo(String id, String pwd, String name, String nickname, String addr, String email, String birth,
+	public userinfo1(String id, String pwd, String name, String nickname, String addr, String email, String birth,
 			String phone) {
 		super();
 		this.id = id;
