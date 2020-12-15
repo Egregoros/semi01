@@ -70,7 +70,7 @@
 					<input type="text" id="phone" placeholder="ex) 010-1234-5678" required="required">
 			</fieldset><br>
 	<ul>
-		<li><a href="${pageContext.request.contextPath }/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;
+		<li><a href="${pageContext.request.contextPath }/login/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;
 		</li>
 	</ul>
 		<input type="submit" value="회원가입" id="button">
