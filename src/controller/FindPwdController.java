@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import db.DBCPBean;
 
-public class FindpwdController {
+public class FindPwdController {
 	String phone=request.getParameter("phone");
 	String pwd=request.getParameter("pwd");
 	Connection con=null;
