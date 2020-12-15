@@ -71,7 +71,8 @@ CREATE TABLE CAFELIST
 	GRADENUM NUMBER NOT NULL, 
 	CATNUM NUMBER NOT NULL, 
 	CAFENAME VARCHAR2(20) NOT NULL , 
-	USERNUM NUMBER NOT NULL
+	USERNUM NUMBER NOT NULL,
+	CAFEREGDATE DATE
    	);
 
 ALTER TABLE CAFELIST ADD CONSTRAINT CAFELIST_PK PRIMARY KEY (CAFENUM);
@@ -95,7 +96,8 @@ CREATE TABLE CAFEMEMBER
 	USERNUM NUMBER, 
 	CAFENUM NUMBER NOT NULL, 
 	CAFEMEMNICK VARCHAR2(20), 
-	CAFEMEMGRADE NUMBER
+	CAFEMEMGRADE NUMBER,
+	CAFEMEMREGDATE DATE
    	);
 
   ALTER TABLE CAFEMEMBER ADD CONSTRAINT CAFEMEMBER_PK1 PRIMARY KEY (USERNUM);
@@ -119,47 +121,40 @@ ALTER TABLE CAFEBOARDCAT ADD CONSTRAINT CAFEBOARDCAT_FK1 FOREIGN KEY (CAFENUM) R
 CREATE TABLE CAFEBOARD 
 	(
 	BOARDNUM NUMBER, 
-	CAFENUM NUMBER NOT NULL, 
 	BOARDCATNUM NUMBER NOT NULL, 
 	BOARDNAME VARCHAR2(30) NOT NULL, 
 	ORDERNUM NUMBER NOT NULL
-	
 	);
 
 	ALTER TABLE CAFEBOARD ADD CONSTRAINT BOARDNUM_PK PRIMARY KEY (BOARDNUM); 
 
-	ALTER TABLE CAFEBOARD ADD CONSTRAINT CAFEBOARD_FK1 FOREIGN KEY (CAFENUM) REFERENCES CAFELIST (CAFENUM);
-  	ALTER TABLE CAFEBOARD ADD CONSTRAINT CAFEBOARD_FK2 FOREIGN KEY (BOARDCATNUM) REFERENCES CAFEBOARDCAT (BOARDCATNUM);
+  	ALTER TABLE CAFEBOARD ADD CONSTRAINT CAFEBOARD_FK1 FOREIGN KEY (BOARDCATNUM) REFERENCES CAFEBOARDCAT (BOARDCATNUM);
 
 --------------------------------------------------------------------------------------------
  CREATE TABLE POSTCAT 
    	(	
 	POSTCATNUM NUMBER, 
-	CAFENUM NUMBER NOT NULL, 
 	POSTCATNAME VARCHAR2(15) NOT NULL
    	);
 
   ALTER TABLE POSTCAT ADD CONSTRAINT POSTCAT_PK PRIMARY KEY (POSTCATNUM);
-	ALTER TABLE POSTCAT ADD CONSTRAINT POSTCAT_FK1 FOREIGN KEY (CAFENUM) REFERENCES CAFELIST (CAFENUM);
 --------------------------------------------------------------------------------------------
   CREATE TABLE POST 
    	(	
 	POSTNUM NUMBER, 
 	BOARDNUM NUMBER, 
-	CAFENUM NUMBER, 
 	POSTTITLE VARCHAR2(30), 
 	POSTCONTENT VARCHAR2(100), 
 	POSTDATE DATE, 
-	USERNUM VARCHAR2(20), 
+	USERNUM NUMBER, 
 	POSTCATNUM NUMBER NOT NULL
    	);
 
   ALTER TABLE POST ADD CONSTRAINT POST_PK PRIMARY KEY (POSTNUM);
 
 	ALTER TABLE POST ADD CONSTRAINT POST_FK1 FOREIGN KEY (BOARDNUM) REFERENCES CAFEBOARD (BOARDNUM);
-  	ALTER TABLE POST ADD CONSTRAINT POST_FK2 FOREIGN KEY (CAFENUM) REFERENCES CAFELIST (CAFENUM);
-  	ALTER TABLE POST ADD CONSTRAINT POST_FK3 FOREIGN KEY (POSTNUM) REFERENCES USERINFO (USERNUM);
-  	ALTER TABLE POST ADD CONSTRAINT POST_FK4 FOREIGN KEY (POSTCATNUM) REFERENCES POSTCAT (POSTCATNUM);
+  	ALTER TABLE POST ADD CONSTRAINT POST_FK2 FOREIGN KEY (USERNUM) REFERENCES USERINFO (USERNUM);
+  	ALTER TABLE POST ADD CONSTRAINT POST_FK3 FOREIGN KEY (POSTCATNUM) REFERENCES POSTCAT (POSTCATNUM);
 
 --------------------------------------------------------------------------------------------
  CREATE TABLE POSTFILE 
@@ -170,8 +165,8 @@ CREATE TABLE CAFEBOARD
 	ORGFILENAME VARCHAR2(30) NOT NULL
    	);
 
-  	ALTER TABLE POSTFILE ADD CONSTRAINT FILENUM_PK PRIMARY KEY (FINENUM);
-	ALTER TABLE POSTFILE ADD CONSTRAINT POSTNUM_FK FOREIGN KEY (POSTNUM) REFERENCES POST (POSTNUM);
+  	ALTER TABLE POSTFILE ADD CONSTRAINT POSTFILE_PK PRIMARY KEY (FINENUM);
+	ALTER TABLE POSTFILE ADD CONSTRAINT POSTFILE_FK FOREIGN KEY (POSTNUM) REFERENCES POST (POSTNUM);
 --------------------------------------------------------------------------------------------
   CREATE TABLE POSTIMG 
 	 (	
@@ -182,7 +177,73 @@ CREATE TABLE CAFEBOARD
    	);
 
 
-  ALTER TABLE POSTIMG ADD CONSTRAINT IMGNUM_PK PRIMARY KEY (IMGNUM);
+  ALTER TABLE POSTIMG ADD CONSTRAINT POSTIMG_PK PRIMARY KEY (IMGNUM);
 
-  ALTER TABLE POSTIMG ADD CONSTRAINT POSTNUM_FK1 FOREIGN KEY (POSTNUM) REFERENCES POST (POSTNUM);
+  ALTER TABLE POSTIMG ADD CONSTRAINT POSTIMG_FK FOREIGN KEY (POSTNUM) REFERENCES POST (POSTNUM);
 --------------------------------------------------------------------------------------------
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  -------------------------------------------------------------------------------------------
+  insert into userinfo values(1,'test1','1234','테스트1','이름1','서울 종로구','test1@naver.com',20200725,01000000000,1);
+  insert into userinfo values(2,'test2','1234','테스트2','이름2','서울 종로구','test1@naver.com',20200725,01000000000,1);
+  insert into userinfo values(3,'test3','1234','테스트3','이름3','서울 종로구','test1@naver.com',20200725,01000000000,1);
+  insert into userinfo values(4,'test4','1234','테스트4','이름4','서울 종로구','test1@naver.com',20200725,01000000000,1);
+  insert into userinfo values(5,'test5','1234','테스트5','이름5','서울 종로구','test1@naver.com',20200725,01000000000,1);
+  
+  insert into message values(1,1,2,'오늘','오늘 춥다',sysdate,0);
+  insert into message values(2,1,2,'오늘','오늘 춥다2',sysdate,0);
+  insert into message values(3,1,2,'오늘','오늘 춥다3',sysdate,0);
+  
+  insert into cafecat values(1,'종합');
+  insert into cafecat values(2,'게임');
+  insert into cafecat values(3,'건강');
+  insert into cafecat values(4,'취미');
+  
+  insert into cafegrade values(1,'새싹');
+  insert into cafegrade values(2,'나무');
+  insert into cafegrade values(3,'숲');
+
+  insert into cafelist values(1,1,1,'테스트카페1',1,sysdate);
+  insert into cafelist values(2,2,2,'테스트카페2',2,sysdate);
+  insert into cafelist values(3,3,3,'테스트카페3',1,sysdate);
+  
+  insert into cafememgrade values(1,0,'비회원');
+  insert into cafememgrade values(1,1,'관리자');
+  insert into cafememgrade values(1,2,'회원');
+  
+  insert into cafemember values(1,1,'도도',1,sysdate);
+  insert into cafemember values(2,1,'레레',2,sysdate);
+  insert into cafemember values(3,1,'레레',2,sysdate);
+  insert into cafemember values(4,1,'레레',2,sysdate);
+  
+  insert into cafeboardcat values(1,1,'필독',1);
+  insert into cafeboardcat values(2,1,'ABOUT',3);
+  insert into cafeboardcat values(3,1,'DATA',4);
+  insert into cafeboardcat values(4,1,'서포트',2);
+  
+  insert into cafeboard values(1,1,'공지',1);
+  insert into cafeboard values(2,1,'가입인사',2);
+  insert into cafeboard values(3,2,'작품',1);
+  insert into cafeboard values(4,2,'작품후기',2);
+  insert into cafeboard values(5,3,'사진',1);
+  insert into cafeboard values(6,3,'영상',2);
+  
+  insert into postcat values(0,'공지');
+  insert into postcat values(1,'일반');
+  
+  insert into post values(1,1,'공지사항1','공지사항 내용1',sysdate,1,0);
+  insert into post values(2,1,'공지사항2','공지사항 내용2',sysdate,1,0);
+  insert into post values(3,1,'공지사항3','공지사항 내용3',sysdate,1,0);
+  insert into post values(4,1,'공지사항4','공지사항 내용4',sysdate,1,0);
+  insert into post values(5,1,'일반글1','일반글 내용2',sysdate,1,0);
+  insert into post values(6,1,'일반글2','일반글 내용3',sysdate,1,0);
+  insert into post values(7,1,'일반글3','일반글 내용4',sysdate,1,0);
