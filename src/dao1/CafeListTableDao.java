@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import db.DBCPBean;
-import db.DBConnection;
-import vo.cafeListVo;
+import vo.CafeListVo;
 
 public class CafeListTableDao {
 	
@@ -71,7 +70,7 @@ public class CafeListTableDao {
 		}
 	}
 	
-	public ArrayList<cafeListVo> list(int startRow, int endRow, String field, String keyword) {
+	public ArrayList<CafeListVo> list(int startRow, int endRow, String field, String keyword) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -88,7 +87,7 @@ public class CafeListTableDao {
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
-			ArrayList<cafeListVo> list = new ArrayList<cafeListVo>();
+			ArrayList<CafeListVo> list = new ArrayList<CafeListVo>();
 			while (rs.next()) {
 				int cafeNum = rs.getInt("cafeNum");
 				int gradeNum = rs.getInt("gradeNum");
@@ -96,7 +95,7 @@ public class CafeListTableDao {
 				String cafeName = rs.getString("cafeName");
 				int userNum = rs.getInt("userNum");
 				String cafeRegDate = rs.getDate("cafeRegDate").toString();
-				cafeListVo vo = new cafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, cafeRegDate);
+				CafeListVo vo = new CafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, cafeRegDate);
 				list.add(vo);
 			}
 			return list;

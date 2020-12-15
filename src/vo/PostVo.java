@@ -2,7 +2,7 @@ package vo;
 
 import java.sql.Date;
 
-public class postVo {
+public class PostVo {
 	private int postNum;
 	private int boardNum;
 	private int cafeNum;
@@ -12,9 +12,9 @@ public class postVo {
 	private int userNum;
 	private int postCatNum;
 	
-	public postVo() {}
+	public PostVo() {}
 
-	public postVo(int postNum, int boardNum, int cafeNum, String postTitle, String postContent, Date postDate,
+	public PostVo(int postNum, int boardNum, int cafeNum, String postTitle, String postContent, Date postDate,
 			int userNum, int postCatNum) {
 		super();
 		this.postNum = postNum;

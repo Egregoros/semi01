@@ -1,12 +1,12 @@
 package vo;
 
-public class cafeGradeVo {
+public class CafeGradeVo {
 	private int gradeNum;
 	private String gradeName;
 	
-	public cafeGradeVo() {}
+	public CafeGradeVo() {}
 
-	public cafeGradeVo(int gradeNum, String gradeName) {
+	public CafeGradeVo(int gradeNum, String gradeName) {
 		super();
 		this.gradeNum = gradeNum;
 		this.gradeName = gradeName;

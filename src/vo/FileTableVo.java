@@ -1,14 +1,14 @@
 package vo;
 
-public class fileTableVo {
+public class FileTableVo {
 	private int fileNum;
 	private int postNum;
 	private String saveFileName;
 	private String orgFileName;
 	
-	public fileTableVo() {}
+	public FileTableVo() {}
 
-	public fileTableVo(int fileNum, int postNum, String saveFileName, String orgFileName) {
+	public FileTableVo(int fileNum, int postNum, String saveFileName, String orgFileName) {
 		super();
 		this.fileNum = fileNum;
 		this.postNum = postNum;

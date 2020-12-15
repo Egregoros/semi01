@@ -1,7 +1,7 @@
 package vo;
 
 
-public class cafeListVo {
+public class CafeListVo {
 	private int cafeNum;
 	private int gradeNum;
 	private int catNum;
@@ -9,9 +9,9 @@ public class cafeListVo {
 	private int userNum;
 	private String cafeRegDate;
 	
-	public cafeListVo() {}
+	public CafeListVo() {}
 	
-	public cafeListVo(int cafeNum, int gradeNum, int catNum, String cafeName, int userNum, String cafeRegDate) {
+	public CafeListVo(int cafeNum, int gradeNum, int catNum, String cafeName, int userNum, String cafeRegDate) {
 		super();
 		this.cafeNum = cafeNum;
 		this.gradeNum = gradeNum;

@@ -1,14 +1,14 @@
 package vo;
 
-public class cafeMemberVo {
+public class CafeMemberVo {
 	private int userNum;
 	private int cafeNum;
 	private String cafeMemNick;
 	private int cafeMemGrade;
 	
-	public cafeMemberVo() {}
+	public CafeMemberVo() {}
 
-	public cafeMemberVo(int userNum, int cafeNum, String cafeMemNick, int cafeMemGrade) {
+	public CafeMemberVo(int userNum, int cafeNum, String cafeMemNick, int cafeMemGrade) {
 		super();
 		this.userNum = userNum;
 		this.cafeNum = cafeNum;

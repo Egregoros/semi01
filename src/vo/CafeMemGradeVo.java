@@ -2,15 +2,15 @@ package vo;
 
 import java.sql.Date;
 
-public class cafeMemGradeVo {
+public class CafeMemGradeVo {
 	private int cafeNum;
 	private int cafeMemGrade;
 	private String cafeMemGradeName;
 	private Date userRegDate;
 	
-	public cafeMemGradeVo() {}
+	public CafeMemGradeVo() {}
 
-	public cafeMemGradeVo(int cafeNum, int cafeMemGrade, String cafeMemGradeName, Date userRegDate) {
+	public CafeMemGradeVo(int cafeNum, int cafeMemGrade, String cafeMemGradeName, Date userRegDate) {
 		super();
 		this.cafeNum = cafeNum;
 		this.cafeMemGrade = cafeMemGrade;

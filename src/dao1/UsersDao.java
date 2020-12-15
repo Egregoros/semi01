@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import db.DBCPBean;
-import db.DBConnection;
 
 public class UsersDao {
 	private static UsersDao instance=new UsersDao();
@@ -37,7 +36,7 @@ public class UsersDao {
 			se.printStackTrace();
 			return -1;
 		}finally {
-			DBConnection.close(con, pstmt, rs);
+			DBCPBean.close(con, pstmt, rs);
 		}
 	}
 }

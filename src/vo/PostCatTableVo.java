@@ -1,13 +1,13 @@
 package vo;
 
-public class postCatTableVo {
+public class PostCatTableVo {
 	private int postCatNum;
 	private int cafeNum;
 	private String postCatName;
 	
-	public postCatTableVo() {}
+	public PostCatTableVo() {}
 
-	public postCatTableVo(int postCatNum, int cafeNum, String postCatName) {
+	public PostCatTableVo(int postCatNum, int cafeNum, String postCatName) {
 		super();
 		this.postCatNum = postCatNum;
 		this.cafeNum = cafeNum;

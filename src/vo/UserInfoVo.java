@@ -2,7 +2,7 @@ package vo;
 
 import java.sql.Date;
 
-public class userInfoVo {
+public class UserInfoVo {
 	private int userNum;
 	private String id;
 	private String pwd;
@@ -14,9 +14,9 @@ public class userInfoVo {
 	private String phone;
 	private int isLive;
 	
-	public userInfoVo() {}
+	public UserInfoVo() {}
 
-	public userInfoVo(int userNum, String id, String pwd, String nickName, String name, String addr, String email,
+	public UserInfoVo(int userNum, String id, String pwd, String nickName, String name, String addr, String email,
 			Date birth, String phone, int isLive) {
 		super();
 		this.userNum = userNum;

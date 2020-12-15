@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao1.CafeListTableDao;
-import vo.cafeListVo;
-
+import vo.CafeListVo;
 
 @WebServlet("/cafeList")
 public class ListController extends HttpServlet{
@@ -29,7 +28,7 @@ public class ListController extends HttpServlet{
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		CafeListTableDao dao=new CafeListTableDao();
-		ArrayList<cafeListVo> list=dao.list(startRow, endRow, field, keyword);
+		ArrayList<CafeListVo> list=dao.list(startRow, endRow, field, keyword);
 		int pageCount=(int)Math.ceil(dao.getCount(field,keyword)/10.0);
 		int startPageNum=(pageNum-1)/10*10+1;
 		int endPageNum=startPageNum+9;

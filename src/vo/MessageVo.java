@@ -2,7 +2,7 @@ package vo;
 
 import java.sql.Date;
 
-public class messageVo {
+public class MessageVo {
 	private int messNum;
 	private int recUserNum;
 	private int sendUserNum;
@@ -11,9 +11,9 @@ public class messageVo {
 	private Date sendTime;
 	private int checkRead;
 	
-	public messageVo() {}
+	public MessageVo() {}
 
-	public messageVo(int messNum, int recUserNum, int sendUserNum, String messTitle, String messContent, Date sendTime,
+	public MessageVo(int messNum, int recUserNum, int sendUserNum, String messTitle, String messContent, Date sendTime,
 			int checkRead) {
 		super();
 		this.messNum = messNum;

@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vo.cafeMemberVo;
+import vo.CafeMemberVo;
 import db.DBCPBean;
 
 public class CafeMemberDao {
-	public int insert(cafeMemberVo vo) {
+	public int insert(CafeMemberVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -30,7 +30,7 @@ public class CafeMemberDao {
 		}
 	}
 	
-	public int delete(cafeMemberVo vo) {
+	public int delete(CafeMemberVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -47,7 +47,7 @@ public class CafeMemberDao {
 		}
 	}
 	
-	public int updateNickName(cafeMemberVo vo, String newNick) {
+	public int updateNickName(CafeMemberVo vo, String newNick) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -65,11 +65,11 @@ public class CafeMemberDao {
 		}
 	}
 	
-	public ArrayList<cafeMemberVo> getAll() {
+	public ArrayList<CafeMemberVo> getAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<cafeMemberVo> list = new ArrayList<cafeMemberVo>();
+		ArrayList<CafeMemberVo> list = new ArrayList<CafeMemberVo>();
 		try {
 			con = DBCPBean.getConn();
 			String sql = "select * from cafeMem";
@@ -80,7 +80,7 @@ public class CafeMemberDao {
 				int cafeNum = rs.getInt("cafeNum");
 				String cafeMemNick = rs.getString("cafeMemNick");
 				int cafeMemGrade = rs.getInt("cafeMemGrade");
-				cafeMemberVo vo = new cafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGrade);
+				CafeMemberVo vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGrade);
 				list.add(vo);
 			}
 			
@@ -93,13 +93,13 @@ public class CafeMemberDao {
 		}
 	}
 	
-	public cafeMemberVo getOne(String userName) {
+	public CafeMemberVo getOne(String userName) {
 		Connection con = null;
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs1 = null;
 		ResultSet rs2 = null;
-		cafeMemberVo vo = null;
+		CafeMemberVo vo = null;
 		int userNum = 0;
 		try {
 			con = DBCPBean.getConn();
@@ -117,7 +117,7 @@ public class CafeMemberDao {
 					int cafeNum = rs2.getInt("cafeNum");
 					String cafeMemNick = rs2.getString("cafeMemNick");
 					int cafeMemGrade = rs2.getInt("cafeMemGrade");
-					vo = new cafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGrade);
+					vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGrade);
 				} else {
 					//시스템오류
 				}

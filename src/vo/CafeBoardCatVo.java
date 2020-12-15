@@ -1,14 +1,14 @@
 package vo;
 
-public class cafeBoardCatVo {
+public class CafeBoardCatVo {
 	private int boardCatNum;
 	private int cafeNum;
 	private String catName;
 	private int carOrder;
 	
-	public cafeBoardCatVo() {}
+	public CafeBoardCatVo() {}
 
-	public cafeBoardCatVo(int boardCatNum, int cafeNum, String catName, int carOrder) {
+	public CafeBoardCatVo(int boardCatNum, int cafeNum, String catName, int carOrder) {
 		super();
 		this.boardCatNum = boardCatNum;
 		this.cafeNum = cafeNum;

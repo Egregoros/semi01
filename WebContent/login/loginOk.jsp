@@ -14,7 +14,6 @@
 <body>
 <%
 	request.setCharacterEncoding("utf-8");
-	String usernum=request.getParameter("usernum");
 	String id=request.getParameter("id");
 	String pwd=request.getParameter("pwd");
 	Connection con=null;
@@ -28,8 +27,8 @@
 		pstmt.setString(2, pwd);
 		rs=pstmt.executeQuery();
 		if(rs.next()){
-			session.setAttribute("usernum", usernum);
 			session.setAttribute("id", id);
+			session.setAttribute("pwd", pwd);
 			response.sendRedirect(request.getContextPath()+"/main.jsp");
 		}else{
 				request.setAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다. 아이디 또는 비밀번호를 다시 입력해주세요.");

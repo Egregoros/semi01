@@ -1,12 +1,12 @@
 package vo;
 
-public class catTableVo {
+public class CatTableVo {
 	private int catNum;
 	private String catName;
 	
-	public catTableVo() {}
+	public CatTableVo() {}
 
-	public catTableVo(int catNum, String catName) {
+	public CatTableVo(int catNum, String catName) {
 		super();
 		this.catNum = catNum;
 		this.catName = catName;
