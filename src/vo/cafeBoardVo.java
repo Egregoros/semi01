@@ -1,4 +1,4 @@
-package VO;
+package vo;
 
 public class cafeBoardVo {
 	private int boardNum;

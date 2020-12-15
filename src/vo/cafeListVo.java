@@ -1,4 +1,4 @@
-package VO;
+package vo;
 
 public class cafeListVo {
 	private int cafeNum;

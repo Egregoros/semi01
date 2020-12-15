@@ -7,6 +7,8 @@
 <title>login.jsp</title>
 <style>
 	#loginbtn{width: 165px;}
+	ul{list-style: none;display: inline-block;font-size: 12px;margin: 0px;padding: 0px;}
+	a{text-decoration: none;}
 </style>
 </head><br>
 <body>
@@ -22,14 +24,23 @@
 	<hr size="3" width="500" color="gray">
 	<h1>카페 로그인</h1>
 	<hr size="3" width="500" color="gray"><br>
-	<form method="post" action="loginOk.jsp">
+	<form method="post" action="${pageContext.request.contextPath }/main.jsp">
 		<input type="text" name="id" value="${param.id }" placeholder="아이디 입력"><br>
-		<input type="password" name="pwd" placeholder="비밀번호 입력"><br><br>
-		<div style="font-size: 15px;color: red;width: 300px;position: absolute;top: 40%;left: 40%"><%= errMsg %></div>
+		<input type="password" name="pwd" placeholder="비밀번호 입력"><br>
+		<div style="font-size: 15px;color: red;width: 300px;position: relative;left: 40%"><%= errMsg %></div><br>
 		<input type="submit" value="로그인" id=loginbtn><br>
-		<input type="button" value="회원가입" id=loginbtn><br>
-		<input type="button" value="아이디 찾기" id=loginbtn><br>
-		<input type="button" value="비밀번호 찾기" id=loginbtn>
+	</form>
+
+	<ul>
+		<li><a href="${pageContext.request.contextPath }/login/findid.html">아이디 찾기</a>
+	</ul>
+	<ul>
+		<li><a href="${pageContext.request.contextPath }/login/findpwd.html">비밀번호 찾기</a>	
+	</ul>
+	<br>
+	<ul>
+		<li><a href="${pageContext.request.contextPath }/login/join.jsp">회원가입</a>
+	</ul>
 	</form>
 	</div>
 </div>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>findid.html</title>
+<style>
+	#fieldset{width: 800px;}
+	#result{font-size: 20px;}
+	.label1{width: 10px;display: inline-block;}
+	.label2{width: 26px;display: inline-block;}
+	ul{list-style: none;display: inline-block;align-content: center;font-size: 15px;}
+	a{ text-decoration: none;}
+</style>
+<script type="text/javascript">
+	var xhr=null;
+	function findId(){
+		var phone=document.getElementById("phone").value;
+		var pwd=document.getElementById("pwd").value;
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=callback;
+		xhr.open('get','findid.jsp?phone=' + phone + "&pwd=" + pwd, true);
+		xhr.send();
+	}
+	function callback(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var html=xhr.responseText;
+			var div=document.getElementById("result");
+			div.innerHTML=html;
+		}
+	}
+</script>
+</head>
+<body>
+<h2 align="center">아이디 찾기</h2>
+	<div>
+		<div align="center">
+			<fieldset id="fieldset" >
+			휴대폰번호 <label for="phone" class="label1"></label>
+				<input type="text" id="phone" placeholder="ex) 010-1234-5678"><br>
+			비밀번호 <label for="pwd" class="label2"></label>
+				<input type="password" id="pwd"><br><br>
+			<a href="login.jsp">◀이전 페이지로...</a>&nbsp;&nbsp;
+			<input type="button" value="아이디 찾기" onclick="findId()"><br><br>
+				<div id="result">
+				</div>
+			</fieldset>
+		</div>
+	</div>
+</body>
+</html>

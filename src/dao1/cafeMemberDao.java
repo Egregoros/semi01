@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import VO.cafeMemberVo;
-import test.db.DBCPBean;
+import vo.cafeMemberVo;
+import db.DBCPBean;
 
 public class cafeMemberDao {
 	public int insert(cafeMemberVo vo) {
