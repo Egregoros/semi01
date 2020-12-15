@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import vo.cafeMemberVo;
 import db.DBCPBean;
 
-public class cafeMemberDao {
+public class CafeMemberDao {
 	public int insert(cafeMemberVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
