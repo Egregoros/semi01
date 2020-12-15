@@ -58,14 +58,14 @@
 				이름 <label for="name" class="label2"></label>
 					<input type="text" name="name" required="required"><br>
 				닉네임 <label for="nickname" class="label1"></label>
-					<input type="text" nickname="nickname" required="required"><br>
+					<input type="text" name="nickname" required="required"><br>
 				주소 <label for="addr" class="label2"></label>
-					<input type="text" name="addr"><br>
+					<input type="text" name="addr" required="required"><br>
 				e-mail <label for="email" class="label4"></label>
-					<input type="email" placeholder="cafe@jhtml.com"><br>
+					<input type="email" placeholder="cafe@jhtml.com" required="required"><br>
 				생년월일 <label for="birth" class="label3"></label>
 					<label for="birth"></label>
-					<input type="date" id="brith"><br>
+					<input type="date" id="brith" required="required"><br>
 				휴대폰 번호 <label for="phone" class="label5"></label>
 					<input type="text" id="phone" placeholder="ex) 010-1234-5678" required="required">
 			</fieldset><br>
