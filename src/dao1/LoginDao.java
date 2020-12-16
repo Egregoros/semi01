@@ -8,33 +8,27 @@ import java.util.HashMap;
 
 import db.DBCPBean;
 
-public class UsersDao {
-	private static UsersDao instance=new UsersDao();
-	private UsersDao() {}	
-	public static UsersDao getInstance() {
-		return instance;
-	}
-	public int cafeMember(HashMap<String,String> map) {
-		String id=map.get("id");
-		String pwd=map.get("pwd");
+public class LoginDao {
+	public Boolean isUser(HashMap<String, String>map	) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=DBCPBean.getConn();
-			String sql="select * from userinfo where id=? and pwd=?";
+			String sql="select * from userinfo where id=? and password=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1,id);
-			pstmt.setString(2,pwd);
+			String id=map.get("id");
+			pstmt.setString(1, id);
+			pstmt.setString(2, map.get("pwd"));
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				return 1;
+				return true;
 			}else {
-				return 0;
-			}			
+				return false;
+			}
 		}catch(SQLException se) {
 			se.printStackTrace();
-			return -1;
+			return false;
 		}finally {
 			DBCPBean.close(con, pstmt, rs);
 		}

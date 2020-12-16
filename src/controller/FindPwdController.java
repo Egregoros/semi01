@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import db.DBCPBean;
 
 public class FindPwdController {
-	String phone=request.getParameter("phone");
-	String pwd=request.getParameter("pwd");
+	String phone=request.getParameter("phone");//왜 에러...?
+	String pwd=request.getParameter("pwd");//왜 에러...?
 	Connection con=null;
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
@@ -34,3 +34,4 @@ public class FindPwdController {
 	}else{
 		System.out.print("입력하신 휴대폰번호 또는 비밀번호와 일치하는 아이디가 없습니다.");
 	}
+}

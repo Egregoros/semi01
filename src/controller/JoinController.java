@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vo.userInfoVo;
+import dao1.UserInfoDao;
+import vo.UserInfoVo;
 @WebServlet("/login/join")
 public class JoinController extends HttpServlet{
 	@Override
@@ -21,11 +23,17 @@ public class JoinController extends HttpServlet{
 		String nickname=req.getParameter("nickname");
 		String addr=req.getParameter("addr");
 		String email=req.getParameter("email");
-		String birth=req.getParameter("birth");
+		Date birth=req.getParameter("birth");//¿Ö ¿¡·¯...?
 		String phone=req.getParameter("phone");
-		userInfoVo 
-		userInfoVo vo=new userInfoVo();
+		int islive=Integer.parseInt(req.getParameter("islive"));
+		UserInfoVo uiv=new UserInfoVo(usernum, id, pwd, nickname, nickname, addr, email, birth, phone, islive);
+		UserInfoDao dao=new UserInfoDao();
 		String resultCode="success";
-		int n=vo.insert()
+		int n=dao.insert(uiv);
+		if(n<1) {
+			resultCode="fail";
+		}
+		req.setAttribute("code", resultCode);
+		req.getRequestDispatcher("/login/join.jsp").forward(req, resp);
 	}
 }

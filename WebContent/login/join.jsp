@@ -45,7 +45,7 @@
 </head>
 <body>
 <h2 align="center">카페 회원가입</h2>
-	<form method="post" action="insert.jsp">
+	<form method="post" action="${cp }login/join">
 	<div>
 		<div align="center">
 			<fieldset id="fieldset" >
@@ -67,7 +67,7 @@
 					<label for="birth"></label>
 					<input type="date" id="brith" required="required"><br>
 				휴대폰 번호 <label for="phone" class="label5"></label>
-					<input type="text" id="phone" placeholder="ex) 010-1234-5678" required="required">
+					<input type="text" id="phone" placeholder="ex) 01012345678 (- 제외)" required="required">
 			</fieldset><br>
 	<ul>
 		<li><a href="${pageContext.request.contextPath }/login/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;

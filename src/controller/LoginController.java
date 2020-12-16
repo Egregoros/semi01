@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao1.UsersDao;
+import dao1.LoginDao;
+
 @WebServlet("/login/login")
 public class LoginController extends HttpServlet{
 	@Override
@@ -21,18 +22,16 @@ public class LoginController extends HttpServlet{
 		HashMap<String, String> map=new HashMap<String, String>();
 		map.put("id", id);
 		map.put("pwd", pwd);
-		UsersDao dao=UsersDao.getInstance();
-		int n=dao.cafeMember(map);
-		if(n==1) {
+		LoginDao dao=new LoginDao();
+		Boolean a=dao.isUser(map);
+		if(a) {
 			HttpSession session=req.getSession();
 			session.setAttribute("id", id);
-			resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
-		}else if(n==0) {
+			session.setAttribute("pwd",pwd);
+			resp.sendRedirect(req.getContextPath()+"/main.jsp");
+		}else	{
 			req.setAttribute("errMsg", "아이디 또는 비밀번호를 다시 확인해주세요.");
-			req.getRequestDispatcher("/login.jsp").forward(req, resp);
-		}else {
-			req.setAttribute("errMsg", "오류로 인해 로그인하지 못했습니다.");
-			req.getRequestDispatcher("/login.jsp").forward(req, resp);
+			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 		}
 	}
 }
