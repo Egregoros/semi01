@@ -76,9 +76,9 @@ public class CafeListTableDao {
 		ResultSet rs = null;
 		String sql = "";
 		if(field != null && !field.equals("")) {
-			sql = "select * from( select rownum rnum, aa.* from(select * from cafelist where "+ field +" like '%" + keyword + "%' order by userNum desc)aa)where rnum>=? and rnum <=?";
+			sql = "select * from(select rownum rnum, aa.* from(select * from cafelist where "+ field +" like '%" + keyword + "%' order by userNum desc)aa)where rnum>=? and rnum <=?";
 		} else {
-			sql = "select * from( select rownum rnum, aa.* from(select * from cafelist order by userNum desc)aa)where rnum>=? and rnum <=?";
+			sql = "select * from(select rownum rnum, aa.* from(select cl.*, ct.catname from cafelist cl, cafecat ct where ct.catnum=cl.catnum order by userNum desc)aa)where rnum>=? and rnum <=?";
 		}
 		
 		try {
