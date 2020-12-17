@@ -63,8 +63,7 @@
 </div>
 
 <div id = "list">
-<a href = "${cp }/cafeListCat">카테고리별 카페 목록</a>
-<table border = "1" width = "500">
+<table border = "1" width = "90%">
 	<tr>
 		<th>카페번호</th>
 		<th>카페명</th>
@@ -75,8 +74,8 @@
 	<c:forEach var = "vo" items = "${list }">
 		<tr>
 			<td>${vo.cafeNum }</td>
-			<td>${vo.cafeName }</td>
-			<td>${vo.catName }</td>
+			<td><a href = "${cp }/jsp/cafe-main.do?cafeNum=${vo.cafeNum }">${vo.cafeName }</a></td>
+			<td><a href = "${cp }/cafeList?catNum=${vo.catNum }">${vo.catName }</a></td>
 			<td>${vo.userNum }</td>
 			<td>${vo.cafeRegDate }</td>
 		</tr>
@@ -96,7 +95,21 @@
 </div>
 </div>
 <div id = "right">
-<p>123</p>
+<div id = "catList" style = "width: 50%; margin: auto;">
+<table border = "1" width = "100%">
+	<tr>
+		<th>카테고리 이름</th>
+	</tr>
+	<tr>
+		<td><a href = "${cp }/cafeList">전체</a></td>
+	</tr>
+	<c:forEach var = "cvo" items = "${catList }">
+		<tr>
+			<td><a href = "${cp }/cafeList?catNum=${cvo.catNum }">${cvo.catName }</a></td>
+		</tr>
+	</c:forEach>
+</table>
+</div>
 </div>
 </div>
 

@@ -49,7 +49,13 @@ public class ListController extends HttpServlet{
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount;
 		}
+		CatTableDao catDao = CatTableDao.getInstance();
+		CatTableVo catVo = new CatTableVo();
 		
+		ArrayList<CatTableVo> catList = catDao.list();
+		
+		
+		req.setAttribute("catList", catList);
 		req.setAttribute("list",list);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum",startPageNum);
