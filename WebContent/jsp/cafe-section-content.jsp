@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="section-content-header">
-	<h1>전체글보기</h1>
-	<span><span class="bold">${postCount }</span>개의 글</span>
+	<h1>${boardInfo.boardName }</h1>
+	<span><span class="bold">${boardInfo.postCount }</span>개의 글</span>
 </div>
 <div id="section-content-list">
 	<table>

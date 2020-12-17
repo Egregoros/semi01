@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>~~카페</title>
+<title>${cafeInfo['cafeName'] }</title>
 <link href="../css/cafe-main.css" rel="stylesheet" type="text/css">
 <link href="../css/cafe-header.css" rel="stylesheet" type="text/css">
 <link href="../css/cafe-footer.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@
 			<div id="section-content">
 				<jsp:include page="cafe-section-content.jsp">
 					<jsp:param value="${postInfo }" name="postInfo"/>
-					<jsp:param value="${postCount }" name="postCount"/>
+					<jsp:param value="${boardInfo }" name="boardInfo"/>
 					<jsp:param value="${noticeInfo }" name="noticeInfo"/>
 				</jsp:include>
 			</div>
