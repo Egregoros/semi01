@@ -94,16 +94,41 @@ section:after {
 	padding: 10px;
 	border-top: 2px solid #e3e3e3; 
 	border-bottom: 1px solid #e3e3e3;
+	position: relative;
 }
 
-#section-nav-list>p {
+#section-nav-list>h3>span {
+	font-size: 0.7em;
+	color: #a3a3a3;
+	position: absolute;
+	right: 0px;
+}
+
+#section-nav-list p {
 	margin: 10px;
 }
 
 #section-content {
 	float: right;
 	width: 82%;
-	background-color: orange;
-	height: 200px;
 	margin-bottom: auto;
+}
+
+#section-content-header {
+	width:100%;
+	border-bottom: 1px solid black;
+}
+
+#section-content-header>span {
+	font-size: 0.8em;
+}
+
+#section-content-list tr *{
+	font-size: 0.8em;
+	height: 40px;
+	border-bottom: 1px solid gray;
+}
+
+.notice {
+	background-color: #e3e3e3;
 }

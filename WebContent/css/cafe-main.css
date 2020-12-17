@@ -40,3 +40,16 @@ li {
 .cursor {
 	cursor: pointer;
 }
+
+.slash {
+	color: gray;
+	font-size: 0.8em;
+}
+
+.left {
+	text-align: left;
+}
+
+.center {
+	text-align: center;
+}
