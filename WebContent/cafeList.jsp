@@ -1,3 +1,4 @@
+<%@page import="dao1.CatTableDao"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,14 +11,19 @@
 <style>
 	#wrapper {background-color: gray; display: block;}
 	#header{background-color:red; text-align: center;}
-	#left{background-color: blue; display: inline-block; float: left;width: 25%;}
-	#middle{background-color : yellow; display: inline-block; float: left; width: 50%;text-align: center;}
+	#left{background-color: blue; float: left;width: 25%;}
+	#middle{background-color : yellow; float: left; width: 50%;text-align: center;}
 	#search{background-color: green; width: 70%; display: block; margin: auto;}
 	#middle div{width: 100%; margin: auto; display: block;}
+	
 	table{margin-left: auto; margin-right: auto;}
-</style>
+	#right{background-color: cyan; width: 25%; float: left;}
+	
+	#footer{background-color: magenta; width: 100%; display: block; clear: both; text-align : center;}
+</style> 
 <%
-	HashMap catMap = (HashMap)request.getAttribute("catMap");
+	CatTableDao catDao = CatTableDao.getInstance();
+	
 %>
 
 
@@ -32,7 +38,7 @@
 <div id = "body">
 <div id = "left">
 <div id = "login">
-<form action="post" action = "">
+<form method="post" action="${pageContext.request.contextPath }/login/loginOk.jsp">
 	아이디<br>
 	<input type = "text" name = "id" value = "${param.id }"><br>
 	비밀번호<br>
@@ -70,7 +76,7 @@
 		<tr>
 			<td>${vo.cafeNum }</td>
 			<td>${vo.cafeName }</td>
-			<td>${catMap[vo.catNum]}</td>
+			<td>${vo.catName }</td>
 			<td>${vo.userNum }</td>
 			<td>${vo.cafeRegDate }</td>
 		</tr>
@@ -89,6 +95,13 @@
 </div>
 </div>
 </div>
+<div id = "right">
+<p>123</p>
+</div>
+</div>
+
+<div id = "footer">
+<p>작성자 : 이준수, 송하경, 김상순, 김재홍</p>
 </div>
 </div>
 </body>
