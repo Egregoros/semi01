@@ -12,7 +12,6 @@ DROP TABLE CAFEGRADE;
 DROP TABLE CAFECAT;
 DROP TABLE MESSAGE;
 DROP TABLE USERINFO;
-DROP TABLE CAFEMAINPIC;
 
 
 
@@ -202,18 +201,7 @@ CREATE TABLE CAFEBOARD
   ALTER TABLE POSTCOMMENT ADD CONSTRAINT COMMENT_FK2 FOREIGN KEY (USERNUM) REFERENCES USERINFO (USERNUM);
 --------------------------------------------------------------------------------------------
   
-  create table cafeMainPic
-(
-	cafePicNum number primary key,
-	cafenum number not null,
-	orgfilename varchar2(150),
-	savefilename varchar2(150),
-	filesize number,
-    constraint fk_cafenum foreign key (cafenum) references cafelist(cafenum)
-);
-create sequence fileinfo_seq;
-
-------------------------------------------------------------------------------------------------
+  
   
   
   
@@ -251,10 +239,21 @@ create sequence fileinfo_seq;
   INSERT INTO CAFEMEMGRADE VALUES(1,1,'회원');
   INSERT INTO CAFEMEMGRADE VALUES(1,2,'비회원');
   
+  INSERT INTO CAFEMEMGRADE VALUES(2,0,'관리자');
+  INSERT INTO CAFEMEMGRADE VALUES(2,1,'회원');
+  INSERT INTO CAFEMEMGRADE VALUES(2,2,'비회원');
+  
+  INSERT INTO CAFEMEMGRADE VALUES(3,0,'관리자');
+  INSERT INTO CAFEMEMGRADE VALUES(3,1,'회원');
+  INSERT INTO CAFEMEMGRADE VALUES(3,2,'비회원');
+  
   INSERT INTO CAFEMEMBER VALUES(1,1,'도도',0,10,SYSDATE);
   INSERT INTO CAFEMEMBER VALUES(2,1,'레레',1,11,SYSDATE);
   INSERT INTO CAFEMEMBER VALUES(3,1,'레레',1,12,SYSDATE);
   INSERT INTO CAFEMEMBER VALUES(4,1,'레레',1,15,SYSDATE);
+  INSERT INTO CAFEMEMBER VALUES(2,2,'레솔',0,156,SYSDATE);
+  INSERT INTO CAFEMEMBER VALUES(3,2,'레두',1,16,SYSDATE);
+  INSERT INTO CAFEMEMBER VALUES(3,3,'레미안',0,15,SYSDATE);
   
   INSERT INTO CAFEBOARDCAT VALUES(1,1,'필독',1);
   INSERT INTO CAFEBOARDCAT VALUES(2,1,'ABOUT',3);
@@ -272,16 +271,16 @@ create sequence fileinfo_seq;
   INSERT INTO POSTCAT VALUES(0,'공지');
   INSERT INTO POSTCAT VALUES(1,'일반');
   
-  INSERT INTO POST VALUES(1,1,1,'공지사항1','공지사항 내용1',SYSDATE,1,1,10);
-  INSERT INTO POST VALUES(2,2,2,'공지사항2','공지사항 내용2',SYSDATE,2,1,20);
-  INSERT INTO POST VALUES(3,3,2,'공지사항3','공지사항 내용3',SYSDATE,1,1,30);
-  INSERT INTO POST VALUES(4,4,1,'공지사항4','공지사항 내용4',SYSDATE,1,1,40);
-  INSERT INTO POST VALUES(5,5,1,'일반글1','일반글 내용2',SYSDATE,1,0,50);
-  INSERT INTO POST VALUES(6,6,2,'일반글2','일반글 내용3',SYSDATE,2,0,60);
-  INSERT INTO POST VALUES(7,7,1,'일반글3','일반글 내용4',SYSDATE,1,0,10);
+  INSERT INTO POST VALUES(1,1,2,'공지사항1','공지사항 내용1',SYSDATE,1,0,10);
+  INSERT INTO POST VALUES(2,2,3,'공지사항2','공지사항 내용2',SYSDATE,2,0,20);
+  INSERT INTO POST VALUES(3,3,3,'공지사항3','공지사항 내용3',SYSDATE,1,0,30);
+  INSERT INTO POST VALUES(4,4,2,'공지사항4','공지사항 내용4',SYSDATE,1,0,40);
+  INSERT INTO POST VALUES(5,5,3,'일반글1','일반글 내용2',SYSDATE,1,1,50);
+  INSERT INTO POST VALUES(6,6,3,'일반글2','일반글 내용3',SYSDATE,2,1,60);
+  INSERT INTO POST VALUES(7,7,2,'일반글3','일반글 내용4',SYSDATE,1,1,10);
   
   INSERT INTO POSTCOMMENT VALUES(1,1,1,'이게 댓글이다 임마들아!!!',SYSDATE);
   INSERT INTO POSTCOMMENT VALUES(2,1,2,'이게 댓글이다 임마들아2!!!',SYSDATE);
   INSERT INTO POSTCOMMENT VALUES(3,1,1,'이게 댓글이다 임마들아3!!!',SYSDATE);
   
-  commit;
+  COMMIT;
