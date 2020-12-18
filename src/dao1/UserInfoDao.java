@@ -49,4 +49,3 @@ public class UserInfoDao {
 		}
 	}
 }
-// 추가기능 : 

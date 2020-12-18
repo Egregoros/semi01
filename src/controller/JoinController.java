@@ -37,4 +37,3 @@ public class JoinController extends HttpServlet{
 		req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 	}
 }
-// 추가기능 : 

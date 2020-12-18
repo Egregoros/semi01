@@ -39,4 +39,4 @@ public class LoginDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
-}// 추가기능 : 
+}
