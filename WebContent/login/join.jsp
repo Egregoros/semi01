@@ -45,7 +45,7 @@
 </head>
 <body>
 <h2 align="center">카페 회원가입</h2>
-	<form method="post" action="${cp }login/join">
+	<form method="post" action="/semi_project/login/join">
 	<div>
 		<div align="center">
 			<fieldset id="fieldset" >
@@ -65,9 +65,9 @@
 					<input type="email" placeholder="cafe@jhtml.com" required="required"><br>
 				생년월일 <label for="birth" class="label3"></label>
 					<label for="birth"></label>
-					<input type="date" id="brith" required="required"><br>
+					<input type="date" name="birth" required="required"><br>
 				휴대폰 번호 <label for="phone" class="label5"></label>
-					<input type="text" id="phone" placeholder="ex) 01012345678 (- 제외)" required="required">
+					<input type="text" name="phone" placeholder="ex) 01012345678 (- 제외)" required="required">
 			</fieldset><br>
 	<ul>
 		<li><a href="${pageContext.request.contextPath }/login/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;

@@ -22,14 +22,14 @@ public class LoginController extends HttpServlet{
 		HashMap<String, String> map=new HashMap<String, String>();
 		map.put("id", id);
 		map.put("pwd", pwd);
-		LoginDao dao=new LoginDao();
-		Boolean a=dao.isUser(map);
-		if(a) {
+		LoginDao dao=LoginDao.getInstance();
+		int a=dao.isUser(map);
+		if(a==1) {
 			HttpSession session=req.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("pwd",pwd);
 			resp.sendRedirect(req.getContextPath()+"/cafeList.jsp");
-		}else	{
+		}else if(a==0){
 			req.setAttribute("errMsg", "아이디 또는 비밀번호가 틀렸습니다." + "<br>" + "입력하신 정보를 다시 확인해주세요.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 		}
