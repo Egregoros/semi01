@@ -62,7 +62,7 @@
 				주소 <label for="addr" class="label2"></label>
 					<input type="text" name="addr" required="required"><br>
 				e-mail <label for="email" class="label4"></label>
-					<input type="email" placeholder="cafe@jhtml.com" required="required"><br>
+					<input type="email" name="email" placeholder="cafe@jhtml.com" required="required"><br>
 				생년월일 <label for="birth" class="label3"></label>
 					<label for="birth"></label>
 					<input type="date" name="birth" required="required"><br>

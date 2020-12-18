@@ -13,7 +13,7 @@ public class UserInfoDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into userinfo values (userinfo_seq.nextval,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into userinfo values (userinfo_seq.nextval,?,?,?,?,?,?,?,?,1)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPwd());
@@ -23,7 +23,6 @@ public class UserInfoDao {
 			pstmt.setString(6, vo.getEmail());
 			pstmt.setDate(7, vo.getBirth());
 			pstmt.setString(8, vo.getPhone());
-			pstmt.setInt(9, vo.getIsLive());
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();

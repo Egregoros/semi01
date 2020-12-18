@@ -38,7 +38,7 @@
 	</ul>
 	<br>
 	<ul>
-		<li><a href="${pageContex`xt.request.contextPath }/login/join.jsp">회원가입</a>
+		<li><a href="${pageContext.request.contextPath }/login/join.jsp">회원가입</a>
 	</ul>
 	</div>
 </div>
