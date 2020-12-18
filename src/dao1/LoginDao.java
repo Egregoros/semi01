@@ -15,7 +15,7 @@ public class LoginDao {
 		ResultSet rs=null;
 		try {
 			con=DBCPBean.getConn();
-			String sql="select * from userinfo where id=? and password=?";
+			String sql="select * from userinfo where id=? and pwd=?";
 			pstmt=con.prepareStatement(sql);
 			String id=map.get("id");
 			pstmt.setString(1, id);
