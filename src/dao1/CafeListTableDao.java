@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import db.DBCPBean;
+import vo.CafeListCatNameVo;
 import vo.CafeListVo;
 
 public class CafeListTableDao {
@@ -76,16 +77,16 @@ public class CafeListTableDao {
 		ResultSet rs = null;
 		String sql = "";
 		if(field != null && !field.equals("")) {
-			sql = "select * from(select rownum rnum, aa.* from(select * from cafelist where "+ field +" like '%" + keyword + "%' order by userNum desc)aa)where rnum>=? and rnum <=?";
+			sql = "select * from(select rownum rnum, aa.* from(select cl.*, ct.catname catname from cafelist cl, cafecat ct where ct.catnum = cl.catnum and "+ field +" like '%" + keyword + "%' order by userNum desc)aa)where rnum>=? and rnum <=?";
 		} else {
-			sql = "select * from(select rownum rnum, aa.* from(select cl.*, ct.catname from cafelist cl, cafecat ct where ct.catnum=cl.catnum order by userNum desc)aa)where rnum>=? and rnum <=?";
+			sql = "select * from(select rownum rnum, aa.* from(select cl.*, ct.catname catname from cafelist cl, cafecat ct where ct.catnum=cl.catnum order by userNum desc)aa)where rnum>=? and rnum <=?";
 		}
 		
 		try {
 			con = DBCPBean.getConn();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(2, endRow);	
 			rs = pstmt.executeQuery();
 			ArrayList<CafeListVo> list = new ArrayList<CafeListVo>();
 			while (rs.next()) {
@@ -144,6 +145,44 @@ public class CafeListTableDao {
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+
+	public ArrayList<CafeListCatNameVo> catList(int startRow, int endRow, String field, String keyword) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		if(field != null && !field.equals("")) {
+			sql = "select * from(select rownum rnum, aa.* from(select cl.*, ct.catname catname from cafelist cl, cafecat ct where ct.catnum = cl.catnum and "+ field +" like '%" + keyword + "%' order by userNum desc)aa)where rnum>=? and rnum <=?";
+		} else {
+			sql = "select * from(select rownum rnum, aa.* from(select cl.*, ct.catname catname from cafelist cl, cafecat ct where ct.catnum=cl.catnum order by userNum desc)aa)where rnum>=? and rnum <=?";
+		}
+		
+		try {
+			con = DBCPBean.getConn();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);	
+			rs = pstmt.executeQuery();
+			ArrayList<CafeListCatNameVo> list = new ArrayList<CafeListCatNameVo>();
+			while (rs.next()) {
+				int cafeNum = rs.getInt("cafeNum");
+				int gradeNum = rs.getInt("gradeNum");
+				int catNum = rs.getInt("catNum");
+				String cafeName = rs.getString("cafeName");
+				int userNum = rs.getInt("userNum");
+				String cafeRegDate = rs.getDate("cafeRegDate").toString();
+				String catName = rs.getString("catName");
+				CafeListCatNameVo vo = new CafeListCatNameVo(cafeNum, gradeNum, catNum, cafeName, userNum, cafeRegDate, catName);
+				list.add(vo);
+			}
+			return list;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
 		} finally {
 			DBCPBean.close(con, pstmt, rs);
 		}

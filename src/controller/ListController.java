@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao1.CafeListTableDao;
+import dao1.CatTableDao;
+import vo.CafeListCatNameVo;
 import vo.CafeListVo;
+import vo.CatTableVo;
 
 
 @WebServlet("/cafeList")
@@ -25,28 +28,19 @@ public class ListController extends HttpServlet{
 		String keyword = req.getParameter("keyword");
 		String catNum = req.getParameter("catNum");
 		int pageNum = 1;
-		int catNum1 = 0;
 		if (spageNum != null) {
 			pageNum = Integer.parseInt(spageNum);
-		}
-		
-		
-		
-		HashMap<Integer, String> catMap = new HashMap<Integer, String>();
-		String[] categories = {"종합", "게임", "건강", "취미"};
-		for (int i = 0; i < 4; i++) {
-			catMap.put(i, categories[i]);
 		}
 		
 		
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		CafeListTableDao dao=new CafeListTableDao();
-		ArrayList<CafeListVo> list=dao.list(startRow, endRow, field, keyword);
+		ArrayList<CafeListCatNameVo> list=dao.catList(startRow, endRow, field, keyword);
 		if(catNum != null) {
-			list=dao.list(startRow, endRow, "catNum", catNum);
+			list=dao.catList(startRow, endRow, "cl.catnum", catNum);
 		} else {
-			list=dao.list(startRow, endRow, field, keyword);
+			list=dao.catList(startRow, endRow, field, keyword);
 		}
 		
 		int pageCount=(int)Math.ceil(dao.getCount(field,keyword)/10.0);
@@ -55,9 +49,13 @@ public class ListController extends HttpServlet{
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount;
 		}
+		CatTableDao catDao = CatTableDao.getInstance();
+		CatTableVo catVo = new CatTableVo();
+		
+		ArrayList<CatTableVo> catList = catDao.list();
 		
 		
-		req.setAttribute("catMap", catMap);
+		req.setAttribute("catList", catList);
 		req.setAttribute("list",list);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum",startPageNum);

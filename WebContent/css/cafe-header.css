@@ -2,7 +2,7 @@
 
 header {
 	width: 100%;
-	position: relative;
+	position: re
 }
 
 #header-nav {
@@ -33,7 +33,6 @@ header {
 	overflow: hidden;
 	margin-top: 5px;
 	margin-bottom: 5px; 
-	background-image : url('../img/1.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -80,6 +79,6 @@ header {
 	height:30px;
 	width:55px;
 	margin-top:1px;
-	background-color: #33ee33;
+	background-color: #19ce60;
 	color: #ffffff;
 }
