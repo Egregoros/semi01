@@ -14,8 +14,8 @@ public class LoginDao {
 	public static LoginDao getInstance() {
 		return instance;
 	}	
-	public int isUser(HashMap<String, String>map	) {
-		String id=map.get("id");
+	public int isUser(HashMap<String, String> map) {
+		String id=map.get("id").toUpperCase();
 		String pwd=map.get("pwd");
 		Connection con=null;
 		PreparedStatement pstmt=null;

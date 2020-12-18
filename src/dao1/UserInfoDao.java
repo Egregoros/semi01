@@ -13,18 +13,16 @@ public class UserInfoDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into userinfo values (?,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into userinfo values (userinfo_seq.nextval,?,?,?,?,?,?,?,?,1)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, vo.getUserNum());
-			pstmt.setString(2, vo.getId());
-			pstmt.setString(3, vo.getPwd());
-			pstmt.setString(4, vo.getNickName());
-			pstmt.setString(5, vo.getName());
-			pstmt.setString(6, vo.getAddr());
-			pstmt.setString(7, vo.getEmail());
-			pstmt.setDate(8, vo.getBirth());
-			pstmt.setString(9, vo.getPhone());
-			pstmt.setInt(10, vo.getIsLive());
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(3, vo.getNickName());
+			pstmt.setString(4, vo.getName());
+			pstmt.setString(5, vo.getAddr());
+			pstmt.setString(6, vo.getEmail());
+			pstmt.setDate(7, vo.getBirth());
+			pstmt.setString(8, vo.getPhone());
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
