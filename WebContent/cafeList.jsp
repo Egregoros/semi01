@@ -43,12 +43,12 @@
 	<a href = "/myPage/myPageMain.jsp">마이페이지</a><br>
 	<a href = "/myPage/myCafeList.jsp">내 카페 목록</a><br>
 	<a href = "/login/update.jsp">정보수정</a><br>
-	<a href = "/cafe/cafeCreate.jsp">카페생성</a><br>
+	<a href = "${pageContext.request.contextPath }/cafe/cafeCreate">카페생성</a><br>
 </div>
 	</c:when>
 	<c:otherwise>
 <div id = "login">
-<form method="post" action="${pageContext.request.contextPath }/login/loginOk.jsp">
+<form method="post" action="${pageContext.request.contextPath }/login/login">
 	아이디<br>
 	<input type = "text" name = "id" value = "${param.id }"><br>
 	비밀번호<br>

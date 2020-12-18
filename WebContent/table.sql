@@ -201,7 +201,18 @@ CREATE TABLE CAFEBOARD
   ALTER TABLE POSTCOMMENT ADD CONSTRAINT COMMENT_FK2 FOREIGN KEY (USERNUM) REFERENCES USERINFO (USERNUM);
 --------------------------------------------------------------------------------------------
   
-  
+  create table cafeMainPic
+(
+	cafePicNum number primary key,
+	cafenum number not null,
+	orgfilename varchar2(150),
+	savefilename varchar2(150),
+	filesize number,
+    constraint fk_cafenum foreign key (cafenum) references cafelist(cafenum)
+);
+create sequence fileinfo_seq;
+
+------------------------------------------------------------------------------------------------
   
   
   

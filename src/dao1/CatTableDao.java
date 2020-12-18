@@ -33,7 +33,6 @@ public class CatTableDao {
 				String catName = rs.getString("catName");
 				CatTableVo vo = new CatTableVo(catNum, catName);
 				list.add(vo);
-				System.out.println(catNum + " " + catName);
 			}
 			return list;
 		} catch(SQLException se) {

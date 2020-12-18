@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>cafeCreate.jsp</title>
+<%
+	
+%>
 </head>
 <c:set var = "cp" value = "${pageContext.request.contextPath }" />
 <body>
@@ -15,14 +18,14 @@
 </div>
 <div id = "body">
 <form method = "post" action = "${cp }/cafeCreate">
-	<input type = "text" name = "cafeName" id = "cafeName" placeholder = "생성할 카페이름"><br>
-	<select name = "catName" id = "catName">
-		<c:forEach var = "catVo" items = "${catList } ">
-			<option value = "${catVo.catName }">${catVo.catName }</option>
+	카페이름 : <input type = "text" name = "cafeName" id = "cafeName" placeholder = "생성할 카페이름"><br>
+	카테고리: <select name = "catName" id = "catName">
+		<c:forEach var = "cvo" items = "${catList }">
+		<option value="${cvo.catName }">${cvo.catName }</option>
 		</c:forEach>
-	</select>
-	<!-- 파일 업로드 -->
-	<textarea rows="5" cols="50"></textarea>
+	</select><br>
+	카페 대문 사진 : <input type = "file"><br>
+	카페 설명: <textarea rows="5" cols="50"></textarea>
 </form>
 </div>
 <div id = "footer">
