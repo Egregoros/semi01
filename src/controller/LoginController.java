@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String id=req.getParameter("id");
+		String id=req.getParameter("id").toUpperCase();
 		String pwd=req.getParameter("pwd");
 		HashMap<String, String> map=new HashMap<String, String>();
 		map.put("id", id);
@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet{
 			HttpSession session=req.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("pwd",pwd);
-			resp.sendRedirect(req.getContextPath()+"/cafeList.jsp");
+			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		}else if(a==0){
 			req.setAttribute("errMsg", "아이디 또는 비밀번호가 틀렸습니다." + "<br>" + "입력하신 정보를 다시 확인해주세요.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
