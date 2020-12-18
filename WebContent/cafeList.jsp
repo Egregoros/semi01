@@ -37,6 +37,16 @@
 
 <div id = "body">
 <div id = "left">
+<c:choose>
+	<c:when test="${sessionScope.id != null}">
+<div id = "welcome">
+	<a href = "/myPage/myPageMain.jsp">마이페이지</a><br>
+	<a href = "/myPage/myCafeList.jsp">내 카페 목록</a><br>
+	<a href = "/login/update.jsp">정보수정</a><br>
+	<a href = "/cafe/cafeCreate.jsp">카페생성</a><br>
+</div>
+	</c:when>
+	<c:otherwise>
 <div id = "login">
 <form method="post" action="${pageContext.request.contextPath }/login/loginOk.jsp">
 	아이디<br>
@@ -47,6 +57,9 @@
 	<input type = "submit" value = "로그인">
 </form>
 </div>
+	</c:otherwise>
+</c:choose>
+
 </div>
 
 <div id = "middle">

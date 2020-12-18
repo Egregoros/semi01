@@ -9,7 +9,7 @@ import java.util.HashMap;
 import db.DBCPBean;
 
 public class LoginDao {
-	public Boolean isUser(HashMap<String, String>map	) {
+	public Boolean isUser(HashMap<String, String> map) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -17,17 +17,21 @@ public class LoginDao {
 			con=DBCPBean.getConn();
 			String sql="select * from userinfo where id=? and pwd=?";
 			pstmt=con.prepareStatement(sql);
-			String id=map.get("id");
+			String id=map.get("id").toUpperCase();
 			pstmt.setString(1, id);
+			System.out.println(id);
 			pstmt.setString(2, map.get("pwd"));
 			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				return true;
-			}else {
+			if(!rs.next()) {
+				System.out.println(1);
 				return false;
+			} else {
+				System.out.println(2);
+				return true;
 			}
 		}catch(SQLException se) {
 			se.printStackTrace();
+			System.out.println(3);
 			return false;
 		}finally {
 			DBCPBean.close(con, pstmt, rs);
