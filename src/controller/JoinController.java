@@ -16,7 +16,7 @@ public class JoinController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String id=req.getParameter("id");
+		String id=req.getParameter("id");		
 		String pwd=req.getParameter("pwd");
 		String name=req.getParameter("name");
 		String nickname=req.getParameter("nickname");
@@ -28,6 +28,7 @@ public class JoinController extends HttpServlet{
 		UserInfoVo uiv=new UserInfoVo(0, id, pwd, nickname, nickname, addr, email, d, phone, 1);
 		UserInfoDao dao=new UserInfoDao();
 		String resultCode="success";
+		
 		int n=dao.insert(uiv);
 		if(n<1) {
 			resultCode="fail";
