@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import db.DBCPBean;
+import vo.CafeBoardInfoVo;
 import vo.CafeNavBoardVo;
 import vo.CafeNavCatVo;
 import vo.PostListVo;
+import vo.PostVo;
 
 public class CafeMainDao {
 
@@ -153,7 +155,7 @@ public class CafeMainDao {
 		}
 	}
 	
-	public ArrayList<PostListVo> getCafePostList(int cafeNum, int boardNum) {
+	public ArrayList<PostListVo> getCafePostList(int cafeNum, int boardNum, int startRow, int endRow) {
 		Connection con = null;
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
@@ -163,9 +165,11 @@ public class CafeMainDao {
 			con = DBCPBean.getConn();
 			String sql2 = "";
 			if(boardNum==0) {
-				sql2 = "select c.*, to_char(postdate,'yyyy.mm.dd') pd from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=1 order by postnum desc) c";
+				sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=1 order by postnum desc) c) where rnum>=? and rnum <= ?";
 				pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setInt(1, cafeNum);
+				pstmt2.setInt(2, startRow);
+				pstmt2.setInt(3, endRow);
 				rs2 = pstmt2.executeQuery();
 				ArrayList<PostListVo> list = new ArrayList<PostListVo>();
 				while (rs2.next()) {
@@ -179,13 +183,17 @@ public class CafeMainDao {
 				rs1=pstmt1.executeQuery();
 				if(rs1.next()) {
 					if(rs1.getInt("cafeboardnum")==0) {
-						sql2 = "select c.*, to_char(postdate,'yyyy.mm.dd') pd from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=1 order by postnum desc) c";
+						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=1 order by postnum desc) c) where rnum>=? and rnum <=?";
 						pstmt2 = con.prepareStatement(sql2);
 						pstmt2.setInt(1, cafeNum);
+						pstmt2.setInt(2, startRow);
+						pstmt2.setInt(3, endRow);
 					}else {
-						sql2 = "select c.*, to_char(postdate,'yyyy.mm.dd') pd from (select * from post natural join cafemember where boardnum=? and postcatnum=1 order by postnum desc) c";
+						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from post natural join cafemember where boardnum=? and postcatnum=1 order by postnum desc) c) where rnum>=? and rnum<=?";
 						pstmt2 = con.prepareStatement(sql2);
 						pstmt2.setInt(1, boardNum);
+						pstmt2.setInt(2, startRow);
+						pstmt2.setInt(3, endRow);
 					}
 					rs2 = pstmt2.executeQuery();
 					ArrayList<PostListVo> list = new ArrayList<PostListVo>();
@@ -206,7 +214,7 @@ public class CafeMainDao {
 		}
 	}
 	
-	public int getCafePostCount(int cafeNum, int boardNum) {
+	public CafeBoardInfoVo getCafeBoardInfo(int cafeNum, int boardNum) {
 		Connection con = null;
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
@@ -216,23 +224,26 @@ public class CafeMainDao {
 			con = DBCPBean.getConn();
 			String sql2 = "";
 			if(boardNum==0) {
-				sql2 = "select count(*) count from cafeboardcat natural join cafeboard natural join post where cafenum=? and postcatnum =1";
+				String sql1="select * from cafeboard where cafeboardnum=0";
+				pstmt1=con.prepareStatement(sql1);
+				rs1=pstmt1.executeQuery();
+				sql2 = "select count(*) count from cafeboardcat natural join cafeboard natural join post where cafenum=? and postcatnum=1";
 				pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setInt(1, cafeNum);
 				rs2 = pstmt2.executeQuery();
-				if (rs2.next()) {
-					return rs2.getInt("count");
+				if (rs1.next()&&rs2.next()) {
+					return new CafeBoardInfoVo(boardNum, rs1.getInt("cafeboardnum"), rs1.getInt("boardcatnum"), rs1.getString("boardname"), rs1.getInt("useGrade"), rs1.getInt("ordernum"), rs2.getInt("count"));
 				}else {
-					return 0;
+					return null;
 				}
 			}else {
-				String sql1="select * from cafeboard where boardnum = ?";
+				String sql1="select * from cafeboard where boardnum=?";
 				pstmt1=con.prepareStatement(sql1);
 				pstmt1.setInt(1, boardNum);
 				rs1=pstmt1.executeQuery();
 				if(rs1.next()) {
 					if(rs1.getInt("cafeboardnum")==0) {
-						sql2 = "select count(*) count from cafeboardcat natural join cafeboard natural join post where cafenum=? and postcatnum =1";
+						sql2 = "select count(*) count from cafeboardcat natural join cafeboard natural join post where cafenum=? and postcatnum=1";
 						pstmt2 = con.prepareStatement(sql2);
 						pstmt2.setInt(1, cafeNum);
 					}else {
@@ -242,17 +253,17 @@ public class CafeMainDao {
 					}
 					rs2 = pstmt2.executeQuery();
 					if (rs2.next()) {
-						return rs2.getInt("count");
+						return new CafeBoardInfoVo(boardNum, rs1.getInt("cafeboardnum"), rs1.getInt("boardcatnum"), rs1.getString("boardname"), rs1.getInt("useGrade"), rs1.getInt("ordernum"), rs2.getInt("count"));
 					}else {
-						return 0;
+						return null;
 					}
 				}else {
-					return 0;
+					return null;
 				}
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
-			return 0;
+			return null;
 		} finally {
 			DBCPBean.close(null, pstmt2, rs2);
 			DBCPBean.close(con, pstmt1, rs1);

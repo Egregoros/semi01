@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="section-nav-header">
 	<div id="section-nav-header-nav">
 		<div>
@@ -22,7 +23,7 @@
 			</div>
 			<div>
 				<p class="gray">${cafeInfo['cafeGrade'] }</p>
-				<p class="gray">${cafeInfo['cafeUsers'] } 명</p>
+				<p class="gray"><fmt:formatNumber value="${cafeInfo['cafeUsers'] }" type="number"/> 명</p>
 			</div>
 		</div>
 		<c:if test="${userInfo['isUser']=='true' }">
@@ -34,8 +35,8 @@
 				<div>
 					<p class="gray">${userInfo['userGrade'] }</p>
 					<p class="gray">방문 ${userInfo['userInvite'] }회</p>
-					<p class="gray">내가 쓴 글 보기 <a href="">${userInfo['userCountPost'] }개</a></p>
-					<p class="gray">내가 쓴 댓글 보기 <a href="">${userInfo['userCountPostComment'] }개</a></p>
+					<p class="gray">내가 쓴 글 보기 <a href=""><fmt:formatNumber value="${userInfo['userCountPost'] }" type="number"/> 개</a></p>
+					<p class="gray">내가 쓴 댓글 보기 <a href=""><fmt:formatNumber value="${userInfo['userCountPostComment'] }" type="number"/> 개</a></p>
 				</div>
 			</div>
 		</c:if>

@@ -33,10 +33,26 @@ public class CafeMain extends HttpServlet{
 		}catch(Exception e) {
 			boardNum=0;
 		}
+		int pageCount=10;
+		try {
+			pageCount = Integer.parseInt((String)req.getParameter("pageCount"));
+		}catch(Exception e) {
+			pageCount=10;
+		}
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt((String)req.getParameter("pageNum"));
+		}catch(Exception e) {
+			pageNum=1;
+		}
+		int startRow = (pageNum-1)*pageCount+1;
+		int endRow = startRow+pageCount-1;
+		req.setAttribute("pageNum", pageNum);
+		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("cafeInfo", cmdao.getCafeInfo(Integer.parseInt(cafeNum)));
 		req.setAttribute("cafeNavList", cmdao.getCafeNavList(Integer.parseInt(cafeNum)));
-		req.setAttribute("postInfo", cmdao.getCafePostList(Integer.parseInt(cafeNum), boardNum));
-		req.setAttribute("postCount", cmdao.getCafePostCount(Integer.parseInt(cafeNum), boardNum));
+		req.setAttribute("postInfo", cmdao.getCafePostList(Integer.parseInt(cafeNum), boardNum, startRow, endRow));
+		req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(Integer.parseInt(cafeNum), boardNum));
 		req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(Integer.parseInt(cafeNum), boardNum));
 		if(userNum>-1) {
 			req.setAttribute("userInfo", cmdao.getUserInfo(userNum, Integer.parseInt(cafeNum)));

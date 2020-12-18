@@ -31,6 +31,8 @@
 					<jsp:param value="${postInfo }" name="postInfo"/>
 					<jsp:param value="${boardInfo }" name="boardInfo"/>
 					<jsp:param value="${noticeInfo }" name="noticeInfo"/>
+					<jsp:param value="${pageNum }" name="pageNum"/>
+					<jsp:param value="${pageCount }" name="pageCount"/>
 				</jsp:include>
 			</div>
 		</section>
