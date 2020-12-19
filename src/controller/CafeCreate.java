@@ -25,7 +25,6 @@ public class CafeCreate extends HttpServlet{
 			ArrayList<CatTableVo> catList = catDao.list();
 			req.setAttribute("catList", catList);
 			req.getRequestDispatcher("/cafe/cafeCreate.jsp").forward(req, resp);
-			System.out.println(1);
 		} else {
 			req.setAttribute("needLogin", "로그인이 필요한 작업입니다. 로그인해주세요.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
@@ -34,8 +33,21 @@ public class CafeCreate extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(1);
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
+		CatTableDao catDao = CatTableDao.getInstance();
+		
+		String cafeName = req.getParameter("cafeName");
+		String catName = req.getParameter("catName");
+		String file = req.getParameter("cafePicName");
+		String content = req.getParameter("content");
+		
+		System.out.println(cafeName);
+		System.out.println(catName);
+		System.out.println(file);
+		System.out.println(content);
+		
 		
 	}
 }

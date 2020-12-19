@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CafeMemberDao;
 import dao1.CafeListTableDao;
 import dao1.CatTableDao;
 import vo.CafeListCatNameVo;
@@ -53,8 +54,10 @@ public class ListController extends HttpServlet{
 		CatTableVo catVo = new CatTableVo();
 		
 		ArrayList<CatTableVo> catList = catDao.list();
+		CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
+		HashMap<Integer, Integer> map = cafeMemDao.getCafeCount();
 		
-		
+		req.setAttribute("map", map);
 		req.setAttribute("catList", catList);
 		req.setAttribute("list",list);
 		req.setAttribute("pageCount", pageCount);

@@ -89,11 +89,12 @@
 			<td>${vo.cafeNum }</td>
 			<td><a href = "${cp }/jsp/cafe-main.do?cafeNum=${vo.cafeNum }">${vo.cafeName }</a></td>
 			<td><a href = "${cp }/cafeList?catNum=${vo.catNum }">${vo.catName }</a></td>
-			<td>${vo.userNum }</td>
+			<td>${map[vo.cafeNum] }</td>
 			<td>${vo.cafeRegDate }</td>
 		</tr>
 	</c:forEach>
 </table>
+
 <div id = "pageNum">
 	<c:if test = "${startPageNum>10 }">
 		<a href = "${cp }/cafeList?pageNum=${startPageNum-1 }&field=${field }&keyword=${keyword }">[이전]</a>

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vo.CafeMemberVo;
 import db.DBCPBean;
@@ -163,6 +165,28 @@ public class CafeMemberDao {
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return false;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public HashMap<Integer, Integer> getCafeCount() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "select cafenum, count(cafenum) cnt from cafemember group by cafenum";
+			pstmt = con.prepareStatement(sql1);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getInt("cafeNum"), rs.getInt("cnt"));
+			}
+			return map;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
 		} finally {
 			DBCPBean.close(con, pstmt, rs);
 		}

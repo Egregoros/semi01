@@ -17,15 +17,17 @@
 <h1>카페생성</h1>
 </div>
 <div id = "body">
-<form method = "post" action = "${cp }/cafeCreate">
-	카페이름 : <input type = "text" name = "cafeName" id = "cafeName" placeholder = "생성할 카페이름"><br>
-	카테고리: <select name = "catName" id = "catName">
+<form method = "post" action = "${cp }/cafe/cafeCreate">
+	카페이름 : <input type = "text" name = "cafeName" placeholder = "생성할 카페이름"><br>
+	카테고리: 
+	<select id = "catName">
 		<c:forEach var = "cvo" items = "${catList }">
-		<option value="${cvo.catName }">${cvo.catName }</option>
+			<option value="${cvo.catName }">${cvo.catName }</option>
 		</c:forEach>
 	</select><br>
-	카페 대문 사진 : <input type = "file"><br>
-	카페 설명: <textarea rows="5" cols="50"></textarea>
+	카페 대문 사진 : <input type = "file" name = "cafePicName"><br>
+	카페 설명: <textarea rows="5" cols="50" name = "content"></textarea><br>
+	<input type = "submit" value = "카페생성">
 </form>
 </div>
 <div id = "footer">
