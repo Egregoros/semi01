@@ -109,7 +109,7 @@ table {
 	border: 1px solid black;
 	padding:10px;
 }
-#right th{
+#right th{ 
 	border-bottom: 2px solid black;
 }
 
