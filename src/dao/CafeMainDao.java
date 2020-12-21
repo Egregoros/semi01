@@ -408,4 +408,36 @@ public class CafeMainDao {
 			DBCPBean.close(con, pstmt, null);
 		}
 	}
+	
+	public PostVo getPostInfo(int postNum, int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs1 = null;
+		ResultSet rs2 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "update post set postinvitecount = (select postinvitecount+1 from post where postnum=?) where postnum=?";
+			String sql2 = "select * from post natural join cafemember where postnum=? and cafenum=?";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, postNum);
+			pstmt1.setInt(2, postNum);
+			pstmt2 = con.prepareStatement(sql2);
+			pstmt2.setInt(1, postNum);
+			pstmt2.setInt(2, cafeNum);
+			int i = pstmt1.executeUpdate();
+			rs2 = pstmt2.executeQuery();
+			PostVo vo = null;
+			while (rs2.next()) {
+				vo=new PostVo(postNum, rs2.getInt("cafepostnum"), rs2.getInt("boardnum"), rs2.getString("posttitle"), rs2.getString("postcontent"), rs2.getDate("postdate"), rs2.getString("cafememnick"), rs2.getInt("postcatnum"), rs2.getInt("postInviteCount"));
+			}
+			return vo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(null, pstmt2, rs2);
+			DBCPBean.close(con, pstmt1, rs1);
+		}
+	}
 }

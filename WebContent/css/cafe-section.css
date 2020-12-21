@@ -123,7 +123,7 @@ section:after {
 	font-size: 0.8em;
 }
 
-#section-content-list tr *{
+#section-content-list tr>*{
 	font-size: 0.8em;
 	height: 40px;
 	border-bottom: 1px solid gray;

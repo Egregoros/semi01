@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.CafeMainDao;
+import vo.PostVo;
 
 @WebServlet("/jsp/cafe-main.do")
 public class CafeMain extends HttpServlet{
@@ -26,7 +27,6 @@ public class CafeMain extends HttpServlet{
 			ArrayList<Integer> inviteCafe = new ArrayList<Integer>();
 			if(session.getAttribute("inviteCafe")!=null) {
 				inviteCafe=(ArrayList<Integer>)session.getAttribute("inviteCafe");
-				System.out.println(inviteCafe);
 			}
 			boolean visit = false;
 			for (int i = 0; i < inviteCafe.size(); i++) {
@@ -34,7 +34,6 @@ public class CafeMain extends HttpServlet{
 					visit=true;
 				}
 			}
-			System.out.println(visit);
 			if(!visit) {
 				inviteCafe.add(cafeNum);
 				if(!(cmdao.invitePlus(cafeNum, userNum)>0)) {
@@ -64,18 +63,29 @@ public class CafeMain extends HttpServlet{
 		}catch(Exception e) {
 			pageNum=1;
 		}
+		try {
+			int postNum = Integer.parseInt((String)req.getParameter("postNum"));
+			PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
+			if(postInfo!=null) {
+				req.setAttribute("postInfo", postInfo);
+			}
+		}catch(Exception e) {
+			
+		}
 		String search=req.getParameter("search");
 		int startRow = (pageNum-1)*pageCount+1;
 		int endRow = startRow+pageCount-1;
 		if(search==""||search==null) {
-			req.setAttribute("postInfo", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
+			req.setAttribute("postList", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
 			req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
 			req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(cafeNum, boardNum));
 			search="";
 		}else {
-			req.setAttribute("postInfo", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
+			req.setAttribute("postList", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
 			req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(cafeNum, search));
 		}
+		
+		
 		req.setAttribute("search", search);
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("pageCount", pageCount);

@@ -4,27 +4,29 @@ import java.sql.Date;
 
 public class PostVo {
 	private int postNum;
+	private int cafepostnum;
 	private int boardNum;
-	private int cafeNum;
 	private String postTitle;
 	private String postContent;
 	private Date postDate;
-	private int userNum;
+	private String userName;
 	private int postCatNum;
+	private int postInviteCount;
 	
 	public PostVo() {}
 
-	public PostVo(int postNum, int boardNum, int cafeNum, String postTitle, String postContent, Date postDate,
-			int userNum, int postCatNum) {
+	public PostVo(int postNum, int cafepostnum, int boardNum, String postTitle, String postContent,
+			Date postDate, String userName, int postCatNum, int postInviteCount) {
 		super();
 		this.postNum = postNum;
+		this.cafepostnum = cafepostnum;
 		this.boardNum = boardNum;
-		this.cafeNum = cafeNum;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 		this.postDate = postDate;
-		this.userNum = userNum;
+		this.userName = userName;
 		this.postCatNum = postCatNum;
+		this.postInviteCount = postInviteCount;
 	}
 
 	public int getPostNum() {
@@ -35,20 +37,20 @@ public class PostVo {
 		this.postNum = postNum;
 	}
 
+	public int getCafepostnum() {
+		return cafepostnum;
+	}
+
+	public void setCafepostnum(int cafepostnum) {
+		this.cafepostnum = cafepostnum;
+	}
+
 	public int getBoardNum() {
 		return boardNum;
 	}
 
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
-	}
-
-	public int getCafeNum() {
-		return cafeNum;
-	}
-
-	public void setCafeNum(int cafeNum) {
-		this.cafeNum = cafeNum;
 	}
 
 	public String getPostTitle() {
@@ -75,12 +77,12 @@ public class PostVo {
 		this.postDate = postDate;
 	}
 
-	public int getUserNum() {
-		return userNum;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getPostCatNum() {
@@ -90,6 +92,14 @@ public class PostVo {
 	public void setPostCatNum(int postCatNum) {
 		this.postCatNum = postCatNum;
 	}
-	
+
+	public int getPostInviteCount() {
+		return postInviteCount;
+	}
+
+	public void setPostInviteCount(int postInviteCount) {
+		this.postInviteCount = postInviteCount;
+	}
+
 	
 }
