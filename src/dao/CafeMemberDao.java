@@ -28,7 +28,7 @@ public class CafeMemberDao {
 			pstmt.setInt(1, vo.getUserNum());
 			pstmt.setInt(2, vo.getCafeNum());
 			pstmt.setString(3, vo.getCafeMemNick());;
-			pstmt.setInt(4, vo.getCafeMemGrade());// ??? 磊悼何咯? 货较何磐?
+			pstmt.setInt(4, vo.getCafeMemGrade());
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();

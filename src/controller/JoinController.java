@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao1.UserInfoDao;
+import dao.UserInfoDao;
 import vo.UserInfoVo;
 @WebServlet("/login/join")
 public class JoinController extends HttpServlet{

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CafeListTableDao;
 import dao.CafeMemberDao;
-import dao1.CafeListTableDao;
-import dao1.CatTableDao;
+import dao.CatTableDao;
 import vo.CafeListCatNameVo;
 import vo.CafeListVo;
 import vo.CatTableVo;

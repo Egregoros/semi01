@@ -1,4 +1,4 @@
-<%@page import="dao1.CatTableDao"%>
+<%@page import="dao.CatTableDao"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

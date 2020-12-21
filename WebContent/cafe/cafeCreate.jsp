@@ -20,7 +20,7 @@
 <form method = "post" action = "${cp }/cafe/cafeCreate">
 	카페이름 : <input type = "text" name = "cafeName" placeholder = "생성할 카페이름"><br>
 	카테고리: 
-	<select id = "catName">
+	<select id = "catName" name = "catName">
 		<c:forEach var = "cvo" items = "${catList }">
 			<option value="${cvo.catName }">${cvo.catName }</option>
 		</c:forEach>

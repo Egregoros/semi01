@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
-import dao1.CatTableDao;
+import dao.CatTableDao;
 import vo.CatTableVo;
 @WebServlet("/cafe/cafeCreate")
 public class CafeCreate extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
 		if(session.getAttribute("id") != null && session.getAttribute("pwd") != null) {
