@@ -7,7 +7,7 @@
 <title>join.jsp</title>
 <script type="text/javascript">
 	var xhr=null;
-	function checkid(){
+	function checkid(){//아이디가 사용중일 때 회원가입 버튼 비활성화하는 기능 추가해야함.
 		var id=document.getElementById("id").value;
 		if(id.trim()==""){
 			document.getElementById("idcheck").innerHTML="";
@@ -24,12 +24,39 @@
 			var using=data.getElementsByTagName("using")[0].firstChild.nodeValue;
 			var span=document.getElementById("idcheck");
 			if(eval(using)==true){
-				span.innerHTML="사용중인 아이디입니다.";
+				span.innerHTML="이미 사용 중인 아이디입니다.";
 			}else if(eval(using)==false){
-				span.innerHTML="사용가능한 아이디입니다.";
+				span.innerHTML="사용 가능한 아이디입니다.";
 			}
 		}
 	}
+	function checkphone(){
+		var phone=document.getElementById("phone").value;
+		if(phone.trim()==""){
+			document.getElementById("phonecheck").innerHTML="";
+			return;
+		}
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=backcall;
+		xhr.open('get','phonecheck.jsp?phone=' + phone,true);
+		xhr.send();
+		}
+	function backcall(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var data=xhr.responseXML;
+			var using=data.getElementsByTagName("using")[0].firstChild.nodeValue;
+			var span=document.getElementById("phonecheck");
+			
+			if(eval(using)==true){//휴대폰 번호에 하이픈(-) 제외, 11자리로 입력, 모두 숫자로 이루어지게 하는 기능 추가해야함.
+				span.innerHTML="입력하신 번호는 이미 사용 중인 번호입니다. 다시 입력해주세요.";
+			}else if(eval(using)==false){
+				span.innerHTML="사용 가능한 휴대폰 번호입니다.";
+			}
+		}
+	}
+	function buttonClick(){//필수입력 항목이 모두 충족되지 않았을 때 alert창 띄우지 않게 하는 기능 추가해야함.
+			alert('회원가입 성공!');
+		}
 </script>
 <style>
 	#fieldset{width: 275px;}
@@ -39,6 +66,7 @@
 	.label4{width: 39px;display: inline-block;}
 	.label5{width: 0px;display: inline-block;}
 	#idcheck{color: red;}
+	#phonecheck{color: red;}
 	ul{list-style: none;display: inline-block;}
 	a{ text-decoration: none;}
 </style>
@@ -67,13 +95,14 @@
 					<label for="birth"></label>
 					<input type="date" name="birth" required="required"><br>
 				휴대폰 번호 <label for="phone" class="label5"></label>
-					<input type="text" name="phone" placeholder="ex) 01012345678 (- 제외)" required="required">
+					<input type="text" name="phone" id="phone" placeholder="ex) 01012345678 (- 제외)" onkeyup="checkphone()" required="required">
+					<span id="phonecheck"></span>
 			</fieldset><br>
 	<ul>
 		<li><a href="${pageContext.request.contextPath }/login/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;
 		</li>
 	</ul>
-		<input type="submit" value="회원가입" id="button">
+		<input type="submit" value="회원가입" onclick="buttonClick()">
 		</div>
 	</div>
 	</form>
