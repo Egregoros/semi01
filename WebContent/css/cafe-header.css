@@ -64,7 +64,7 @@ header {
 	vertical-align: middle;
 }
 
-#header-content-search * {
+#header-content-search>form>* {
 	border: 1px solid #e3e3e3;
 }
 

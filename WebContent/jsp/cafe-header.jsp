@@ -32,6 +32,9 @@
 		<li><a href="" class="underline">카페 캘린더</a></li>
 	</ul>
 	<div id="header-content-search">
-		<input id="header-content-search-text" type="text"><input type="button" value="검색" id="header-content-search-button">
+		<form action="${pageContext.request.contextPath }/jsp/cafe-main.do" method="GET">
+			<input type="hidden" name="cafeNum" value="${cafeInfo['cafeNum'] }"><input type="hidden" name="pageCount" value="${pageCountNum }">
+			<input id="header-content-search-text" type="text" name="search" value="${search }"><input type="submit" value="검색" id="header-content-search-button">
+		</form>
 	</div>
 </div>

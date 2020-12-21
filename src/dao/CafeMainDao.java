@@ -189,11 +189,12 @@ public class CafeMainDao {
 						pstmt2.setInt(2, startRow);
 						pstmt2.setInt(3, endRow);
 					}else {
-						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from post natural join cafemember where boardnum=? and postcatnum=1 order by postnum desc) c) where rnum>=? and rnum<=?";
+						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from post natural join cafemember natural join cafeboard natural join cafeboardcat where boardnum=? and postcatnum=1 and cafenum=? order by postnum desc) c) where rnum>=? and rnum<=?";
 						pstmt2 = con.prepareStatement(sql2);
 						pstmt2.setInt(1, boardNum);
-						pstmt2.setInt(2, startRow);
-						pstmt2.setInt(3, endRow);
+						pstmt2.setInt(2, cafeNum);
+						pstmt2.setInt(3, startRow);
+						pstmt2.setInt(4, endRow);
 					}
 					rs2 = pstmt2.executeQuery();
 					ArrayList<PostListVo> list = new ArrayList<PostListVo>();
@@ -320,6 +321,63 @@ public class CafeMainDao {
 		} finally {
 			DBCPBean.close(null, pstmt2, rs2);
 			DBCPBean.close(con, pstmt1, rs1);
+		}
+	}
+	
+	public ArrayList<PostListVo> getCafeSearchList(int cafeNum, int startRow, int endRow, String search) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from post natural join cafemember where cafenum=? and (posttitle like ? or postcontent like ? or cafememnick like ?) order by postnum desc) c) where rnum>=? and rnum<=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			pstmt.setString(2, "%"+search+"%");
+			pstmt.setString(3, "%"+search+"%");
+			pstmt.setString(4, "%"+search+"%");
+			pstmt.setInt(5, startRow);
+			pstmt.setInt(6, endRow);
+			
+			rs = pstmt.executeQuery();
+			ArrayList<PostListVo> list = new ArrayList<PostListVo>();
+			while (rs.next()) {
+				list.add(new PostListVo(rs.getInt("postnum"), rs.getInt("cafepostnum"), rs.getString("posttitle"), rs.getString("cafememnick"), rs.getString("pd"), rs.getInt("postinvitecount")));
+			}
+			return list;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public CafeBoardInfoVo getCafeSearchInfo(int cafeNum, String search) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBCPBean.getConn();
+			
+			String sql = "select count(*) count from post natural join cafemember where cafenum=? and (posttitle like ? or postcontent like ? or cafememnick like ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			pstmt.setString(2, "%"+search+"%");
+			pstmt.setString(3, "%"+search+"%");
+			pstmt.setString(4, "%"+search+"%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return new CafeBoardInfoVo(-1, -1, -1, "'"+search+"' 의 검색결과", -1, -1, rs.getInt("count"));
+			}else {
+				return null;
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
 		}
 	}
 }

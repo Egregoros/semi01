@@ -17,6 +17,8 @@
 		<header>
 			<jsp:include page="cafe-header.jsp">
 				<jsp:param value="${cafeInfo }" name="cafeInfo"/>
+				<jsp:param value="${pageCount }" name="pageCount"/>
+				<jsp:param value="${search }" name="search"/>
 			</jsp:include>
 		</header>
 		<section>
@@ -24,6 +26,7 @@
 				<jsp:include page="cafe-section-nav.jsp">
 				<jsp:param value="${cafeInfo }" name="cafeInfo"/>
 				<jsp:param value="${cafeNavList }" name="cafeNavList"/>
+				<jsp:param value="${pageCount }" name="pageCount"/>
 			</jsp:include>
 			</div>
 			<div id="section-content">
@@ -33,6 +36,7 @@
 					<jsp:param value="${noticeInfo }" name="noticeInfo"/>
 					<jsp:param value="${pageNum }" name="pageNum"/>
 					<jsp:param value="${pageCount }" name="pageCount"/>
+					<jsp:param value="${search }" name="search"/>
 				</jsp:include>
 			</div>
 		</section>

@@ -6,14 +6,14 @@
 	<h1>${boardInfo.boardName }</h1>
 	<span><span class="bold"><fmt:formatNumber value="${boardInfo.postCount }" type="number"/></span>개의 글</span>
 	<select onchange="if(this.value) location.href=(this.value);" id="section-content-page-count">
-		<c:set var="pageCountArray">10,15,20,25,30,50</c:set>
+		<c:set var="pageCountArray">10,15,20,25,30,50,1,2,0</c:set>
 		<c:forEach var="pageCountNum" items="${pageCountArray }">
 			<c:choose>
 				<c:when test="${pageCount==pageCountNum }">
-					<option value="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageCount=${pageCountNum }" selected="selected">${pageCountNum }개 </option>
+					<option value="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageCount=${pageCountNum }&search=${search }" selected="selected">${pageCountNum }개 </option>
 				</c:when>
 				<c:otherwise>
-					<option value="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageCount=${pageCountNum }">${pageCountNum }개 </option>
+					<option value="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageCount=${pageCountNum }&search=${search }">${pageCountNum }개 </option>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -49,29 +49,29 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<c:set var="startPageNum" value="${Math.floor((pageNum-1)/10)*10+1}"/>
+	<c:set var="startPageNum" value="${Math.floor(Math.floor((pageNum-1)/10)*10+1)}"/>
 	<c:set var="endPageNum" value="${startPageNum+9 }"/>
 	<div id="section-content-page">
 		<c:choose>
 			<c:when test="${startPageNum>10}">
-		   		<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${startPageNum-1}&pageCount=${pageCount }">[이전]</a>
+		   		<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${Integer.valueOf(Math.floor(startPageNum-1))}&pageCount=${pageCount }&search=${search }">[이전]</a>
 			</c:when>
 		</c:choose>
 		<c:forEach var="i" begin="${startPageNum}"	end="${endPageNum}">
 			<c:if test="${i<=((boardInfo.postCount-1)/pageCount)+1 }">
 				<c:choose>
 					<c:when test="${i==pageNum }">
-						<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${i}&pageCount=${pageCount }"><span class="bold">[${i }]</span></a>
+						<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${i}&pageCount=${pageCount }&search=${search }"><span class="bold">[${i }]</span></a>
 					</c:when>
 					<c:otherwise>
-						<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${i}&pageCount=${pageCount }"><span class="underline">[${i }]</span></a>
+						<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${i}&pageCount=${pageCount }&search=${search }"><span class="underline">[${i }]</span></a>
 					</c:otherwise>
 				</c:choose>
 			</c:if>
 		</c:forEach>
 		<c:choose>
 			<c:when test="${endPageNum<((boardInfo.postCount-1)/pageCount)+1 }">
-				<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${endPageNum+1}&pageCount=${pageCount }">[다음]</a>
+				<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&boardNum=${boardInfo.boardNum}&pageNum=${Integer.valueOf(Math.floor(endPageNum+1))}&pageCount=${pageCount }&search=${search }">[다음]</a>
 			</c:when>
 		</c:choose>
 	</div>
