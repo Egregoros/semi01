@@ -1,25 +1,41 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 import javax.websocket.Session;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import dao.CafeListTableDao;
+import dao.CafeMainPicDao;
+import dao.CafeMemGradeDao;
+import dao.CafeMemberDao;
 import dao.CatTableDao;
+import dao.UserInfoDao;
+import vo.CafeListVo;
+import vo.CafeMainPicVo;
+import vo.CafeMemGradeVo;
+import vo.CafeMemberVo;
 import vo.CatTableVo;
+import vo.UserInfoVo;
 @WebServlet("/cafe/cafeCreate")
 public class CafeCreate extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		if(session.getAttribute("id") != null && session.getAttribute("pwd") != null) {
+		if(session.getAttribute("id") != null) {
 			req.setCharacterEncoding("utf-8");
 			CatTableDao catDao = CatTableDao.getInstance();
 			ArrayList<CatTableVo> catList = catDao.list();
@@ -33,21 +49,67 @@ public class CafeCreate extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println(1);
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		CafeListTableDao cafeListDao = new CafeListTableDao();
+		String saveDir =  getServletContext().getRealPath("/cafeMainPic");
+		
+		
+		MultipartRequest mr = new MultipartRequest(
+					req,
+					saveDir,
+					1024*1024*5,
+					"utf-8",
+					new DefaultFileRenamePolicy()
+				);
+		
+		String cafeName = mr.getParameter("cafeName");
+		String catName = mr.getParameter("catName");
+		String content = mr.getParameter("content");
+		
+		
 		CatTableDao catDao = CatTableDao.getInstance();
+		CatTableVo catVo = catDao.getCatVo(catName);
+		UserInfoDao userDao = new UserInfoDao();
+		UserInfoVo userVo = userDao.getOne(id);
+		CafeListVo cafeListVo = new CafeListVo(0, 0, catVo.getCatNum(), cafeName, userVo.getUserNum(), content, null);
+		int n = cafeListDao.insert(cafeListVo); // 카페번호 return.
 		
-		String cafeName = req.getParameter("cafeName");
-		String catName = req.getParameter("catName");
-		String file = req.getParameter("cafePicName");
-		String content = req.getParameter("content");
 		
-		System.out.println(cafeName);
-		System.out.println(catName);
-		System.out.println(file);
-		System.out.println(content);
+		req.setAttribute("cafeName", mr.getParameter("cafeName"));
+		req.setAttribute("catName", mr.getParameter("catName"));
+		req.setAttribute("content", mr.getParameter("content"));
+		req.setAttribute("orgFileName", mr.getOriginalFileName("cafePicName"));
+		req.setAttribute("saveFileName", mr.getFilesystemName("cafePicName"));
+		req.setAttribute("f", mr.getFile("cafePicName"));
+		req.setAttribute("id", id);
 		
+		req.getRequestDispatcher("/cafe/cafeCreate2").forward(req, resp);
+		
+		
+		if (n>0) {
+			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, id, 1); 
+			CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
+			cafeMemDao.insert(cafeMemVo);
+			
+			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "관리자");
+			CafeMemGradeDao cafeMemGradeDao = CafeMemGradeDao.getInstance();
+			cafeMemGradeDao.insert(cafeMemGradeVo);
+			
+			CafeMainPicDao cafeMainPicDao = CafeMainPicDao.getInstance();
+			CafeMainPicVo cafeMainPicVo = null;
+			
+			String orgFileName = mr.getOriginalFileName("cafePicName");
+			String saveFileName = mr.getFilesystemName("cafePicName");
+			File f = mr.getFile("cafePicName");
+			long fileSize = f.length();
+			
+			cafeMainPicVo = new CafeMainPicVo(0, cafeListDao.getMaxNum(), orgFileName, saveFileName, fileSize);
+			cafeMainPicDao.insert(cafeMainPicVo);
+		} else {
+			req.setAttribute("errMsg", "오류로 인해 카페 생성이 불가합니다.\n추후에 다시 시도해주시기 바랍니다.");
+		}
 		
 	}
 }

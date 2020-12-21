@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import db.DBCPBean;
 import vo.CafeListCatNameVo;
 import vo.CafeListVo;
+import vo.CafeMemberVo;
 
 public class CafeListTableDao {
 	
@@ -19,13 +20,12 @@ public class CafeListTableDao {
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
 		int maxNum = getMaxNum()+1;
+		CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
 		UserInfoDao userDao = new UserInfoDao();
 		
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into cafelist values (?, ?, ?, ?, ?, sysdate, ?)"; 
-			String sql1 = "insert into cafeMember values (?, ?, ?, 0, ?, sysdate)";
-			String sql2 = "insert into cafeMemberGrade values (?, ?, ?)";
+			String sql = "insert into cafelist values (?, ?, ?, ?, ?, ?, sysdate)"; 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum);
 			pstmt.setInt(2, maxNum);
@@ -33,22 +33,9 @@ public class CafeListTableDao {
 			pstmt.setString(4, vo.getCafeName());
 			pstmt.setInt(5, vo.getUserNum());
 			pstmt.setString(6, vo.getContent());
-			
-			pstmt2 = con.prepareStatement(sql2);
-			pstmt2.setInt(1, maxNum);
-			pstmt2.setInt(2, 0);
-			pstmt2.setString(3, "°ü¸®ÀÚ");
-			pstmt2.executeUpdate();
-			
-			pstmt1 = con.prepareStatement(sql1);
-			pstmt1.setInt(1, vo.getUserNum());
-			pstmt1.setInt(2, maxNum);
-			pstmt1.setString(3, userDao.getOne(vo.getUserNum()).getId());
-			pstmt1.setInt(4, 1);
-			pstmt.executeUpdate(sql1);
-			
 			int n = pstmt.executeUpdate();
-			return n;
+			
+			return maxNum;
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return -1;
@@ -142,6 +129,7 @@ public class CafeListTableDao {
 		try {
 			con = DBCPBean.getConn();
 			String sql = "select NVL(max(cafeNum),0) from cafeList";
+			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rs.next();
 			int maxNum = rs.getInt(1);

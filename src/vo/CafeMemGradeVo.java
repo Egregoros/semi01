@@ -6,16 +6,14 @@ public class CafeMemGradeVo {
 	private int cafeNum;
 	private int cafeMemGrade;
 	private String cafeMemGradeName;
-	private Date userRegDate;
 	
 	public CafeMemGradeVo() {}
 
-	public CafeMemGradeVo(int cafeNum, int cafeMemGrade, String cafeMemGradeName, Date userRegDate) {
+	public CafeMemGradeVo(int cafeNum, int cafeMemGrade, String cafeMemGradeName) {
 		super();
 		this.cafeNum = cafeNum;
 		this.cafeMemGrade = cafeMemGrade;
 		this.cafeMemGradeName = cafeMemGradeName;
-		this.userRegDate = userRegDate;
 	}
 
 	public int getCafeNum() {
@@ -41,14 +39,5 @@ public class CafeMemGradeVo {
 	public void setCafeMemGradeName(String cafeMemGradeName) {
 		this.cafeMemGradeName = cafeMemGradeName;
 	}
-
-	public Date getUserRegDate() {
-		return userRegDate;
-	}
-
-	public void setUserRegDate(Date userRegDate) {
-		this.userRegDate = userRegDate;
-	}
-	
 	
 }

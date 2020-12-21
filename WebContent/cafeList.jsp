@@ -148,7 +148,8 @@ table {
 							<a href="/myPage/myPageMain.jsp">마이페이지</a><br> <a
 								href="/myPage/myCafeList.jsp">내 카페 목록</a><br> <a
 								href="/login/update.jsp">정보수정</a><br> <a
-								href="${cp }/cafe/cafeCreate">카페생성</a><br>
+								href="${cp }/cafe/cafeCreate">카페생성</a><br><a
+								href = "${cp }/logout">로그아웃</a><br>
 						</div>
 					</c:when>
 					<c:otherwise>
