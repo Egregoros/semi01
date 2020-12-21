@@ -201,4 +201,33 @@ public class CafeListTableDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
+	
+	public CafeListVo getUserNum(int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CafeListVo cafeListVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafelist where cafeNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int userNum = rs.getInt("userNum");
+				int gradeNum = rs.getInt("gradNum");
+				int catNum = rs.getInt("catNum");
+				String cafeName = rs.getString("cafeName");
+				String content = rs.getString("content");
+				String cafeRegDate = rs.getString("cafeRegDate");
+				cafeListVo = new CafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, content, cafeRegDate);
+			}
+			return cafeListVo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
 }
