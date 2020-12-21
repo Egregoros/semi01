@@ -26,7 +26,7 @@
 			<th style="width: 530px;" class="left">제목</th>
 			<th style="width: 100px;" class="left">작성자</th>
 			<th style="width: 130px;" class="center">작성일</th>
-			<th style="width: 100px;" class="center">조회</th>
+			<th style="width: 100px;" class="center">조회</th> 
 		</tr>
 		<c:forEach items="${noticeInfo }" var="notice">
 			<tr class="notice">

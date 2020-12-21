@@ -408,7 +408,7 @@ public class CafeMainDao {
 			DBCPBean.close(con, pstmt, null);
 		}
 	}
-	
+	 
 	public PostVo getPostInfo(int postNum, int cafeNum) {
 		Connection con = null;
 		PreparedStatement pstmt1 = null;

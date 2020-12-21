@@ -24,7 +24,7 @@
 		<section>
 			<div id="section-nav">
 				<jsp:include page="cafe-section-nav.jsp">
-					<jsp:param value="${cafeInfo }" name="cafeInfo" />
+					<jsp:param value="${cafeInfo }" name="cafeInfo" /> 
 					<jsp:param value="${cafeNavList }" name="cafeNavList" />
 					<jsp:param value="${pageCount }" name="pageCount" />
 				</jsp:include>

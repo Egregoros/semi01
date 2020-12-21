@@ -62,7 +62,7 @@ public class CafeMain extends HttpServlet{
 			pageNum = Integer.parseInt((String)req.getParameter("pageNum"));
 		}catch(Exception e) {
 			pageNum=1;
-		}
+		} 
 		try {
 			int postNum = Integer.parseInt((String)req.getParameter("postNum"));
 			PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);

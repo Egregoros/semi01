@@ -140,7 +140,7 @@ table {
 
 		</div>
 
-		<div id="body">
+		<div id="body"> 
 			<div id="left">
 				<c:choose>
 					<c:when test="${sessionScope.userNum != null}">

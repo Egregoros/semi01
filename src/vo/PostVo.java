@@ -7,7 +7,7 @@ public class PostVo {
 	private int cafepostnum;
 	private int boardNum;
 	private String postTitle;
-	private String postContent;
+	private String postContent; 
 	private Date postDate;
 	private String userName;
 	private int postCatNum;
