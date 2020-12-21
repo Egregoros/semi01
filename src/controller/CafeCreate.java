@@ -73,26 +73,11 @@ public class CafeCreate extends HttpServlet{
 		CatTableVo catVo = catDao.getCatVo(catName);
 		UserInfoDao userDao = new UserInfoDao();
 		UserInfoVo userVo = userDao.getOne(id);
-		CafeListVo cafeListVo = new CafeListVo(0, 0, catVo.getCatNum(), cafeName, userVo.getUserNum(), content, null);
+		CafeListVo cafeListVo = new CafeListVo(0, 1, catVo.getCatNum(), cafeName, userVo.getUserNum(), content, null);
 		int n = cafeListDao.insert(cafeListVo); // 카페번호 return.
 		
 		
-		req.setAttribute("cafeName", mr.getParameter("cafeName"));
-		req.setAttribute("catName", mr.getParameter("catName"));
-		req.setAttribute("content", mr.getParameter("content"));
-		req.setAttribute("orgFileName", mr.getOriginalFileName("cafePicName"));
-		req.setAttribute("saveFileName", mr.getFilesystemName("cafePicName"));
-		req.setAttribute("f", mr.getFile("cafePicName"));
-		req.setAttribute("id", id);
-		
-		req.getRequestDispatcher("/cafe/cafeCreate2").forward(req, resp);
-		
-		
 		if (n>0) {
-			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, id, 1); 
-			CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
-			cafeMemDao.insert(cafeMemVo);
-			
 			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "관리자");
 			CafeMemGradeDao cafeMemGradeDao = CafeMemGradeDao.getInstance();
 			cafeMemGradeDao.insert(cafeMemGradeVo);
@@ -100,15 +85,21 @@ public class CafeCreate extends HttpServlet{
 			CafeMainPicDao cafeMainPicDao = CafeMainPicDao.getInstance();
 			CafeMainPicVo cafeMainPicVo = null;
 			
+			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, id, 0, 1, null); 
+			CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
+			cafeMemDao.insert(cafeMemVo);
+			
 			String orgFileName = mr.getOriginalFileName("cafePicName");
 			String saveFileName = mr.getFilesystemName("cafePicName");
 			File f = mr.getFile("cafePicName");
 			long fileSize = f.length();
 			
-			cafeMainPicVo = new CafeMainPicVo(0, cafeListDao.getMaxNum(), orgFileName, saveFileName, fileSize);
+			cafeMainPicVo = new CafeMainPicVo(0, n, orgFileName, saveFileName, fileSize);
 			cafeMainPicDao.insert(cafeMainPicVo);
+			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		} else {
 			req.setAttribute("errMsg", "오류로 인해 카페 생성이 불가합니다.\n추후에 다시 시도해주시기 바랍니다.");
+			req.getRequestDispatcher(req.getContextPath()+"/cafe/cafeCreate").forward(req, resp);
 		}
 		
 	}

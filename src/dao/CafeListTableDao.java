@@ -28,12 +28,12 @@ public class CafeListTableDao {
 			String sql = "insert into cafelist values (?, ?, ?, ?, ?, ?, sysdate)"; 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum);
-			pstmt.setInt(2, maxNum);
+			pstmt.setInt(2, vo.getGradeNum());
 			pstmt.setInt(3, vo.getCatNum());
 			pstmt.setString(4, vo.getCafeName());
 			pstmt.setInt(5, vo.getUserNum());
 			pstmt.setString(6, vo.getContent());
-			int n = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 			return maxNum;
 		} catch (SQLException se) {

@@ -19,7 +19,7 @@ public class CafeMainPicDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into cafemainpic values (fileinfo_seq, ?, ?, ?, ?)";
+			String sql = "insert into cafemainpic values (fileinfo_seq.nextval, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, vo.getCafeNum());
 			pstmt.setString(2, vo.getOrgFileName());

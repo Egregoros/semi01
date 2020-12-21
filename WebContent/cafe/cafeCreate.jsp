@@ -6,12 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>cafeCreate.jsp</title>
-<%
-	
-%>
 </head>
-<c:set var = "cp" value = "${pageContext.request.contextPath }" />
 <body>
+<c:set var="cp" value="${pageContext.request.contextPath }" />
 <div id = "wrapper">
 <div id = "header">
 <h1>카페생성</h1>
