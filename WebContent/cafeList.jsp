@@ -143,7 +143,7 @@ table {
 		<div id="body">
 			<div id="left">
 				<c:choose>
-					<c:when test="${sessionScope.id != null}">
+					<c:when test="${sessionScope.userNum != null}">
 						<div id="welcome">
 							<a href="/myPage/myPageMain.jsp">마이페이지</a><br> <a
 								href="/myPage/myCafeList.jsp">내 카페 목록</a><br> <a

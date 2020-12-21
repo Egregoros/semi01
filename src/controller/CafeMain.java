@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,14 +18,34 @@ public class CafeMain extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
+		CafeMainDao cmdao = CafeMainDao.getInstance();
 		int userNum = -1;
+		int cafeNum = Integer.parseInt((String)req.getParameter("cafeNum"));
 		try {
 			userNum = (int)session.getAttribute("userNum");
+			ArrayList<Integer> inviteCafe = new ArrayList<Integer>();
+			if(session.getAttribute("inviteCafe")!=null) {
+				inviteCafe=(ArrayList<Integer>)session.getAttribute("inviteCafe");
+				System.out.println(inviteCafe);
+			}
+			boolean visit = false;
+			for (int i = 0; i < inviteCafe.size(); i++) {
+				if(inviteCafe.get(i)==cafeNum) {
+					visit=true;
+				}
+			}
+			System.out.println(visit);
+			if(!visit) {
+				inviteCafe.add(cafeNum);
+				if(!(cmdao.invitePlus(cafeNum, userNum)>0)) {
+					req.getRequestDispatcher("/cafeList").forward(req, resp);
+				}else {
+					session.setAttribute("inviteCafe", inviteCafe);
+				}
+			}
 		}catch(NullPointerException ne) {
 			userNum=-1;
 		}
-		CafeMainDao cmdao = CafeMainDao.getInstance();
-		String cafeNum = (String)req.getParameter("cafeNum");
 		int boardNum=0;
 		try {
 			boardNum = Integer.parseInt((String)req.getParameter("boardNum"));
@@ -49,21 +68,21 @@ public class CafeMain extends HttpServlet{
 		int startRow = (pageNum-1)*pageCount+1;
 		int endRow = startRow+pageCount-1;
 		if(search==""||search==null) {
-			req.setAttribute("postInfo", cmdao.getCafePostList(Integer.parseInt(cafeNum), boardNum, startRow, endRow));
-			req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(Integer.parseInt(cafeNum), boardNum));
-			req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(Integer.parseInt(cafeNum), boardNum));
+			req.setAttribute("postInfo", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
+			req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
+			req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(cafeNum, boardNum));
 			search="";
 		}else {
-			req.setAttribute("postInfo", cmdao.getCafeSearchList(Integer.parseInt(cafeNum), startRow, endRow, search));
-			req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(Integer.parseInt(cafeNum), search));
+			req.setAttribute("postInfo", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
+			req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(cafeNum, search));
 		}
 		req.setAttribute("search", search);
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("pageCount", pageCount);
-		req.setAttribute("cafeInfo", cmdao.getCafeInfo(Integer.parseInt(cafeNum)));
-		req.setAttribute("cafeNavList", cmdao.getCafeNavList(Integer.parseInt(cafeNum)));
+		req.setAttribute("cafeInfo", cmdao.getCafeInfo(cafeNum));
+		req.setAttribute("cafeNavList", cmdao.getCafeNavList(cafeNum));
 		if(userNum>-1) {
-			req.setAttribute("userInfo", cmdao.getUserInfo(userNum, Integer.parseInt(cafeNum)));
+			req.setAttribute("userInfo", cmdao.getUserInfo(userNum, cafeNum));
 		}
 		
 		req.getRequestDispatcher("/jsp/cafe-main.jsp").forward(req, resp);

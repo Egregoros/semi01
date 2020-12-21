@@ -39,4 +39,30 @@ public class LoginDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
+	
+	public int getUserNum(HashMap<String, String> map) {
+		String id=map.get("id").toUpperCase();
+		String pwd=map.get("pwd");
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBCPBean.getConn();
+			String sql="select * from userinfo where id=? and pwd=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("usernum");
+			}else {
+				return 0;
+			}
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
 }

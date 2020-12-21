@@ -23,13 +23,12 @@ public class LoginController extends HttpServlet{
 		map.put("id", id);
 		map.put("pwd", pwd);
 		LoginDao dao=LoginDao.getInstance();
-		int a=dao.isUser(map);
-		if(a==1) {
+		int userNum = dao.getUserNum(map);
+		if(userNum>0) {
 			HttpSession session=req.getSession();
-			session.setAttribute("id", id);
-			session.setAttribute("pwd",pwd);
+			session.setAttribute("userNum",userNum);
 			resp.sendRedirect(req.getContextPath()+"/cafeList");
-		}else if(a==0){
+		}else{
 			req.setAttribute("errMsg", "아이디 또는 비밀번호가 틀렸습니다." + "<br>" + "입력하신 정보를 다시 확인해주세요.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 		}

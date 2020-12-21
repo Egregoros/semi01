@@ -32,12 +32,13 @@ public class CafeMainDao {
 		try {
 			con = DBCPBean.getConn();
 			String sql1 = "select c.*, to_char(caferegdate,'yyyy.mm.dd.') cr  from (select * from (cafelist natural join cafegrade natural join cafemember  natural join cafememgrade)) c where cafenum=?";
-			String sql2 = "select count(*) count from cafemember where cafenum=? and cafememgradenum!=0";
+			String sql2 = "select count(*) count from cafemember where cafenum=? and cafememgradenum!=(select cafememgradenum from cafememgrade where cafememgradename='ºñÈ¸¿ø' and cafenum=?)";
 			pstmt1 = con.prepareStatement(sql1);
 			pstmt1.setInt(1, cafeNum);
 			rs1 = pstmt1.executeQuery();
 			pstmt2 = con.prepareStatement(sql2);
 			pstmt2.setInt(1, cafeNum);
+			pstmt2.setInt(2, cafeNum);
 			rs2 = pstmt2.executeQuery();
 			if (rs1.next()&&rs2.next()) {
 				map.put("cafeAdmin",rs1.getString("cafememnick"));
@@ -378,6 +379,33 @@ public class CafeMainDao {
 			return null;
 		} finally {
 			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public int invitePlus(int cafeNum, int userNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBCPBean.getConn();
+			
+			String sql = "update cafemember set cafeinvitecount = (select cafeinvitecount+1 from cafemember where cafenum=? and usernum=?) where cafenum=? and usernum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			pstmt.setInt(2, userNum);
+			pstmt.setInt(3, cafeNum);
+			pstmt.setInt(4, userNum);
+			int i = pstmt.executeUpdate();
+			if (i>0) {
+				return 1;
+			}else {
+				return 0;
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
 		}
 	}
 }
