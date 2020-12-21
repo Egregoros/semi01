@@ -7,17 +7,19 @@ public class CafeListVo {
 	private int catNum;
 	private String cafeName;
 	private int userNum;
+	private String content;
 	private String cafeRegDate;
 	
 	public CafeListVo() {}
 	
-	public CafeListVo(int cafeNum, int gradeNum, int catNum, String cafeName, int userNum, String cafeRegDate) {
+	public CafeListVo(int cafeNum, int gradeNum, int catNum, String cafeName, int userNum,String content, String cafeRegDate) {
 		super();
 		this.cafeNum = cafeNum;
 		this.gradeNum = gradeNum;
 		this.catNum = catNum;
 		this.cafeName = cafeName;
 		this.userNum = userNum;
+		this.content = content;
 		this.cafeRegDate = cafeRegDate;
 	}
 
@@ -59,6 +61,14 @@ public class CafeListVo {
 
 	public void setUserNum(int userNum) {
 		this.userNum = userNum;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getCafeRegDate() {

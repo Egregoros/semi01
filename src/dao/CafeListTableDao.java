@@ -13,24 +13,49 @@ import vo.CafeListVo;
 
 public class CafeListTableDao {
 	
-	public int insert(String cafeName) {
+	public int insert(CafeListVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		int maxNum = getMaxNum()+1;
+		UserInfoDao userDao = new UserInfoDao();
+		
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into cafelist values (?, grade_num, catnum, ?, usernum)"; 
-			//카페이름 쓰는 란이 없어보임. 필요할듯
+			String sql = "insert into cafelist values (?, ?, ?, ?, ?, sysdate, ?)"; 
+			String sql1 = "insert into cafeMember values (?, ?, ?, 0, ?, sysdate)";
+			String sql2 = "insert into cafeMemberGrade values (?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, getMaxNum()+1);
-			pstmt.setString(2, cafeName);
+			pstmt.setInt(1, maxNum);
+			pstmt.setInt(2, maxNum);
+			pstmt.setInt(3, vo.getCatNum());
+			pstmt.setString(4, vo.getCafeName());
+			pstmt.setInt(5, vo.getUserNum());
+			pstmt.setString(6, vo.getContent());
+			
+			pstmt2 = con.prepareStatement(sql2);
+			pstmt2.setInt(1, maxNum);
+			pstmt2.setInt(2, 0);
+			pstmt2.setString(3, "관리자");
+			pstmt2.executeUpdate();
+			
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, vo.getUserNum());
+			pstmt1.setInt(2, maxNum);
+			pstmt1.setString(3, userDao.getOne(vo.getUserNum()).getId());
+			pstmt1.setInt(4, 1);
+			pstmt.executeUpdate(sql1);
+			
 			int n = pstmt.executeUpdate();
 			return n;
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return -1;
 		} finally {
-			DBCPBean.close(con, pstmt, rs);
+			DBCPBean.close(pstmt1);
+			DBCPBean.close(pstmt2);
+			DBCPBean.close(con, pstmt, null);
 		}
 	}
 	
@@ -96,7 +121,8 @@ public class CafeListTableDao {
 				String cafeName = rs.getString("cafeName");
 				int userNum = rs.getInt("userNum");
 				String cafeRegDate = rs.getDate("cafeRegDate").toString();
-				CafeListVo vo = new CafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, cafeRegDate);
+				String content = rs.getString("content");
+				CafeListVo vo = new CafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, cafeRegDate, content);
 				list.add(vo);
 			}
 			return list;

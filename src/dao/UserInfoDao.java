@@ -1,7 +1,9 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import db.DBCPBean;
@@ -46,6 +48,70 @@ public class UserInfoDao {
 			return -1;
 		} finally {
 			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public UserInfoVo getOne (int userNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		UserInfoVo userVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from userinfo where usernum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, userNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String id = rs.getString("id");
+				String pwd = rs.getString("pwd");
+				String name = rs.getString("name");
+				String nickName = rs.getString("nickname");
+				String addr = rs.getString("addr");
+				String email = rs.getString("email");
+				Date birth = rs.getDate("birth");
+				String phone = rs.getString("phone");
+				int isLive = rs.getInt("islive");
+				userVo = new UserInfoVo(userNum, id, pwd, nickName, nickName, addr, email, birth, phone, isLive);
+			}
+			return userVo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public UserInfoVo getOne (String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		UserInfoVo userVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from userinfo where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int userNum = rs.getInt("userNum");
+				String pwd = rs.getString("pwd");
+				String name = rs.getString("name");
+				String nickName = rs.getString("nickname");
+				String addr = rs.getString("addr");
+				String email = rs.getString("email");
+				Date birth = rs.getDate("birth");
+				String phone = rs.getString("phone");
+				int isLive = rs.getInt("islive");
+				userVo = new UserInfoVo(userNum, id, pwd, nickName, nickName, addr, email, birth, phone, isLive);
+			}
+			return userVo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
 		}
 	}
 }

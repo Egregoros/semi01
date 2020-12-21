@@ -42,4 +42,29 @@ public class CatTableDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
+	
+	public CatTableVo getCatVo(String catName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CatTableVo vo = null;
+		String sql = "select * from cafecat where catName = ?";
+		try {
+			con = DBCPBean.getConn();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, catName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int catNum = rs.getInt("catNum");
+				String catName1 = rs.getString("catName");
+				vo = new CatTableVo(catNum, catName1);
+			}
+			return vo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
 }
