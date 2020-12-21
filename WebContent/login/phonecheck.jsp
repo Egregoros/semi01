@@ -8,16 +8,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String id=request.getParameter("id").toUpperCase();
+	String phone=request.getParameter("phone");
 	Connection con=null;
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
 	Boolean using=false;
 	try{
 		con=DBCPBean.getConn();
-		String sql="select * from (select upper(id) id from userinfo) where id=?";
+		String sql="select * from userinfo where phone=?";
 		pstmt=con.prepareStatement(sql);
-		pstmt.setString(1, id);
+		pstmt.setString(1, phone);
 		rs=pstmt.executeQuery();
 		if(rs.next()){
 			using=true;

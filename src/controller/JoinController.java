@@ -16,7 +16,7 @@ public class JoinController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String id=req.getParameter("id").toUpperCase();		
+		String id=req.getParameter("id");		
 		String pwd=req.getParameter("pwd");
 		String name=req.getParameter("name");
 		String nickname=req.getParameter("nickname");
@@ -25,7 +25,7 @@ public class JoinController extends HttpServlet{
 		String birth=req.getParameter("birth");
 		Date d=Date.valueOf(birth);
 		String phone=req.getParameter("phone");
-		UserInfoVo uiv=new UserInfoVo(0, id, pwd, nickname, nickname, addr, email, d, phone, 1);
+		UserInfoVo uiv=new UserInfoVo(0, id, pwd, name, nickname, addr, email, d, phone, 1);
 		UserInfoDao dao=new UserInfoDao();
 		String resultCode="success";
 		
