@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</c:if>
-		<a id="write" class="underline" href="">카페 글쓰기</a>
+		<a id="write" class="underline" href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&writeCafeNum=${cafeInfo['cafeNum']}">카페 글쓰기</a>
 	</div>
 </div>
 <div id="section-nav-list">

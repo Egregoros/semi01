@@ -41,6 +41,13 @@
 							<jsp:param value="${postCommentCount }" name="postCommentCount" />
 						</jsp:include>
 					</c:when>
+					<c:when test="${writeCafeNum!=null }">
+						<jsp:include page="cafe-write.jsp">
+							<jsp:param value="${userInfo }" name="userInfo" />
+							<jsp:param value="${cafeNavList }" name="cafeNavList" />
+							<jsp:param value="${postCatList }" name="postCatList"/>
+						</jsp:include>
+					</c:when>
 					<c:otherwise>
 						<jsp:include page="cafe-section-content.jsp">
 							<jsp:param value="${postList }" name="postInfo" />

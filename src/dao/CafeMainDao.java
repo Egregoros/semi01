@@ -101,6 +101,7 @@ public class CafeMainDao {
 				map.put("userNick",rs2.getString("cafememnick"));
 				map.put("userRegdate",rs2.getString("cr"));
 				map.put("userGrade",rs2.getString("cafememgradename"));
+				map.put("userGradeNum",rs2.getString("cafememgradenum"));
 				map.put("userInvite",rs2.getString("cafeinvitecount"));
 				map.put("userCountPost",rs3.getString("count"));
 				map.put("userCountPostComment",rs4.getString("count"));
@@ -142,7 +143,7 @@ public class CafeMainDao {
 				ArrayList<CafeNavBoardVo> board = new ArrayList<CafeNavBoardVo>();
 				while(rs2.next()) {
 					if(rs2.getInt("boardcatnum")==rs1.getInt("boardcatnum")) {
-						board.add(new CafeNavBoardVo(rs2.getInt("boardnum"), rs2.getString("boardName")));
+						board.add(new CafeNavBoardVo(rs2.getInt("boardnum"),rs2.getInt("cafeboardnum"), rs2.getString("boardname")));
 					}
 				}
 				rs2.absolute(1);
@@ -428,7 +429,9 @@ public class CafeMainDao {
 			pstmt2.setInt(1, postNum);
 			pstmt2.setInt(2, cafeNum);
 			int i = pstmt1.executeUpdate();
-			rs2 = pstmt2.executeQuery();
+			if(i>0) {
+				rs2 = pstmt2.executeQuery();
+			}
 			PostVo vo = null;
 			while (rs2.next()) {
 				vo=new PostVo(postNum, rs2.getInt("cafepostnum"), rs2.getInt("boardnum"), rs2.getString("posttitle"), rs2.getString("postcontent").replaceAll("\n", "<br>"), rs2.getDate("postdate"), rs2.getString("cafememnick"),rs2.getInt("usernum"), rs2.getInt("postcatnum"), rs2.getInt("postInviteCount"));
@@ -519,6 +522,51 @@ public class CafeMainDao {
 			pstmt1.setInt(1, postNum);
 			pstmt1.setInt(2, userNum);
 			pstmt1.setString(3, comment);
+			int i = pstmt1.executeUpdate();
+			return i;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt1, null);
+		}
+	}
+	
+	public HashMap<Integer, String> getPostCatList() {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "select * from postcat";
+			pstmt1 = con.prepareStatement(sql1);
+			rs=pstmt1.executeQuery();
+			HashMap<Integer, String> map = new HashMap<Integer, String>();
+			while(rs.next()) {
+				map.put(rs.getInt("postcatnum"), rs.getString("postcatname"));
+			}
+			return map;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt1, null);
+		}
+	}
+	
+	public int insertPost(int userNum, int boardNum, String postTitle, String postContent, int postCatNum) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "insert into post values((select max(postnum)+1 from post),(select max(postnum)+1 from post natural join cafeboard natural join cafeboardcat where cafenum=(select cafenum from cafeboard natural join cafeboardcat where boardnum=?)),?,?,?,sysdate,?,?,0)";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, boardNum);
+			pstmt1.setInt(2, boardNum);
+			pstmt1.setString(3, postTitle);
+			pstmt1.setString(4, postContent);
+			pstmt1.setInt(5, userNum);
+			pstmt1.setInt(6, postCatNum);
 			int i = pstmt1.executeUpdate();
 			return i;
 		} catch (SQLException se) {

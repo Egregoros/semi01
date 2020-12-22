@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,52 +53,68 @@ public class CafeMain extends HttpServlet{
 		}catch(Exception e) {
 			boardNum=0;
 		}
-		int pageCount=10;
-		try {
-			pageCount = Integer.parseInt((String)req.getParameter("pageCount"));
-		}catch(Exception e) {
-			pageCount=10;
+		HashMap<String, String> userInfo=null;
+		if(userNum>-1) {
+			userInfo =cmdao.getUserInfo(userNum, cafeNum);
+			req.setAttribute("userInfo", userInfo);
 		}
-		int pageNum=1;
-		try {
-			pageNum = Integer.parseInt((String)req.getParameter("pageNum"));
-		}catch(Exception e) {
-			pageNum=1;
-		} 
-		int startRow = (pageNum-1)*pageCount+1;
-		int endRow = startRow+pageCount-1;
-		try {
-			int postNum = Integer.parseInt((String)req.getParameter("postNum"));
-			PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
-			if(postInfo!=null) { 
-				req.setAttribute("postInfo", postInfo);
-				ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
-				req.setAttribute("postCommentList", postCommentList);
+		
+		try{
+			int writeCafeNum=Integer.parseInt((String)req.getParameter("writeCafeNum"));
+			try {
+				if(Integer.parseInt(userInfo.get("userGradeNum"))==2||userInfo==null) {
+					resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
+					return;
+				}
+			}catch(Exception ee) {
+				resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
+				return;
 			}
+			req.setAttribute("writeCafeNum", writeCafeNum);
+			req.setAttribute("postCatList", cmdao.getPostCatList());
 		}catch(Exception e) {
-			
+			int pageCount=10;
+			try {
+				pageCount = Integer.parseInt((String)req.getParameter("pageCount"));
+			}catch(Exception ee) {
+				pageCount=10;
+			}
+			int pageNum=1;
+			try {
+				pageNum = Integer.parseInt((String)req.getParameter("pageNum"));
+			}catch(Exception ee) {
+				pageNum=1;
+			} 
+			int startRow = (pageNum-1)*pageCount+1;
+			int endRow = startRow+pageCount-1;
+			try {
+				int postNum = Integer.parseInt((String)req.getParameter("postNum"));
+				PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
+				if(postInfo!=null) { 
+					req.setAttribute("postInfo", postInfo);
+					ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
+					req.setAttribute("postCommentList", postCommentList);
+				}
+			}catch(Exception ee) {
+				
+			}
+			String search=req.getParameter("search");
+			if(search==""||search==null) {
+				req.setAttribute("postList", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
+				req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
+				req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(cafeNum, boardNum));
+				search="";
+			}else {
+				req.setAttribute("postList", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
+				req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(cafeNum, search));
+			}
+			req.setAttribute("search", search);
+			req.setAttribute("pageNum", pageNum);
+			req.setAttribute("pageCount", pageCount);
+			req.setAttribute("postCommentCount", cmdao.getPostCommentCount());
 		}
-		String search=req.getParameter("search");
-		if(search==""||search==null) {
-			req.setAttribute("postList", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
-			req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
-			req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(cafeNum, boardNum));
-			search="";
-		}else {
-			req.setAttribute("postList", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
-			req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(cafeNum, search));
-		}
-		
-		
-		req.setAttribute("search", search);
-		req.setAttribute("pageNum", pageNum);
-		req.setAttribute("pageCount", pageCount);
-		req.setAttribute("postCommentCount", cmdao.getPostCommentCount());
 		req.setAttribute("cafeInfo", cmdao.getCafeInfo(cafeNum));
 		req.setAttribute("cafeNavList", cmdao.getCafeNavList(cafeNum));
-		if(userNum>-1) {
-			req.setAttribute("userInfo", cmdao.getUserInfo(userNum, cafeNum));
-		}
 		
 		req.getRequestDispatcher("/jsp/cafe-main.jsp").forward(req, resp);
 	
