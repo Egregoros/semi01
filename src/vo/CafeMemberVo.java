@@ -1,19 +1,26 @@
 package vo;
 
+import java.sql.Date;
+
 public class CafeMemberVo {
 	private int userNum;
 	private int cafeNum;
 	private String cafeMemNick;
-	private int cafeMemGrade;
+	private int cafeMemGradeNum;
+	private int cafeInviteCount;
+	private Date cafeMemRegDate;
 	
 	public CafeMemberVo() {}
 
-	public CafeMemberVo(int userNum, int cafeNum, String cafeMemNick, int cafeMemGrade) {
+	public CafeMemberVo(int userNum, int cafeNum, String cafeMemNick, int cafeMemGradeNum, int cafeInviteCount, Date cafeMemRegDate) {
 		super();
 		this.userNum = userNum;
 		this.cafeNum = cafeNum;
 		this.cafeMemNick = cafeMemNick;
-		this.cafeMemGrade = cafeMemGrade;
+		this.cafeMemGradeNum = cafeMemGradeNum;
+		this.cafeInviteCount = cafeInviteCount;
+		this.cafeMemRegDate = cafeMemRegDate;
+		
 	}
 
 	public int getUserNum() {
@@ -40,12 +47,28 @@ public class CafeMemberVo {
 		this.cafeMemNick = cafeMemNick;
 	}
 
-	public int getCafeMemGrade() {
-		return cafeMemGrade;
+	public int getCafeMemGradeNum() {
+		return cafeMemGradeNum;
 	}
 
-	public void setCafeMemGrade(int cafeMemGrade) {
-		this.cafeMemGrade = cafeMemGrade;
+	public void setCafeMemGradeNum(int cafeMemGradeNum) {
+		this.cafeMemGradeNum = cafeMemGradeNum;
+	}
+
+	public int getCafeInviteCount() {
+		return cafeInviteCount;
+	}
+
+	public void setCafeInviteCount(int cafeInviteCount) {
+		this.cafeInviteCount = cafeInviteCount;
+	}
+
+	public Date getCafeMemRegDate() {
+		return cafeMemRegDate;
+	}
+
+	public void setCafeMemRegDate(Date cafeMemRegDate) {
+		this.cafeMemRegDate = cafeMemRegDate;
 	}
 	
 	

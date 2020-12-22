@@ -28,12 +28,12 @@ public class CafeListTableDao {
 			String sql = "insert into cafelist values (?, ?, ?, ?, ?, ?, sysdate)"; 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum);
-			pstmt.setInt(2, maxNum);
+			pstmt.setInt(2, vo.getGradeNum());
 			pstmt.setInt(3, vo.getCatNum());
 			pstmt.setString(4, vo.getCafeName());
 			pstmt.setInt(5, vo.getUserNum());
 			pstmt.setString(6, vo.getContent());
-			int n = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 			return maxNum;
 		} catch (SQLException se) {
@@ -194,6 +194,35 @@ public class CafeListTableDao {
 				list.add(vo);
 			}
 			return list;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public CafeListVo getUserNum(int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CafeListVo cafeListVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafelist where cafeNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int userNum = rs.getInt("userNum");
+				int gradeNum = rs.getInt("gradNum");
+				int catNum = rs.getInt("catNum");
+				String cafeName = rs.getString("cafeName");
+				String content = rs.getString("content");
+				String cafeRegDate = rs.getString("cafeRegDate");
+				cafeListVo = new CafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, content, cafeRegDate);
+			}
+			return cafeListVo;
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;

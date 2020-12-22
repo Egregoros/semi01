@@ -23,12 +23,13 @@ public class CafeMemberDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into cafemember values (?, ?, ?, ?)";
+			String sql = "insert into cafemember values (?, ?, ?, ?, ?,sysdate)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, vo.getUserNum());
 			pstmt.setInt(2, vo.getCafeNum());
 			pstmt.setString(3, vo.getCafeMemNick());
-			pstmt.setInt(4, vo.getCafeMemGrade());
+			pstmt.setInt(4, vo.getCafeMemGradeNum());
+			pstmt.setInt(5, 1);
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -87,8 +88,9 @@ public class CafeMemberDao {
 				int userNum = rs.getInt("userNum");
 				int cafeNum = rs.getInt("cafeNum");
 				String cafeMemNick = rs.getString("cafeMemNick");
-				int cafeMemGrade = rs.getInt("cafeMemGrade");
-				CafeMemberVo vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGrade);
+				int cafeMemGradeNum = rs.getInt("cafeMemGradeNum");
+				int cafeInviteCount = rs.getInt("cafeInviteCount");
+				CafeMemberVo vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGradeNum, cafeInviteCount, null);
 				list.add(vo);
 			}
 			
@@ -125,7 +127,9 @@ public class CafeMemberDao {
 					int cafeNum = rs2.getInt("cafeNum");
 					String cafeMemNick = rs2.getString("cafeMemNick");
 					int cafeMemGrade = rs2.getInt("cafeMemGrade");
-					vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGrade);
+					int cafeMemGradeNum = rs2.getInt("cafeGradeNum");
+					int cafeInviteCount = rs2.getInt("cafeInviteCount");
+					vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGradeNum, cafeInviteCount, null);
 				} else {
 					//시스템오류
 				}
