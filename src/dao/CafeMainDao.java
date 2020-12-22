@@ -436,7 +436,7 @@ public class CafeMainDao {
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;
-		} finally {
+		} finally { 
 			DBCPBean.close(null, pstmt2, rs2);
 			DBCPBean.close(con, pstmt1, rs1);
 		}

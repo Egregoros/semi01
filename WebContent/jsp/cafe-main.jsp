@@ -29,7 +29,7 @@
 					<jsp:param value="${pageCount }" name="pageCount" />
 				</jsp:include>
 			</div>
-
+ 
 			<div id="section-content">
 				<c:choose>
 					<c:when test="${postInfo != null}">

@@ -1,7 +1,7 @@
 package vo;
 
 import java.sql.Date;
-
+ 
 public class PostCommentVo {
 	private int commentNum;
 	private int postNum;

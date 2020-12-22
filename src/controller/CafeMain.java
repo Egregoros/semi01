@@ -69,7 +69,7 @@ public class CafeMain extends HttpServlet{
 		try {
 			int postNum = Integer.parseInt((String)req.getParameter("postNum"));
 			PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
-			if(postInfo!=null) {
+			if(postInfo!=null) { 
 				req.setAttribute("postInfo", postInfo);
 				ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
 				req.setAttribute("postCommentList", postCommentList);

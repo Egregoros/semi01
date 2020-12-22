@@ -40,7 +40,7 @@
 				<span style="margin-right: 10px; font-size: 0.8em;">${comment['userName'] }</span><span style="margin-right: 10px; font-size: 0.6em;">${comment['commentRegdate'] }</span><span style="margin-right: 10px; font-size: 0.8em;">${comment['postComment'] }</span><c:if test="${comment['userNum']==userNum }"><button>삭제</button></c:if>
 			</div>
 		</c:forEach>
-	</div>
+	</div> 
 </c:if>
 <c:set var="startPageNum" value="${Math.floor(Math.floor((pageNum-1)/10)*10+1)}"/>
 <c:set var="endPageNum" value="${startPageNum+9 }"/>

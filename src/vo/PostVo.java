@@ -33,7 +33,7 @@ public class PostVo {
 
 	public int getPostNum() {
 		return postNum;
-	}
+	} 
 
 	public void setPostNum(int postNum) {
 		this.postNum = postNum;
