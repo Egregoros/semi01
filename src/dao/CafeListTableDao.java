@@ -83,6 +83,28 @@ public class CafeListTableDao {
 		}
 	}
 	
+	public int update(CafeListVo vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "update cafelist set cafename = ?, catnum = ?, content = ? where cafenum = ?";
+		try {
+			con = DBCPBean.getConn();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getCafeName());
+			pstmt.setInt(2, vo.getCatNum());
+			pstmt.setString(3,vo.getContent());
+			pstmt.setInt(4, vo.getCafeNum());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
 	public ArrayList<CafeListVo> list(int startRow, int endRow, String field, String keyword) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -215,7 +237,7 @@ public class CafeListTableDao {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				int userNum = rs.getInt("userNum");
-				int gradeNum = rs.getInt("gradNum");
+				int gradeNum = rs.getInt("gradeNum");
 				int catNum = rs.getInt("catNum");
 				String cafeName = rs.getString("cafeName");
 				String content = rs.getString("content");
@@ -231,4 +253,33 @@ public class CafeListTableDao {
 		}
 	}
 	
+	public CafeListVo getOne(String cafeName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CafeListVo cafeListVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafelist where cafename = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cafeName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int userNum = rs.getInt("userNum");
+				int gradeNum = rs.getInt("gradeNum");
+				int catNum = rs.getInt("catNum");
+				int cafeNum= rs.getInt("cafeNum");
+				String content = rs.getString("content");
+				String cafeRegDate = rs.getString("cafeRegDate");
+				cafeListVo = new CafeListVo(cafeNum, gradeNum, catNum, cafeName, userNum, content, cafeRegDate);
+			}
+			return cafeListVo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+
 }

@@ -8,7 +8,7 @@
 <title>cafe/cafeUpdate.jsp</title>
 </head>
 <body>
-
+<c:set var = "cp" value = "${pageContext.request.contextPath }"/>
 
 <div id = "wrapper">
 <div id = "header">
@@ -17,7 +17,7 @@
 <div id = "body">
 
 <c:set var = "cafeListVo" value = "${cafeListVo }"></c:set>
-<form method = "post" action = "${cp }/cafe/cafeCreate" enctype = "multipart/form-data">
+<form method = "post" action = "${cp }/cafe/cafeUpdate">
 	카페이름 : <input type = "text" name = "cafeName" value = "${cafeListVo.cafeName }"><br>
 	카테고리: 
 	<select id = "catName" name = "catName">
@@ -25,9 +25,9 @@
 			<option value="${cvo.catName }">${cvo.catName }</option>
 		</c:forEach>
 	</select><br>
-	카페 대문 사진 : <input type = "file" name = "cafePicName"><br>
-	카페 설명: <textarea rows="5" cols="50" name = "content"></textarea><br>
-	<input type = "submit" value = "카페생성">
+	카페 설명: <textarea rows="5" cols="50" name = "content">${cafeListVo.content }</textarea><br>
+	<input type = "submit" value = "카페수정">
+	<input type = "text" name = "cafeNum" value = "${cafeListVo.cafeNum }" hidden="hidden">
 </form>
 
 </div>

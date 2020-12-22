@@ -35,7 +35,7 @@ public class CafeCreate extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		if(session.getAttribute("id") != null) {
+		if(session.getAttribute("userNum") != null) {
 			req.setCharacterEncoding("utf-8");
 			CatTableDao catDao = CatTableDao.getInstance();
 			ArrayList<CatTableVo> catList = catDao.list();
@@ -51,7 +51,7 @@ public class CafeCreate extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
-		String id = (String)session.getAttribute("id");
+		Integer userNum = (Integer)session.getAttribute("userNum");
 		CafeListTableDao cafeListDao = new CafeListTableDao();
 		String saveDir =  getServletContext().getRealPath("/cafeMainPic");
 		
@@ -72,7 +72,7 @@ public class CafeCreate extends HttpServlet{
 		CatTableDao catDao = CatTableDao.getInstance();
 		CatTableVo catVo = catDao.getCatVo(catName);
 		UserInfoDao userDao = new UserInfoDao();
-		UserInfoVo userVo = userDao.getOne(id);
+		UserInfoVo userVo = userDao.getOne(userNum);
 		CafeListVo cafeListVo = new CafeListVo(0, 1, catVo.getCatNum(), cafeName, userVo.getUserNum(), content, null);
 		int n = cafeListDao.insert(cafeListVo); // 카페번호 return.
 		
@@ -85,7 +85,7 @@ public class CafeCreate extends HttpServlet{
 			CafeMainPicDao cafeMainPicDao = CafeMainPicDao.getInstance();
 			CafeMainPicVo cafeMainPicVo = null;
 			
-			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, id, 0, 1, null); 
+			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, userVo.getId(), 0, 1, null); 
 			CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
 			cafeMemDao.insert(cafeMemVo);
 			
