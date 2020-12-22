@@ -27,7 +27,7 @@ public class CafeUpdate extends HttpServlet{
 		String id = (String)session.getAttribute("id");
 		UserInfoDao userDao = new UserInfoDao();
 		UserInfoVo userVo = userDao.getOne(id);
-		int userNum = userVo.getUserNum();
+		int userNum = Integer.parseInt((String)session.getAttribute("userNum"));
 		
 		CafeListTableDao cafeListDao = new CafeListTableDao();
 		CafeListVo cafeListVo = cafeListDao.getOne(cafeNum);

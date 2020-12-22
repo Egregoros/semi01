@@ -15,8 +15,11 @@
 	</c:if>
 </div>
 <div id="post-comment" style="margin-top: 30px;">
-	<form action="">
+	<form action="${pageContext.request.contextPath }/commentInsert">
 		<textarea style="width:100%;height: 60px;" name="comment"></textarea>
+		<input type="hidden" name="cafeNum" value="${cafeInfo['cafeNum'] }">
+		<input type="hidden" name="postNum" value="${postInfo['postNum'] }">
+		<input type="hidden" name="pageCount" value="${pageCount }">
 		<input type="submit" value="댓글 입력">
 	</form>
 </div>

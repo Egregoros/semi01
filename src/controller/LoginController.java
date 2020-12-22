@@ -15,7 +15,7 @@ import dao.LoginDao;
 @WebServlet("/login/login")
 public class LoginController extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		String id=req.getParameter("id").toUpperCase();
 		String pwd=req.getParameter("pwd");

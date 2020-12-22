@@ -508,4 +508,25 @@ public class CafeMainDao {
 			DBCPBean.close(con, pstmt1, null);
 		}
 	}
+	
+	public int insertComment(int userNum, int postNum, String comment) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "insert into postcomment values((select max(commentnum)+1 from postcomment),?,?,?,sysdate) ";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, postNum);
+			pstmt1.setInt(2, userNum);
+			pstmt1.setString(3, comment);
+			int i = pstmt1.executeUpdate();
+			return i;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt1, null);
+		}
+	}
+	
 }
