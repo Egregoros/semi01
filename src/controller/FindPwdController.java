@@ -1,46 +1,36 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.DBCPBean;
+import dao.LoginDao;
 
+@WebServlet("/findpwd")
 public class FindPwdController extends HttpServlet{
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		@Override
+		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id=req.getParameter("id");
 		String phone=req.getParameter("phone");
-		String pwd=req.getParameter("pwd");
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String id=null;
-		try{
-			con=DBCPBean.getConn();
-			String sql="select * from userinfo where phone=? and pwd=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, phone);
-			pstmt.setString(2, pwd);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				id=rs.getString("id");
-			}
-		}catch(SQLException se){
-			se.printStackTrace();
-		}finally{
-			DBCPBean.close(con, pstmt, rs);
+		LoginDao dao=LoginDao.getInstance();
+		HashMap<String, String> hm=new HashMap<String, String>();
+		hm.put("id", id);
+		hm.put("phone",phone);
+		String n=dao.findPwd(hm);
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw=resp.getWriter();
+		pw.print("<result>");
+		if(n!=null) {
+			pw.print("회원님의 비밀번호는" + n + "입니다.");
+		}else {
+			pw.print("입력하신 아이디 또는 휴대폰 번호와 일치하는 비밀번호가 없습니다.");
 		}
-		if(id!=null){
-			System.out.print("회원님의 아이디는 " + id + "입니다.");
-		}else{
-			System.out.print("입력하신 휴대폰번호 또는 비밀번호와 일치하는 아이디가 없습니다.");
-		}
+		pw.print("</result>");
 	}
 }
