@@ -35,11 +35,16 @@
 					<c:when test="${postInfo != null}">
 						<jsp:include page="cafe-post.jsp">
 							<jsp:param value="${postInfo }" name="postInfo" />
+							<jsp:param value="${pageNum }" name="pageNum" />
+							<jsp:param value="${pageCount }" name="pageCount" />
+							<jsp:param value="${postCommentList }" name="postCommentList" />
+							<jsp:param value="${postCommentCount }" name="postCommentCount" />
 						</jsp:include>
 					</c:when>
 					<c:otherwise>
 						<jsp:include page="cafe-section-content.jsp">
 							<jsp:param value="${postList }" name="postInfo" />
+							<jsp:param value="${postCommentCount }" name="postCommentCount" />
 							<jsp:param value="${boardInfo }" name="boardInfo" />
 							<jsp:param value="${noticeInfo }" name="noticeInfo" />
 							<jsp:param value="${pageNum }" name="pageNum" />

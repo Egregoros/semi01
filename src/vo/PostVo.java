@@ -10,13 +10,14 @@ public class PostVo {
 	private String postContent; 
 	private Date postDate;
 	private String userName;
+	private int userNum;
 	private int postCatNum;
 	private int postInviteCount;
 	
 	public PostVo() {}
 
-	public PostVo(int postNum, int cafepostnum, int boardNum, String postTitle, String postContent,
-			Date postDate, String userName, int postCatNum, int postInviteCount) {
+	public PostVo(int postNum, int cafepostnum, int boardNum, String postTitle, String postContent, Date postDate,
+			String userName, int userNum, int postCatNum, int postInviteCount) {
 		super();
 		this.postNum = postNum;
 		this.cafepostnum = cafepostnum;
@@ -25,6 +26,7 @@ public class PostVo {
 		this.postContent = postContent;
 		this.postDate = postDate;
 		this.userName = userName;
+		this.userNum = userNum;
 		this.postCatNum = postCatNum;
 		this.postInviteCount = postInviteCount;
 	}
@@ -85,6 +87,14 @@ public class PostVo {
 		this.userName = userName;
 	}
 
+	public int getUserNum() {
+		return userNum;
+	}
+
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
+	}
+
 	public int getPostCatNum() {
 		return postCatNum;
 	}
@@ -100,6 +110,4 @@ public class PostVo {
 	public void setPostInviteCount(int postInviteCount) {
 		this.postInviteCount = postInviteCount;
 	}
-
-	
 }

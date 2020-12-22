@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.CafeMainDao;
 import vo.PostVo;
+import vo.PostCommentVo;
 
 @WebServlet("/jsp/cafe-main.do")
 public class CafeMain extends HttpServlet{
@@ -63,18 +64,20 @@ public class CafeMain extends HttpServlet{
 		}catch(Exception e) {
 			pageNum=1;
 		} 
+		int startRow = (pageNum-1)*pageCount+1;
+		int endRow = startRow+pageCount-1;
 		try {
 			int postNum = Integer.parseInt((String)req.getParameter("postNum"));
 			PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
 			if(postInfo!=null) {
 				req.setAttribute("postInfo", postInfo);
+				ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
+				req.setAttribute("postCommentList", postCommentList);
 			}
 		}catch(Exception e) {
 			
 		}
 		String search=req.getParameter("search");
-		int startRow = (pageNum-1)*pageCount+1;
-		int endRow = startRow+pageCount-1;
 		if(search==""||search==null) {
 			req.setAttribute("postList", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
 			req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
@@ -89,6 +92,7 @@ public class CafeMain extends HttpServlet{
 		req.setAttribute("search", search);
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("postCommentCount", cmdao.getPostCommentCount());
 		req.setAttribute("cafeInfo", cmdao.getCafeInfo(cafeNum));
 		req.setAttribute("cafeNavList", cmdao.getCafeNavList(cafeNum));
 		if(userNum>-1) {
@@ -96,41 +100,7 @@ public class CafeMain extends HttpServlet{
 		}
 		
 		req.getRequestDispatcher("/jsp/cafe-main.jsp").forward(req, resp);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		if(session.getAttribute("userNum")!=null) {
-//			int userNum = (int)session.getAttribute("userNum");
-//			CafeMainDao cmdao = CafeMainDao.getInstance();
-//			String cafeNum = (String)req.getParameter("cafeNum");
-//			HashMap<String, String> cafeInfo = cmdao.getDefaultInfo(userNum, Integer.parseInt(cafeNum));
-//			if(cafeInfo!=null) {
-//				cafeInfo.put("cafeNum", cafeNum);
-//				cafeInfo.put("userNum", Integer.toString(userNum));
-//				if(cafeInfo.get("isUser").equals("true")) {
-//					req.setAttribute("cafeInfo", cafeInfo);
-//					req.setAttribute("cafeNavList", cmdao.getCafeNavList(Integer.parseInt(cafeNum)));
-//					req.getRequestDispatcher("/jsp/cafe-main.jsp").forward(req, resp);
-//				}else {
-//					req.setAttribute("errMsg", "카페에 가입해주세요.");
-//					req.getRequestDispatcher("/main.jsp").forward(req, resp);
-//				}
-//			}else {
-//				req.setAttribute("errMsg", "잘못된 이동경로");
-//				req.getRequestDispatcher("/main.jsp").forward(req, resp);
-//			}
-//		}else {
-//			req.setAttribute("errMsg", "로그인 해주세요.");
-//			req.getRequestDispatcher("/main.jsp").forward(req, resp);
-//		}
+	
 	}
 	
 }

@@ -31,7 +31,7 @@
 		<c:forEach items="${noticeInfo }" var="notice">
 			<tr class="notice">
 				<td class="center">공지</td>
-				<td class="left"><a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${notice.postNum}" class="underline">${notice.postTitle }</a></td>
+				<td class="left"><a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${notice.postNum}" class="underline">${notice.postTitle } <c:if test="${postCommentCount[notice.postNum]!=null }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +${postCommentCount[notice.postNum] }</c:if></a></td>
 				<td class="left">${notice.postWriter }</td>
 				<td class="center">${notice.postDate }</td>
 				<td class="center">${notice.postInviteCount }</td>
@@ -42,7 +42,7 @@
 		<c:forEach items="${postList }" var="post">
 			<tr>
 				<td class="center">${post.cafePostNum }</td>
-				<td class="left"><a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${post.postNum}" class="underline">${post.postTitle }</a></td>
+				<td class="left"><a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${post.postNum}" class="underline">${post.postTitle } <c:if test="${postCommentCount[post.postNum]!=null }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +${postCommentCount[post.postNum] }</c:if></a></td>
 				<td class="left">${post.postWriter }</td>
 				<td class="center">${post.postDate }</td>
 				<td class="center">${post.postInviteCount }</td>

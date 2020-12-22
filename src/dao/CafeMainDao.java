@@ -11,6 +11,7 @@ import db.DBCPBean;
 import vo.CafeBoardInfoVo;
 import vo.CafeNavBoardVo;
 import vo.CafeNavCatVo;
+import vo.PostCommentVo;
 import vo.PostListVo;
 import vo.PostVo;
 
@@ -429,7 +430,7 @@ public class CafeMainDao {
 			rs2 = pstmt2.executeQuery();
 			PostVo vo = null;
 			while (rs2.next()) {
-				vo=new PostVo(postNum, rs2.getInt("cafepostnum"), rs2.getInt("boardnum"), rs2.getString("posttitle"), rs2.getString("postcontent"), rs2.getDate("postdate"), rs2.getString("cafememnick"), rs2.getInt("postcatnum"), rs2.getInt("postInviteCount"));
+				vo=new PostVo(postNum, rs2.getInt("cafepostnum"), rs2.getInt("boardnum"), rs2.getString("posttitle"), rs2.getString("postcontent").replaceAll("\n", "<br>"), rs2.getDate("postdate"), rs2.getString("cafememnick"),rs2.getInt("usernum"), rs2.getInt("postcatnum"), rs2.getInt("postInviteCount"));
 			}
 			return vo;
 		} catch (SQLException se) {
@@ -437,6 +438,54 @@ public class CafeMainDao {
 			return null;
 		} finally {
 			DBCPBean.close(null, pstmt2, rs2);
+			DBCPBean.close(con, pstmt1, rs1);
+		}
+	}
+	
+	public ArrayList<PostCommentVo> getPostCommentInfo(int postNum, int cafeNum, int startRow, int endRow) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "select * from (select p.*, rownum rnum from postcomment p where postnum=? order by commentregdate desc) natural join cafemember where cafenum=? and rnum>=? and rnum<=?";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, postNum);
+			pstmt1.setInt(2, cafeNum);
+			pstmt1.setInt(3, startRow);
+			pstmt1.setInt(4, endRow);
+			rs1=pstmt1.executeQuery();
+			ArrayList<PostCommentVo> list = new ArrayList<PostCommentVo>();
+			while (rs1.next()) {
+				list.add(new PostCommentVo(rs1.getInt("commentnum"), rs1.getInt("postnum"), rs1.getString("cafememnick"), rs1.getInt("usernum"), rs1.getString("postcomment"), rs1.getDate("commentRegdate")));
+			}
+			return list;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt1, rs1);
+		}
+	}
+	
+	public HashMap<Integer, Integer> getPostCommentCount() {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "select postnum, count(*) count from postcomment group by postnum";
+			pstmt1 = con.prepareStatement(sql1);
+			rs1=pstmt1.executeQuery();
+			HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+			while (rs1.next()) {
+				map.put(rs1.getInt("postnum"), rs1.getInt("count"));
+			}
+			return map;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
 			DBCPBean.close(con, pstmt1, rs1);
 		}
 	}
