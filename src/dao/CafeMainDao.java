@@ -43,6 +43,7 @@ public class CafeMainDao {
 			rs2 = pstmt2.executeQuery();
 			if (rs1.next()&&rs2.next()) {
 				map.put("cafeAdmin",rs1.getString("cafememnick"));
+				map.put("cafeAdminNum",rs1.getString("usernum"));
 				map.put("cafeAdminGrade",rs1.getString("cafememgradename"));
 				map.put("cafeName",rs1.getString("cafename"));
 				map.put("cafeRegdate",rs1.getString("cr"));

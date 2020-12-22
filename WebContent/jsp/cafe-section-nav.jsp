@@ -18,7 +18,7 @@
 	<div id="section-nav-header-content">
 		<div id="section-nav-header-content-cafe">
 			<div>
-				<p class="gray">${cafeInfo['cafeAdmin'] }</p>
+				<p class="gray">${cafeInfo['cafeAdmin'] }&nbsp;&nbsp;<c:if test="${userNum==cafeInfo['cafeAdminNum'] }"><a href="${pageContext.request.contextPath }/cafe/cafeUpdate?cafeNum=${cafeInfo['cafeNum'] }" class="underline" style="font-size: 0.8em; color:#3e3e3e;">관리</a></c:if></p>
 				<p class="gray">since ${cafeInfo['cafeRegdate'] }</p>
 			</div>
 			<div>

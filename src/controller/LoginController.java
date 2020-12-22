@@ -23,10 +23,9 @@ public class LoginController extends HttpServlet{
 		map.put("id", id);
 		map.put("pwd", pwd);
 		LoginDao dao=LoginDao.getInstance();
-		int a=dao.isUser(map);
+		int a=dao.getUserNum(map);
 		if(a>0) {
 			HttpSession session=req.getSession();
-			session.setAttribute("id", id);
 			session.setAttribute("userNum", a);
 			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		}else if(a==0){
