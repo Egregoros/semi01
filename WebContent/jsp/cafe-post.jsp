@@ -37,7 +37,7 @@
 	<div style="margin-top:30px; border:1px solid black;padding:10px;padding-top:0px;">
 		<c:forEach items="${postCommentList }" var="comment">
 			<div style="border-bottom: 1px solid #e3e3e3;margin:5px;padding:5px;">
-				<span style="margin-right: 10px; font-size: 0.8em;">${comment['userName'] }</span><span style="margin-right: 10px; font-size: 0.6em;">${comment['commentRegdate'] }</span><span style="margin-right: 10px; font-size: 0.8em;">${comment['postComment'] }</span><c:if test="${comment['userNum']==userNum }"><button>삭제</button></c:if>
+				<span style="margin-right: 10px; font-size: 0.8em;">${comment['userName'] }</span><span style="margin-right: 10px; font-size: 0.6em;">${comment['commentRegdate'] }</span><span style="margin-right: 10px; font-size: 0.8em;">${comment['postComment'] }</span><c:if test="${comment['userNum']==userNum }"><button type="button" onclick="location.href='${pageContext.request.contextPath }/commentDelete?cafeNum=${param.cafeNum }&postNum=${param.postNum }&commentNum=${comment['commentNum'] }&pageNum=${pageNum }&pageCount=${pageCount }';">삭제</button></c:if>
 			</div>
 		</c:forEach>
 	</div> 
@@ -51,7 +51,7 @@
 		</c:when>
 	</c:choose>
 	<c:forEach var="i" begin="${startPageNum}"	end="${endPageNum}">
-		<c:if test="${i<=((boardInfo.postCount-1)/pageCount)+1 }">
+		<c:if test="${i<=((postCommentCount[postInfo['postNum']]-1)/pageCount)+1 }">
 			<c:choose>
 				<c:when test="${i==pageNum }">
 					<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${postInfo['postNum']}&pageNum=${i}&pageCount=${pageCount }"><span class="bold">[${i }]</span></a>
@@ -63,7 +63,7 @@
 		</c:if>
 	</c:forEach>
 	<c:choose>
-		<c:when test="${endPageNum<((boardInfo.postCount-1)/pageCount)+1 }">
+		<c:when test="${endPageNum<((postCommentCount[postInfo['postNum']]-1)/pageCount)+1 }">
 			<a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${postInfo['postNum']}&pageNum=${Integer.valueOf(Math.floor(endPageNum+1))}&pageCount=${pageCount }">[다음]</a>
 		</c:when>
 	</c:choose>

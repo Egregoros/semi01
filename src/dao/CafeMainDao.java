@@ -489,4 +489,22 @@ public class CafeMainDao {
 			DBCPBean.close(con, pstmt1, rs1);
 		}
 	}
+	
+	public int deleteComment(int commentNum) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "delete postcomment where commentnum=?";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, commentNum);
+			int i = pstmt1.executeUpdate();
+			return i;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt1, null);
+		}
+	}
 }
