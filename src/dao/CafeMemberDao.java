@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -196,4 +197,32 @@ public class CafeMemberDao {
 		}
 	}
 	
+	public CafeMemberVo getcafeMemGradeNum(int userNum, int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CafeMemberVo cafeMemVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafemember where userNum = ? and cafeNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, userNum);
+			pstmt.setInt(2, cafeNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String cafeMemNick = rs.getString("cafeMemNick");
+				int cafeMemGradeNum = rs.getInt("cafeMemGradeNum");
+				int cafeInviteCount = rs.getInt("cafeInviteCount");
+				Date cafeMemRegDate = rs.getDate("cafeMemRegDate");
+				
+				cafeMemVo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGradeNum, cafeInviteCount, cafeMemRegDate);
+			}
+			return cafeMemVo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
 }

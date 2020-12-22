@@ -202,7 +202,7 @@ public class CafeListTableDao {
 		}
 	}
 	
-	public CafeListVo getUserNum(int cafeNum) {
+	public CafeListVo getOne(int cafeNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -230,4 +230,5 @@ public class CafeListTableDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
+	
 }
