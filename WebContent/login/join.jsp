@@ -59,14 +59,12 @@
 		}
 </script>
 <style>
-	#fieldset{width: 500px;}
-	.label1{width: 100px;display: inline-block;}
-	.label2{width: 85px;display: inline-block;}
-	.label3{width: 47px;display: inline-block;}
-	.label4{width: 116px;display: inline-block;}
-	.label5{width: 103px;display: inline-block;}
-	.label6{width: 108px;display: inline-block;}
-	.label7{width: 65px;display: inline-block;}
+	#fieldset{width: 275px;}
+	.label1{width: 35px;display: inline-block;}
+	.label2{width: 52px;display: inline-block;}
+	.label3{width: 20px;display: inline-block;}
+	.label4{width: 39px;display: inline-block;}
+	.label5{width: 0px;display: inline-block;}
 	#idcheck{color: red;}
 	#phonecheck{color: red;}
 	ul{list-style: none;display: inline-block;}
@@ -75,29 +73,29 @@
 </head>
 <body>
 <h2 align="center">카페 회원가입</h2>
-	<form method="post" name=join action="/semi_project/login/join">
+	<form method="post" action="/semi_project/login/join">
 	<div>
 		<div align="center">
 			<fieldset id="fieldset" >
 				<legend style="text-align: center;">회원정보 입력</legend>
 				아이디 <label for="id" class="label1"></label>
-					<input type="text" name="id" id="id" onkeyup="checkid()" required="required"><br>
+					<input type="text" name="id" id="id" onkeyup="checkid()" required="required">
 					<span id="idcheck"></span><br>
-				비밀번호 <label for="pwd" class="label2"></label>
-					<input type="password" name="pwd" id="pwd" required="required"><br><br>
-				이름 <label for="name" class="label4"></label>
-					<input type="text" name="name" required="required"><br><br>
+				비밀번호 <label for="pwd" class="label3"></label>
+					<input type="password" name="pwd" id="pwd" required="required"><br>
+				이름 <label for="name" class="label2"></label>
+					<input type="text" name="name" required="required"><br>
 				닉네임 <label for="nickname" class="label1"></label>
-					<input type="text" name="nickname" required="required"><br><br>
-				주소 <label for="addr" class="label4"></label>
-					<input type="text" name="addr" required="required"><br><br>
-				e-mail <label for="email" class="label5"></label>
-					<input type="email" name="email" placeholder="cafe@jhtml.com" required="required"><br><br>
-				생년월일 <label for="birth" class="label6"></label>
+					<input type="text" name="nickname" required="required"><br>
+				주소 <label for="addr" class="label2"></label>
+					<input type="text" name="addr" required="required"><br>
+				e-mail <label for="email" class="label4"></label>
+					<input type="email" name="email" placeholder="cafe@jhtml.com" required="required"><br>
+				생년월일 <label for="birth" class="label3"></label>
 					<label for="birth"></label>
-					<input type="date" name="birth" required="required"><br><br>
-				휴대폰 번호 <label for="phone" class="label7"></label>
-					<input type="text" name="phone" id="phone" placeholder="ex) 01012345678 (- 제외)" onkeyup="checkphone()" required="required"><br>
+					<input type="date" name="birth" required="required"><br>
+				휴대폰 번호 <label for="phone" class="label5"></label>
+					<input type="text" name="phone" id="phone" placeholder="ex) 01012345678 (- 제외)" onkeyup="checkphone()" required="required">
 					<span id="phonecheck"></span>
 			</fieldset><br>
 	<ul>

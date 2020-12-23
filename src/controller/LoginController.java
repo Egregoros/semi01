@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String id=req.getParameter("id").toUpperCase();
+		String id=req.getParameter("id");
 		String pwd=req.getParameter("pwd");
 		HashMap<String, String> map=new HashMap<String, String>();
 		map.put("id", id);
@@ -26,6 +26,7 @@ public class LoginController extends HttpServlet{
 		int a=dao.getUserNum(map);
 		if(a>0) {
 			HttpSession session=req.getSession();
+			session.setAttribute("id", id);
 			session.setAttribute("userNum", a);
 			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		}else if(a==0){

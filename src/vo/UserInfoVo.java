@@ -111,5 +111,4 @@ public class UserInfoVo {
 		this.isLive = isLive;
 	}
 	
-	
 }

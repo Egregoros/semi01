@@ -11,6 +11,7 @@ import vo.UserInfoVo;
 
 public class UserInfoDao {
 	public int insert(UserInfoVo vo) {
+		System.out.println("vo :" + vo);
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
