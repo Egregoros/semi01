@@ -6,8 +6,8 @@ public class UserInfoVo {
 	private int userNum;
 	private String id;
 	private String pwd;
-	private String nickName;
 	private String name;
+	private String nickName;
 	private String addr;
 	private String email;
 	private Date birth;
@@ -16,14 +16,14 @@ public class UserInfoVo {
 	
 	public UserInfoVo() {}
 
-	public UserInfoVo(int userNum, String id, String pwd, String nickName, String name, String addr, String email,
+	public UserInfoVo(int userNum, String id, String pwd, String name, String nickName, String addr, String email,
 			Date birth, String phone, int isLive) {
 		super();
 		this.userNum = userNum;
 		this.id = id;
 		this.pwd = pwd;
-		this.nickName = nickName;
 		this.name = name;
+		this.nickName = nickName;
 		this.addr = addr;
 		this.email = email;
 		this.birth = birth;
@@ -54,6 +54,14 @@ public class UserInfoVo {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getNickName() {
 		return nickName;
@@ -61,14 +69,6 @@ public class UserInfoVo {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getAddr() {

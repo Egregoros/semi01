@@ -7,7 +7,7 @@
 <title>join.jsp</title>
 <script type="text/javascript">
    var xhr=null;
-   function checkid(){//아이디가 사용중일 때 회원가입 버튼 비활성화하는 기능 추가해야함.
+   function checkid(){
       var id=document.getElementById("id").value;
       if(id.trim()==""){
          document.getElementById("idcheck").innerHTML="";
@@ -92,15 +92,15 @@
             return;
          }
          
-         if(eval(using)==true){//휴대폰 번호에 하이픈(-) 제외, 11자리로 입력, 모두 숫자로 이루어지게 하는 기능 추가해야함.
+         if(eval(using)==true){
             span.innerHTML="입력하신 번호는 이미 사용 중인 번호입니다. 다시 입력해주세요.";
          }else if(eval(using)==false){
             span.innerHTML="사용 가능한 휴대폰 번호입니다.";
          }
       }
    }
-      function buttonClick(){//필수입력 항목이 모두 충족되지 않았을 때 alert창 띄우지 않게 하는 기능 추가해야함.
-         alert('회원가입 성공!');
+      function buttonClick(){
+         alert('회원정보 수정 완료!');
       }
 </script>
 <style>
@@ -118,31 +118,33 @@
 </style>
 </head>
 <body>
-<h2 align="center">카페 회원가입</h2>
-   <form method="post" action="/semi_project/login/join">
+<h2 align="center">회원정보 수정</h2>
+   <form method="post" action="/semi_project/login/update">
    <div>
       <div align="center">
          <fieldset id="fieldset" >
             <legend style="text-align: center;">회원정보 입력</legend><br>
+            회원번호 <label for="userNum" class="label3"></label>
+            	<input type="text" name="userNum" id="userNum" value="${vo.userNum }" readonly="readonly"> *<br><br>
             아이디 <label for="id" class="label1"></label>
-               <input type="text" name="id" id="id" onkeyup="checkid()" required="required"> *<br>
+               <input type="text" name="id" id="id" value="${vo.id }" readonly="readonly"> *<br>
                <span id="idcheck"></span><br>
             비밀번호 <label for="pwd" class="label3"></label>
-               <input type="password" name="pwd" id="pwd" required="required"> *<br><br>
+               <input type="password" name="pwd" id="pwd" value="${vo.pwd }" required="required"> *<br><br>
             이름 <label for="name" class="label2"></label>
-               <input type="text" name="name" required="required"> *<br><br>
+               <input type="text" name="name" value="${vo.name }" required="required"> *<br><br>
             닉네임 <label for="nickname" class="label1"></label>
-               <input type="text" name="nickname" id="nickname" onkeyup="checknickname()" required="required"> *<br>
+               <input type="text" name="nickname" id="nickname" value="${vo.nickName }" onkeyup="checknickname()" required="required"> *<br>
                <span id="nicknamecheck"></span><br>
             주소 <label for="addr" class="label2"></label>
-               <input type="text" name="addr" required="required"> *<br><br>
-            e-mail <label for="email" class="label4"></label>
-               <input type="email" name="email" placeholder="cafe@jhtml.com" required="required"> *<br><br>
+               <input type="text" name="addr" value="${vo.addr }" required="required"> *<br><br>
+         e-mail <label for="email" class="label4"></label>
+               <input type="email" name="email" placeholder="cafe@jhtml.com" value="${vo.email }" required="required"> *<br><br>
             생년월일 <label for="birth" class="label3"></label>
                <label for="birth"></label>
-               <input type="date" name="birth" required="required">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br><br>
+               <input type="date" name="birth" value="${vo.birth }" required="required">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br><br>
             휴대폰 번호 <label for="phone" class="label5"></label>
-               <input type="text" name="phone" id="phone" placeholder="ex) 01012345678 (- 제외)" onkeyup="checkphone()" required="required"> *<br>
+               <input type="text" name="phone" id="phone" placeholder="ex) 01012345678 (- 제외)" value="${vo.phone }" onkeyup="checkphone()" required="required"> *<br>
                <span id="phonecheck"></span><br><br>
                (*)은 필수입력사항입니다.
          </fieldset><br>
@@ -150,7 +152,7 @@
       <li><a href="${pageContext.request.contextPath }/login/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;
       </li>
    </ul>
-      <input type="submit" value="회원가입" onclick="buttonClick()">
+      <input type="submit" value="회원수정" onclick="buttonClick()">
       </div>
    </div>
    </form>

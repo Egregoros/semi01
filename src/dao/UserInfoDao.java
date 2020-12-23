@@ -35,6 +35,31 @@ public class UserInfoDao {
 		}
 	}
 	
+	public int update(UserInfoVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="update userinfo set id=?, pwd=?, name=?, nickname=?, addr=?, email=?, birth=?, phone=? where userNum=?";
+		try {
+			con=DBCPBean.getConn();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(3, vo.getName());
+			pstmt.setString(4, vo.getNickName());
+			pstmt.setString(5, vo.getAddr());
+			pstmt.setString(6, vo.getEmail());
+			pstmt.setDate(7, vo.getBirth());
+			pstmt.setString(8, vo.getPhone());
+			pstmt.setInt(9, vo.getUserNum());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
 	public int delete(UserInfoVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
