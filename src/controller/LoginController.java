@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String id=req.getParameter("id");
+		String id=req.getParameter("id").toUpperCase();
 		String pwd=req.getParameter("pwd");
 		HashMap<String, String> map=new HashMap<String, String>();
 		map.put("id", id);
