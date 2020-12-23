@@ -20,12 +20,13 @@ public class CafeMainPicDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into cafemainpic values (fileinfo_seq.nextval, ?, ?, ?, ?)";
+			String sql = "insert into cafemainpic values (?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, vo.getCafeNum());
-			pstmt.setString(2, vo.getOrgFileName());
-			pstmt.setString(3, vo.getSaveFileName());
-			pstmt.setLong(4, vo.getFileSize());
+			pstmt.setInt(1, getMaxNum()+1);
+			pstmt.setInt(2, vo.getCafeNum());
+			pstmt.setString(3, vo.getOrgFileName());
+			pstmt.setString(4, vo.getSaveFileName());
+			pstmt.setLong(5, vo.getFileSize());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
@@ -141,6 +142,26 @@ public class CafeMainPicDao {
 			pstmt.setString(1, saveFileName);
 			int n = pstmt.executeUpdate();
 			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public int getMaxNum() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int n = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select NVL(max(cafepicnum),0) from cafemainpic";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return -1;
