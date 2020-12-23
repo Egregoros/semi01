@@ -32,6 +32,19 @@ public class MessageController extends HttpServlet{
 		}catch(Exception e) {
 			
 		}
+
+		String toUserName=(String)req.getParameter("toUserName");
+		if(toUserName!=null) {
+			int toUserNum=mdao.getUserNum(toUserName);
+			String title=(String)req.getParameter("messTitle");
+			String content=(String)req.getParameter("messContent");
+			int i = mdao.insertMessage(userNum,toUserNum,title,content);
+			int messageUserNum = toUserNum;
+			req.setAttribute("messageList", mdao.getMessage(messageUserNum, userNum));
+			req.setAttribute("messageUserNum", messageUserNum);
+			req.getRequestDispatcher("/message/messageReceive.jsp").forward(req, resp);
+			return;
+		}
 		
 		try {
 			int messageUserNum = Integer.parseInt((String)req.getParameter("messageUserNum"));

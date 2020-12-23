@@ -156,4 +156,27 @@ public class MessageDao {
 			DBCPBean.close(con, pstmt, null);
 		}
 	}
+	
+	public int getUserNum(String nickName) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=DBCPBean.getConn();
+			String sql="select usernum from userinfo where nickname=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, nickName);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
 }
