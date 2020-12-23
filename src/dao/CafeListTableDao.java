@@ -231,4 +231,26 @@ public class CafeListTableDao {
 		}
 	}
 	
+	public int update(CafeListVo vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int n = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "update cafelist cafename = ?, catnum = ?, content = ? where cafenum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getCafeName());
+			pstmt.setInt(2, vo.getCatNum());
+			pstmt.setString(3, vo.getContent());
+			pstmt.setInt(4, vo.getCafeNum());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
 }
