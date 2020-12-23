@@ -177,7 +177,7 @@ public class CafeMainDao {
 				rs2 = pstmt2.executeQuery();
 				ArrayList<PostListVo> list = new ArrayList<PostListVo>();
 				while (rs2.next()) {
-					list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
+					list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getInt("userNum"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
 				}
 				return list;
 			}else {
@@ -203,7 +203,7 @@ public class CafeMainDao {
 					rs2 = pstmt2.executeQuery();
 					ArrayList<PostListVo> list = new ArrayList<PostListVo>();
 					while (rs2.next()) {
-						list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
+						list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getInt("userNum"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
 					}
 					return list;
 				}else {
@@ -291,7 +291,7 @@ public class CafeMainDao {
 				rs2 = pstmt2.executeQuery();
 				ArrayList<PostListVo> list = new ArrayList<PostListVo>();
 				while (rs2.next()) {
-					list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
+					list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getInt("userNum"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
 				}
 				return list;
 			}else {
@@ -312,7 +312,7 @@ public class CafeMainDao {
 					rs2 = pstmt2.executeQuery();
 					ArrayList<PostListVo> list = new ArrayList<PostListVo>();
 					while (rs2.next()) {
-						list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
+						list.add(new PostListVo(rs2.getInt("postnum"), rs2.getInt("cafepostnum"), rs2.getString("posttitle"), rs2.getString("cafememnick"), rs2.getInt("userNum"), rs2.getString("pd"), rs2.getInt("postinvitecount")));
 					}
 					return list;
 				}else {
@@ -346,7 +346,7 @@ public class CafeMainDao {
 			rs = pstmt.executeQuery();
 			ArrayList<PostListVo> list = new ArrayList<PostListVo>();
 			while (rs.next()) {
-				list.add(new PostListVo(rs.getInt("postnum"), rs.getInt("cafepostnum"), rs.getString("posttitle"), rs.getString("cafememnick"), rs.getString("pd"), rs.getInt("postinvitecount")));
+				list.add(new PostListVo(rs.getInt("postnum"), rs.getInt("cafepostnum"), rs.getString("posttitle"), rs.getString("cafememnick"), rs.getInt("userNum"), rs.getString("pd"), rs.getInt("postinvitecount")));
 			}
 			return list;
 		} catch (SQLException se) {

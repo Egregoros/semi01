@@ -4,7 +4,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div id="post-content" style="border: 1px solid black; padding:10px;">
 	<h3>${postInfo['postTitle'] }</h3> 
-	<p style="font-size: 0.8em;margin-top:10px;">작성자 : ${postInfo['userName'] }</p>
+	<p style="font-size: 0.8em;margin-top:10px;">작성자 : <a href="${pageContext.request.contextPath }/message?messageUserNum=${postInfo['userNum']}">${postInfo['userName'] }</a></p>
 	<p style="font-size: 0.8em;margin-top:10px;">조회수 : ${postInfo['postInviteCount'] }</p>
 	<p style="font-size: 0.8em;margin-top:10px;">작성일 : ${postInfo['postDate'] }</p>
 	<p style="font-size: 0.9em;margin-top:10px;border: 1px solid black; padding:10px;">${postInfo['postContent'] }</p>
@@ -40,7 +40,7 @@
 	<div style="margin-top:30px; border:1px solid black;padding:10px;padding-top:0px;">
 		<c:forEach items="${postCommentList }" var="comment">
 			<div style="border-bottom: 1px solid #e3e3e3;margin:5px;padding:5px;">
-				<span style="margin-right: 10px; font-size: 0.8em;">${comment['userName'] }</span><span style="margin-right: 10px; font-size: 0.6em;">${comment['commentRegdate'] }</span><span style="margin-right: 10px; font-size: 0.8em;">${comment['postComment'] }</span><c:if test="${comment['userNum']==userNum }"><button type="button" onclick="location.href='${pageContext.request.contextPath }/commentDelete?cafeNum=${param.cafeNum }&postNum=${param.postNum }&commentNum=${comment['commentNum'] }&pageNum=${pageNum }&pageCount=${pageCount }';">삭제</button></c:if>
+				<span style="margin-right: 10px; font-size: 0.8em;"><a href="${pageContext.request.contextPath }/message?messageUserNum=${comment['userNum']}">${comment['userName'] }</a></span><span style="margin-right: 10px; font-size: 0.6em;">${comment['commentRegdate'] }</span><span style="margin-right: 10px; font-size: 0.8em;">${comment['postComment'] }</span><c:if test="${comment['userNum']==userNum }"><button type="button" onclick="location.href='${pageContext.request.contextPath }/commentDelete?cafeNum=${param.cafeNum }&postNum=${param.postNum }&commentNum=${comment['commentNum'] }&pageNum=${pageNum }&pageCount=${pageCount }';">삭제</button></c:if>
 			</div>
 		</c:forEach>
 	</div> 
