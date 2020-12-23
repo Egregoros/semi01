@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>messageReceive.jsp</title>
 <style>
+	a{
+		color:black;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
 	#messageBox{
 		position: relative;
 	}

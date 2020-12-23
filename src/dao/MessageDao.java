@@ -120,8 +120,6 @@ public class MessageDao {
 	public int readMessage(int userNum, int recUserNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
 		try {
 			con=DBCPBean.getConn();
 			String sql="update message set checkread=1 where sendusernum=? and recusernum=?";
@@ -134,7 +132,28 @@ public class MessageDao {
 			se.printStackTrace();
 			return -1;
 		}finally {
-			DBCPBean.close(con, pstmt, rs);
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public int deleteMessage(int userNum, int recUserNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBCPBean.getConn();
+			String sql="delete message where (recusernum=? and sendusernum=?) or (recusernum=? and sendusernum=?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, userNum);
+			pstmt.setInt(2, recUserNum);
+			pstmt.setInt(3, recUserNum);
+			pstmt.setInt(4, userNum);
+			int i = pstmt.executeUpdate();
+			return i;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBCPBean.close(con, pstmt, null);
 		}
 	}
 }

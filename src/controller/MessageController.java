@@ -44,6 +44,13 @@ public class MessageController extends HttpServlet{
 		}catch(Exception e) {
 			
 		}
+		
+		try {
+			int deleteMessageUserNum = Integer.parseInt((String)req.getParameter("deleteMessageUserNum"));
+			mdao.deleteMessage(userNum, deleteMessageUserNum);
+		}catch(Exception e) {
+			
+		}
 		req.setAttribute("userList", mdao.getUserList(userNum));
 		req.setAttribute("newMessage", mdao.getNewMessage(userNum));
 		req.getRequestDispatcher("/message/message.jsp").forward(req, resp);

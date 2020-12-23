@@ -32,7 +32,7 @@
 	<c:forEach items="${userList }" var="list">
 		<tr>
 			<td><a href="${pageContext.request.contextPath }/message?messageUserNum=${list.key }">${list.value }<c:if test="${newMessage[list.key]!=null }">&nbsp;&nbsp;&nbsp;+${newMessage[list.key] }</c:if></a></td>
-			<td><a href="">삭제</a></td>
+			<td><a href="${pageContext.request.contextPath }/message?deleteMessageUserNum=${list.key }">삭제</a></td>
 		</tr>
 	</c:forEach>
 </table>
