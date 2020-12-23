@@ -26,20 +26,27 @@
 				<p class="gray"><fmt:formatNumber value="${cafeInfo['cafeUsers'] }" type="number"/> 명</p>
 			</div>
 		</div>
-		<c:if test="${userInfo['isUser']=='true' }">
-			<div id="section-nav-header-content-self">
-				<div>
-					<p class="gray">${userInfo['userNick'] }</p>
-					<p class="gray">가입 ${userInfo['userRegdate'] }</p>
+		<c:choose>
+			<c:when test="${userInfo['isUser']=='true' }">
+				<div id="section-nav-header-content-self">
+					<div>
+						<p class="gray">${userInfo['userNick'] }</p>
+						<p class="gray">가입 ${userInfo['userRegdate'] }</p>
+					</div>
+					<div>
+						<p class="gray">${userInfo['userGrade'] }</p>
+						<p class="gray">방문 ${userInfo['userInvite'] }회</p>
+						<p class="gray">내가 쓴 글 보기 <a href=""><fmt:formatNumber value="${userInfo['userCountPost'] }" type="number"/> 개</a></p>
+						<p class="gray">내가 쓴 댓글 보기 <a href=""><fmt:formatNumber value="${userInfo['userCountPostComment'] }" type="number"/> 개</a></p>
+					</div>
 				</div>
-				<div>
-					<p class="gray">${userInfo['userGrade'] }</p>
-					<p class="gray">방문 ${userInfo['userInvite'] }회</p>
-					<p class="gray">내가 쓴 글 보기 <a href=""><fmt:formatNumber value="${userInfo['userCountPost'] }" type="number"/> 개</a></p>
-					<p class="gray">내가 쓴 댓글 보기 <a href=""><fmt:formatNumber value="${userInfo['userCountPostComment'] }" type="number"/> 개</a></p>
+			</c:when>
+			<c:otherwise>
+				<div id="section-nav-header-content-self">
+					<a id="joinCafe" class="underline" href="">카페 가입</a>
 				</div>
-			</div>
-		</c:if>
+			</c:otherwise>
+		</c:choose>
 		<a id="write" class="underline" href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&writeCafeNum=${cafeInfo['cafeNum']}">카페 글쓰기</a>
 	</div>
 </div>

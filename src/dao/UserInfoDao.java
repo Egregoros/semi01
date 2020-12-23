@@ -16,7 +16,7 @@ public class UserInfoDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "insert into userinfo values (userinfo_seq.nextval,?,?,?,?,?,?,?,?,1)";
+			String sql = "insert into userinfo values ((select max(usernum)+1 from userinfo),?,?,?,?,?,?,?,?,1)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPwd());

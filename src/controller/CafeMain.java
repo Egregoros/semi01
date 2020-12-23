@@ -39,7 +39,8 @@ public class CafeMain extends HttpServlet{
 			if(!visit) {
 				inviteCafe.add(cafeNum);
 				if(!(cmdao.invitePlus(cafeNum, userNum)>0)) {
-					req.getRequestDispatcher("/cafeList").forward(req, resp);
+					//req.getRequestDispatcher("/cafeList").forward(req, resp);
+					//return;
 				}else {
 					session.setAttribute("inviteCafe", inviteCafe);
 				}
@@ -117,7 +118,7 @@ public class CafeMain extends HttpServlet{
 		req.setAttribute("cafeNavList", cmdao.getCafeNavList(cafeNum));
 		
 		req.getRequestDispatcher("/jsp/cafe-main.jsp").forward(req, resp);
-	
+		return;
 	}
 	
 }
