@@ -19,7 +19,7 @@ import dao.CatTableDao;
 import vo.CafeListVo;
 import vo.CafeMainPicVo;
 import vo.CatTableVo;
-@WebServlet("cafe/cafeMainPicUpdate")
+@WebServlet("/cafe/cafeMainPicUpdate")
 public class CafeMainPicUpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
