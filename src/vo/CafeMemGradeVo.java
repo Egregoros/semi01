@@ -4,15 +4,15 @@ import java.sql.Date;
 
 public class CafeMemGradeVo {
 	private int cafeNum;
-	private int cafeMemGrade;
+	private int cafeMemGradeNum;
 	private String cafeMemGradeName;
 	
 	public CafeMemGradeVo() {}
 
-	public CafeMemGradeVo(int cafeNum, int cafeMemGrade, String cafeMemGradeName) {
+	public CafeMemGradeVo(int cafeNum, int cafeMemGradeNum, String cafeMemGradeName) {
 		super();
 		this.cafeNum = cafeNum;
-		this.cafeMemGrade = cafeMemGrade;
+		this.cafeMemGradeNum = cafeMemGradeNum;
 		this.cafeMemGradeName = cafeMemGradeName;
 	}
 
@@ -24,12 +24,12 @@ public class CafeMemGradeVo {
 		this.cafeNum = cafeNum;
 	}
 
-	public int getCafeMemGrade() {
-		return cafeMemGrade;
+	public int getCafeMemGradeNum() {
+		return cafeMemGradeNum;
 	}
 
-	public void setCafeMemGrade(int cafeMemGrade) {
-		this.cafeMemGrade = cafeMemGrade;
+	public void setCafeMemGradeNum(int cafeMemGradeNum) {
+		this.cafeMemGradeNum = cafeMemGradeNum;
 	}
 
 	public String getCafeMemGradeName() {

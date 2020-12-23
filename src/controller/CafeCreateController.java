@@ -68,6 +68,7 @@ public class CafeCreateController extends HttpServlet{
 		String cafeName = mr.getParameter("cafeName");
 		String catName = mr.getParameter("catName");
 		String content = mr.getParameter("content");
+		String cafeMemNickName = mr.getParameter("cafeMemNickName");
 		
 		
 		CatTableDao catDao = CatTableDao.getInstance();
@@ -86,7 +87,7 @@ public class CafeCreateController extends HttpServlet{
 			CafeMainPicDao cafeMainPicDao = CafeMainPicDao.getInstance();
 			CafeMainPicVo cafeMainPicVo = null;
 			
-			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, userVo.getId(), 0, 1, null); 
+			CafeMemberVo cafeMemVo = new CafeMemberVo(userVo.getUserNum(), n, cafeMemNickName, 0, 1, null); 
 			CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();
 			cafeMemDao.insert(cafeMemVo);
 			

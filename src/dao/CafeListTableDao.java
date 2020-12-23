@@ -215,7 +215,7 @@ public class CafeListTableDao {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				int userNum = rs.getInt("userNum");
-				int gradeNum = rs.getInt("gradNum");
+				int gradeNum = rs.getInt("gradeNum");
 				int catNum = rs.getInt("catNum");
 				String cafeName = rs.getString("cafeName");
 				String content = rs.getString("content");

@@ -2,19 +2,21 @@ package vo;
 
 public class CafeBoardVo {
 	private int boardNum;
-	private int cafeNum;
+	private int cafeBoardNum;
 	private int boardCatNum;
 	private String boardName;
+	private int useGrade;
 	private int orderNum;
 	
 	public CafeBoardVo() {}
 
-	public CafeBoardVo(int boardNum, int cafeNum, int boardCatNum, String boardName, int orderNum) {
+	public CafeBoardVo(int boardNum, int cafeBoardNum, int boardCatNum, String boardName, int useGrade, int orderNum) {
 		super();
 		this.boardNum = boardNum;
-		this.cafeNum = cafeNum;
+		this.cafeBoardNum = cafeBoardNum;
 		this.boardCatNum = boardCatNum;
 		this.boardName = boardName;
+		this.useGrade = useGrade;
 		this.orderNum = orderNum;
 	}
 
@@ -26,12 +28,12 @@ public class CafeBoardVo {
 		this.boardNum = boardNum;
 	}
 
-	public int getCafeNum() {
-		return cafeNum;
+	public int getCafeBoardNum() {
+		return cafeBoardNum;
 	}
 
-	public void setCafeNum(int cafeNum) {
-		this.cafeNum = cafeNum;
+	public void setCafeBoardNum(int cafeBoardNum) {
+		this.cafeBoardNum = cafeBoardNum;
 	}
 
 	public int getBoardCatNum() {

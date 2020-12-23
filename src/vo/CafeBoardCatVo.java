@@ -4,16 +4,16 @@ public class CafeBoardCatVo {
 	private int boardCatNum;
 	private int cafeNum;
 	private String catName;
-	private int carOrder;
+	private int catOrder;
 	
 	public CafeBoardCatVo() {}
 
-	public CafeBoardCatVo(int boardCatNum, int cafeNum, String catName, int carOrder) {
+	public CafeBoardCatVo(int boardCatNum, int cafeNum, String catName, int catOrder) {
 		super();
 		this.boardCatNum = boardCatNum;
 		this.cafeNum = cafeNum;
 		this.catName = catName;
-		this.carOrder = carOrder;
+		this.catOrder = catOrder;
 	}
 
 	public int getBoardCatNum() {
@@ -40,12 +40,12 @@ public class CafeBoardCatVo {
 		this.catName = catName;
 	}
 
-	public int getCarOrder() {
-		return carOrder;
+	public int getCatOrder() {
+		return catOrder;
 	}
 
-	public void setCarOrder(int carOrder) {
-		this.carOrder = carOrder;
+	public void setCatOrder(int catOrder) {
+		this.catOrder = catOrder;
 	}
 	
 }

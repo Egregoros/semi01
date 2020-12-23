@@ -64,7 +64,6 @@
 			<option value="${cvo.catName }">${cvo.catName }</option>
 		</c:forEach>
 	</select><br>
-	카페 대문 사진 : <input type = "file" name = "cafePicName"><br>
 	카페 설명: <textarea rows="5" cols="50" name = "content"></textarea><br>
 	<input type = "submit" value = "카페수정">
 </form>
