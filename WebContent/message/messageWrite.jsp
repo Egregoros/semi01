@@ -47,7 +47,7 @@
 </script>
 </head>
 <body>
-<a href="${pageContext.request.contextPath }/message">쪽지함 메인</a>
+<a href="${pageContext.request.contextPath }/message">쪽지함 메인화면</a>
 <h2>쪽지 보내기</h2>
 <form method="post" action="${pageContext.request.contextPath }/message">
 	수신자 <input type="text" name="toUserName" id="nickName" onkeyup="checkNickName()" required="required"><div id="nickNameCheck" style="font-size: 0.8em;color:red;"></div><br>

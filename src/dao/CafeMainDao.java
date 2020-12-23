@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import db.DBCPBean;
 import vo.CafeBoardInfoVo;
+import vo.CafeMainPicVo;
 import vo.CafeNavBoardVo;
 import vo.CafeNavCatVo;
 import vo.PostCommentVo;
@@ -574,6 +575,29 @@ public class CafeMainDao {
 			return -1;
 		} finally {
 			DBCPBean.close(con, pstmt1, null);
+		}
+	}
+	
+	public CafeMainPicVo getMainPic(int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "select * from cafemainpic where cafenum=?";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, cafeNum);
+			rs1=pstmt1.executeQuery();
+			CafeMainPicVo vo = null;
+			if(rs1.next()) {
+				vo=new CafeMainPicVo(rs1.getInt("cafepicnum"), rs1.getInt("cafenum"), rs1.getString("orgfilename"), rs1.getString("savefilename"), rs1.getLong("fileSize"));
+			}
+			return vo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt1, rs1);
 		}
 	}
 	

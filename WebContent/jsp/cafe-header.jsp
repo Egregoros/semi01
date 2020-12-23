@@ -19,7 +19,7 @@
 		<li><a href="${pageContext.request.contextPath }/cafeList" class="underline">카페 홈</a></li>
 	</ul>
 </div>
-<div id="header-img-div" style="background-image : url('../img/1.jpg');">
+<div id="header-img-div" style="background-image : url('../cafeMainPic/${cafeMainPic['saveFileName']}');">
 </div>
 <div id="header-content-nav">
 	<ul>

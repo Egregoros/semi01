@@ -59,7 +59,7 @@
 </script>
 </head>
 <body>
-<a href="${pageContext.request.contextPath }/message/message.jsp">쪽지함 메인화면</a>
+<a href="${pageContext.request.contextPath }/message">쪽지함 메인화면</a>
 <h2>받은 쪽지함</h2>
 <div id="messageBox" style="width:300px; height:350px; border: 1px solid black;overflow: scroll;overflow-x:hidden;">
 	<c:forEach items="${messageList }" var="list">

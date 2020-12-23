@@ -115,6 +115,7 @@ public class CafeMain extends HttpServlet{
 			req.setAttribute("postCommentCount", cmdao.getPostCommentCount());
 		}
 		req.setAttribute("cafeInfo", cmdao.getCafeInfo(cafeNum));
+		req.setAttribute("cafeMainPic", cmdao.getMainPic(cafeNum));
 		req.setAttribute("cafeNavList", cmdao.getCafeNavList(cafeNum));
 		
 		req.getRequestDispatcher("/jsp/cafe-main.jsp").forward(req, resp);

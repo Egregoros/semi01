@@ -17,6 +17,7 @@
 		<header>
 			<jsp:include page="cafe-header.jsp">
 				<jsp:param value="${cafeInfo }" name="cafeInfo" />
+				<jsp:param value="${cafeMainPic }" name="cafeMainPic" />
 				<jsp:param value="${pageCount }" name="pageCount" />
 				<jsp:param value="${search }" name="search" />
 			</jsp:include>
