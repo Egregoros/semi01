@@ -6,43 +6,78 @@
 <head>
 <meta charset="UTF-8">
 <title>messageReceive.jsp</title>
+<style>
+	#messageBox{
+		position: relative;
+	}
+	
+	.right{
+		position:relative;
+		right:0px;
+		top:0px;
+		margin:10px;
+		margin-left:auto;
+		border: 1px solid black;
+		border-radius: 3px;
+		max-width: 200px;
+	}
+	.left{
+		position:relative;
+		left:0px;
+		top:0px;
+		margin:10px;
+		border: 1px solid black;
+		border-radius: 3px;
+		max-width: 200px;
+	}
+	.messagebox *{
+		margin:0px;
+		padding:0px 5px;
+	}
+	.messagebox h3{
+		font-size: 0.9em;
+	}
+	.messagebox div {
+		font-size: 0.8em;
+	}
+</style>
+<script>
+	window.onload=function(){
+		function updateScroll() {
+			var messageBox = document.getElementById("messageBox");
+			messageBox.scrollTop=messageBox.scrollHeight;
+		}
+		updateScroll();
+	}
+</script>
 </head>
 <body>
 <a href="${pageContext.request.contextPath }/message/message.jsp">쪽지함 메인화면</a>
 <h2>받은 쪽지함</h2>
-<table border="2" width="1000">
-	<tr>
-		<th>글번호</th>
-		<th>작성자</th>
-		<th>내용</th>
-	</tr>
-	<c:forEach var="vo" items="${list }">
-		<tr>
-			<td>${vo.num }</td>
-			<td>${vo.writer }</td>
-			<td>${vo.content }</td>
-		</tr>
+<div id="messageBox" style="width:300px; height:350px; border: 1px solid black;overflow: scroll;overflow-x:hidden;">
+	<c:forEach items="${messageList }" var="list">
+		<c:choose>
+			<c:when test="${list['recUserNum']==userNum }">
+				<div class="right messagebox">
+					<h3>${list['messTitle'] }</h3>
+					<div>${list['messContent'] }</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="left messagebox">
+					<h3>${list['messTitle'] }</h3>
+					<div>${list['messContent'] }</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</c:forEach>
-</table>
-<div>
-	<c:if test="${startPageNum>10 }">
-		<a href="${pageContext.request.contextPath }/message/list?pageNum=${startPageNum-1}&field=${field}&keyword=${keyword}">[이전]</a>
-	</c:if>
-	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-		<a href="${pageContext.request.contextPath }/message/list?pageNum=${i}&field=${field}&keyword=${keyword}">[${i }]</a> 
-	</c:forEach>
-	<c:if test="${endPageNum<pageCount }">
-		<a href="${pageContext.request.contextPath }/message/list?pageNum=${endPageNum+1}&field=${field}&keyword=${keyword}">[다음]</a>
-	</c:if>
 </div>
-<div>
-	<form method="post" action="${pageContext.request.contextPath }/message/list">
-		<select name="field">
-			<option value="writer" <c:if test="${field=='writer' }">selected</c:if>>작성자</option>
-			<option value="content" <c:if test="${field=='content' }">selected</c:if>>내용</option>
-		</select>
-		<input type="text" name="keyword" value="${keyword }">
-		<input type="submit" value="검색">
+<div style="width:300px; border:1px solid black; border-top:none;">
+	<form action="" style="text-align: center;">
+		<input type="hidden" name="toUserNum" value=${messageUserNum }>
+		<input type="text" name="messTitle" style="width:292px;" placeholder="제목">
+		<textarea rows="7" style="width:294px;resize:none;"  name="messContent" placeholder="내용"></textarea>
+		<input type="submit" value="보내기" style="margin:5px;">
 	</form>
 </div>
 </body>
