@@ -50,6 +50,7 @@ public class CafeMainDao {
 				map.put("cafeRegdate",rs1.getString("cr"));
 				map.put("cafeGrade",rs1.getString("gradename"));
 				map.put("cafeNum",rs1.getString("cafenum"));
+				map.put("cafeContent",rs1.getString("content"));
 				map.put("cafeUsers",rs2.getString("count"));
 				return map;
 			} else {
@@ -635,6 +636,26 @@ public class CafeMainDao {
 			return null;
 		} finally {
 			DBCPBean.close(con, pstmt1, rs1);
+		}
+	}
+	
+	public int joinCafeMember(int userNum, int cafeNum, String cafeNickName) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "insert into cafemember values(?,?,?,1,0,sysdate)";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, userNum);
+			pstmt1.setInt(2, cafeNum);
+			pstmt1.setString(3, cafeNickName);
+			int i = pstmt1.executeUpdate();
+			return i;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt1, null);
 		}
 	}
 	

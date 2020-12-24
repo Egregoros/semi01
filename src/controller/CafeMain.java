@@ -66,60 +66,66 @@ public class CafeMain extends HttpServlet{
 			userInfo =cmdao.getUserInfo(userNum, cafeNum);
 			req.setAttribute("userInfo", userInfo);
 		}
-		
-		try{
-			int writeCafeNum=Integer.parseInt((String)req.getParameter("writeCafeNum"));
-			try {
-				if(Integer.parseInt(userInfo.get("userGradeNum"))==2||userInfo==null) {
+		try {
+			int joinCafeUserNum = Integer.parseInt((String)req.getParameter("joinCafeUserNum"));
+			req.setAttribute("joinCafeUserNum", joinCafeUserNum);
+			
+			
+		}catch(Exception e) {
+			try{
+				int writeCafeNum=Integer.parseInt((String)req.getParameter("writeCafeNum"));
+				try {
+					if(Integer.parseInt(userInfo.get("userGradeNum"))==2||userInfo==null) {
+						resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
+						return;
+					}
+				}catch(Exception e3) {
 					resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
 					return;
 				}
-			}catch(Exception ee) {
-				resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
-				return;
-			}
-			req.setAttribute("writeCafeNum", writeCafeNum);
-			req.setAttribute("postCatList", cmdao.getPostCatList());
-		}catch(Exception e) {
-			int pageCount=10;
-			try {
-				pageCount = Integer.parseInt((String)req.getParameter("pageCount"));
-			}catch(Exception ee) {
-				pageCount=10;
-			}
-			int pageNum=1;
-			try {
-				pageNum = Integer.parseInt((String)req.getParameter("pageNum"));
-			}catch(Exception ee) {
-				pageNum=1;
-			} 
-			int startRow = (pageNum-1)*pageCount+1;
-			int endRow = startRow+pageCount-1;
-			try {
-				int postNum = Integer.parseInt((String)req.getParameter("postNum"));
-				PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
-				if(postInfo!=null) { 
-					req.setAttribute("postInfo", postInfo);
-					ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
-					req.setAttribute("postCommentList", postCommentList);
+				req.setAttribute("writeCafeNum", writeCafeNum);
+				req.setAttribute("postCatList", cmdao.getPostCatList());
+			}catch(Exception e2) {
+				int pageCount=10;
+				try {
+					pageCount = Integer.parseInt((String)req.getParameter("pageCount"));
+				}catch(Exception e3) {
+					pageCount=10;
 				}
-			}catch(Exception ee) {
-				
+				int pageNum=1;
+				try {
+					pageNum = Integer.parseInt((String)req.getParameter("pageNum"));
+				}catch(Exception e3) {
+					pageNum=1;
+				} 
+				int startRow = (pageNum-1)*pageCount+1;
+				int endRow = startRow+pageCount-1;
+				try {
+					int postNum = Integer.parseInt((String)req.getParameter("postNum"));
+					PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
+					if(postInfo!=null) { 
+						req.setAttribute("postInfo", postInfo);
+						ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
+						req.setAttribute("postCommentList", postCommentList);
+					}
+				}catch(Exception e3) {
+					
+				}
+				String search=req.getParameter("search");
+				if(search==""||search==null) {
+					req.setAttribute("postList", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
+					req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
+					req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(cafeNum, boardNum));
+					search="";
+				}else {
+					req.setAttribute("postList", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
+					req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(cafeNum, search));
+				}
+				req.setAttribute("search", search);
+				req.setAttribute("pageNum", pageNum);
+				req.setAttribute("pageCount", pageCount);
+				req.setAttribute("postCommentCount", cmdao.getPostCommentCount());
 			}
-			String search=req.getParameter("search");
-			if(search==""||search==null) {
-				req.setAttribute("postList", cmdao.getCafePostList(cafeNum, boardNum, startRow, endRow));
-				req.setAttribute("boardInfo", cmdao.getCafeBoardInfo(cafeNum, boardNum));
-				req.setAttribute("noticeInfo", cmdao.getCafeNoticeList(cafeNum, boardNum));
-				search="";
-			}else {
-				req.setAttribute("postList", cmdao.getCafeSearchList(cafeNum, startRow, endRow, search));
-				req.setAttribute("boardInfo", cmdao.getCafeSearchInfo(cafeNum, search));
-			}
-			req.setAttribute("search", search);
-			req.setAttribute("pageNum", pageNum);
-			req.setAttribute("pageCount", pageCount);
-			req.setAttribute("postCommentCount", cmdao.getPostCommentCount());
 		}
 		req.setAttribute("cafeInfo", cmdao.getCafeInfo(cafeNum));
 		req.setAttribute("cafeMainPic", cmdao.getMainPic(cafeNum));

@@ -34,6 +34,11 @@
 
 			<div id="section-content">
 				<c:choose>
+					<c:when test="${joinCafeUserNum != null}">
+						<jsp:include page="cafe-join.jsp">
+							<jsp:param value="${cafeInfo }" name="cafeInfo" />
+						</jsp:include>
+					</c:when>
 					<c:when test="${postInfo != null}">
 						<jsp:include page="cafe-post.jsp">
 							<jsp:param value="${userInfo }" name="userInfo" />

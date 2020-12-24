@@ -50,7 +50,7 @@
 							href="${pageContext.request.contextPath }/login/login.jsp"
 						</c:when>
 						<c:otherwise>
-							href="${pageContext.request.contextPath }"
+							href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${param.cafeNum }&joinCafeUserNum=${userNum }"
 						</c:otherwise>
 					</c:choose>
 				>카페 가입</a>
