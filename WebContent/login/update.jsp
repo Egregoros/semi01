@@ -149,7 +149,7 @@
                (*)은 필수입력사항입니다.
          </fieldset><br>
    <ul>
-      <li><a href="${pageContext.request.contextPath }/login/login.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;
+      <li><a href="${pageContext.request.contextPath }/cafeList.jsp">◀이전화면</a>&nbsp;&nbsp;&nbsp;
       </li>
    </ul>
       <input type="submit" value="회원수정" onclick="buttonClick()">

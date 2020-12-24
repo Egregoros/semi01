@@ -15,7 +15,7 @@ import vo.UserInfoVo;
 public class UpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int userNum=Integer.parseInt(req.getParameter("usernum"));
+		int userNum=Integer.parseInt(req.getParameter("userNum"));
 		UserInfoDao dao=new UserInfoDao();
 		UserInfoVo vo=dao.getOne(userNum);
 		System.out.println("vo: " + vo);
@@ -34,10 +34,9 @@ public class UpdateController extends HttpServlet{
 		String addr=req.getParameter("addr");
 		String email=req.getParameter("email");
 		String birth=req.getParameter("birth");
-		Date d=Date.valueOf("birth");		
+		Date d=Date.valueOf(birth);
 		String phone=req.getParameter("phone");
-		int isLive=Integer.parseInt(req.getParameter("isLive"));
-		UserInfoVo vo=new UserInfoVo(userNum, id, pwd, name, nickname, addr, email, d, phone, isLive);
+		UserInfoVo vo=new UserInfoVo(userNum, id, pwd, name, nickname, addr, email, d, phone, 1);
 		UserInfoDao dao=new UserInfoDao();
 		int n=dao.update(vo);
 		if(n>0) {
