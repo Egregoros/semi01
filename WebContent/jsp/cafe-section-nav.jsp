@@ -18,7 +18,7 @@
 	<div id="section-nav-header-content">
 		<div id="section-nav-header-content-cafe">
 			<div>
-				<p class="gray"><a href="${pageContext.request.contextPath }/message?messageUserNum=${cafeInfo['cafeAdminNum']}">${cafeInfo['cafeAdmin'] }</a>&nbsp;&nbsp;<c:if test="${userNum==cafeInfo['cafeAdminNum'] }"><a href="${pageContext.request.contextPath }/cafe/cafeUpdate?cafeNum=${cafeInfo['cafeNum'] }" class="underline" style="font-size: 0.8em; color:#3e3e3e;">관리</a></c:if></p>
+				<p class="gray"><a href="${pageContext.request.contextPath }/message?messageUserNum=${cafeInfo['cafeAdminNum']}" style="color:gray;">${cafeInfo['cafeAdmin'] }</a>&nbsp;&nbsp;<c:if test="${userNum==cafeInfo['cafeAdminNum'] }"><a href="${pageContext.request.contextPath }/cafe/cafeUpdate?cafeNum=${cafeInfo['cafeNum'] }" class="underline" style="font-size: 0.8em; color:#3e3e3e;">[관리]</a></c:if></p>
 				<p class="gray">since ${cafeInfo['cafeRegdate'] }</p>
 			</div>
 			<div>
@@ -30,7 +30,7 @@
 			<c:when test="${userInfo['isUser']=='true' }">
 				<div id="section-nav-header-content-self">
 					<div>
-						<p class="gray">${userInfo['userNick'] }</p>
+						<p class="gray">${userInfo['userNick'] }&nbsp;&nbsp;<a href="" style="font-size: 0.8em; color:gray;">[정보수정]</a></p>
 						<p class="gray">가입 ${userInfo['userRegdate'] }</p>
 					</div>
 					<div>
