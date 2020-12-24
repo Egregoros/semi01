@@ -55,6 +55,7 @@
 		<ul>
 			<li><a href = "${cp }/cafe/cafeUpdate?cafeNum=${param.cafeNum }">카페수정</a></li>
 			<li><a href = "${cp }/cafe/cafeBoardUpdateList?cafeNum=${param.cafeNum }">카페게시판 수정</a></li>
+			<li><a href = "${cp }/cafe/cafeUserInfoList?cafeNum=${param.cafeNum }">카페 회원 수정</a></li>
 			<li><button id = "myBtn">삭제</button></li>
 		</ul>
 	</div>

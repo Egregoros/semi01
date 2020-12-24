@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vo.CafeMemberGradeNameVo;
 import vo.CafeMemberVo;
 import db.DBCPBean;
 
@@ -220,6 +221,60 @@ public class CafeMemberDao {
 		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public ArrayList<CafeMemberGradeNameVo> getListGradeName(int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CafeMemberGradeNameVo cafeMemberGradeNameVo = null;
+		ArrayList<CafeMemberGradeNameVo> list = new ArrayList<CafeMemberGradeNameVo>();
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafemember natural join cafememgrade where cafenum=? order by cafememgradenum";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int userNum = rs.getInt("userNum");
+				String cafeMemNick = rs.getString("cafeMemNick");
+				int cafeMemGradeNum = rs.getInt("cafeMemGradeNum");
+				int cafeInviteCount = rs.getInt("cafeInviteCount");
+				String cafeMemGradeName = rs.getString("cafeMemGradeName");
+				String cafeMemRegDate = rs.getDate("cafeMemRegDate").toString();
+				cafeMemberGradeNameVo = new CafeMemberGradeNameVo(userNum, cafeNum, cafeMemNick, cafeMemGradeNum, cafeInviteCount, cafeMemGradeName, cafeMemRegDate);
+				list.add(cafeMemberGradeNameVo);
+			}
+			return list;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
+	public int getMaxGradeNum (int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int cafeMemGradeNum = 0;
+		try {
+			con= DBCPBean.getConn();
+			String sql = "select max(cafememgradenum) max from cafemember natural join cafememgrade where cafenum=? order by cafememgradenum";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cafeMemGradeNum = rs.getInt("max");
+			}
+			return cafeMemGradeNum;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
 		} finally {
 			DBCPBean.close(con, pstmt, rs);
 		}
