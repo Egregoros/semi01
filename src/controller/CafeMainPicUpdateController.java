@@ -38,7 +38,7 @@ public class CafeMainPicUpdateController extends HttpServlet{
 			req.setAttribute("listVo", listVo);
 			req.getRequestDispatcher("/cafe/cafeMainPicUpdate.jsp").forward(req, resp);
 		} else {
-			req.setAttribute("errMsg", "¿î¿µÀÚ È¤Àº °ü¸®ÀÚ¸¸ ÇÒ¼ö ÀÖ½À´Ï´Ù.");
+			req.setAttribute("errMsg", "ìš´ì˜ì í˜¹ì€ ê´€ë¦¬ìë§Œ í• ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 			req.getRequestDispatcher("/jsp/cafe-main.do?cafeNum="+cafeNum).forward(req, resp);
 		}
 	}

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 public class DBCPBean {
 	private static DataSource ds;
 	
-	// static ºí·Ï - static ¸â¹öº¯¼ö¸¦ ÃÊ±âÈ­ÇÒ¶§ »ç¿ë
+	// static ë¸”ëŸ­ - static ë©¤ë²„ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™” í• ë•Œ ì‚¬ìš©
 	static { 
 		try {
 			Context initContext = new InitialContext();

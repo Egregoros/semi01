@@ -34,7 +34,7 @@ public class CafeMainDao {
 		try {
 			con = DBCPBean.getConn();
 			String sql1 = "select c.*, to_char(caferegdate,'yyyy.mm.dd.') cr  from (select * from (cafelist natural join cafegrade natural join cafemember  natural join cafememgrade)) c where cafenum=?";
-			String sql2 = "select count(*) count from cafemember where cafenum=? and cafememgradenum!=(select cafememgradenum from cafememgrade where cafememgradename='ºñÈ¸¿ø' and cafenum=?)";
+			String sql2 = "select count(*) count from cafemember where cafenum=? and cafememgradenum!=(select cafememgradenum from cafememgrade where cafememgradename='ï¿½ï¿½È¸ï¿½ï¿½' and cafenum=?)";
 			pstmt1 = con.prepareStatement(sql1);
 			pstmt1.setInt(1, cafeNum);
 			rs1 = pstmt1.executeQuery();
@@ -78,7 +78,7 @@ public class CafeMainDao {
 		HashMap<String, String> map=new HashMap<String, String>();
 		try {
 			con = DBCPBean.getConn();
-			String sql1 = "select * from cafemember where usernum=? and cafenum=? and cafememgradenum != 2";	//ºñÈ¸¿ø ¹øÈ£ 2¹ø
+			String sql1 = "select * from cafemember where usernum=? and cafenum=? and cafememgradenum != 2";	//ë¹„íšŒì› ë²ˆí˜¸ 2ë²ˆ
 			String sql2 = "select u.*, to_char(cafememregdate,'yyyy.mm.dd.') cr from (select * from (select * from cafemember natural join cafememgrade where cafenum=? and usernum=?)) u";
 			String sql3 = "select count(*) count from post where boardnum in (select boardnum from cafeboard where boardcatnum in (select boardcatnum from cafeboardcat where cafenum=?)) and usernum=?";
 			String sql4 = "select count(*) count from postcomment where postnum in (select postnum from post where boardnum in (select boardnum from cafeboard where boardcatnum in (select boardcatnum from cafeboardcat where cafenum=?))) and usernum = ?";
@@ -375,7 +375,7 @@ public class CafeMainDao {
 			pstmt.setString(4, "%"+search+"%");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				return new CafeBoardInfoVo(-1, -1, -1, "'"+search+"' ÀÇ °Ë»ö°á°ú", -1, -1, rs.getInt("count"));
+				return new CafeBoardInfoVo(-1, -1, -1, "'"+search+"' ì˜ ê²€ìƒ‰ê²°ê³¼", -1, -1, rs.getInt("count"));
 			}else {
 				return null;
 			}

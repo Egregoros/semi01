@@ -32,7 +32,7 @@ public class CafeBoardUpdateController extends HttpServlet{
 		int cafeNum = Integer.parseInt(req.getParameter("cafeNum"));
 		req.setCharacterEncoding("utf-8");
 		
-		//Ä«Æä °ü¸®ÀÚ ¸Â´ÂÁö È®ÀÎ¿ë
+		//ì¹´í˜ ê´€ë¦¬ì ë§ëŠ”ì§€ í™•ì¸ìš©
 		CafeListTableDao cafeListTableDao = new CafeListTableDao();
 		CafeListVo cafeListVo = cafeListTableDao.getOne(cafeNum);
 		UserInfoDao userInfoDao = new UserInfoDao();
@@ -41,11 +41,11 @@ public class CafeBoardUpdateController extends HttpServlet{
 		CafeMemberDao cafeMemberDao = CafeMemberDao.getInstance();
 		CafeMemberVo cafeMemberVo = cafeMemberDao.getcafeMemGradeNum(userNum, cafeNum);
 		
-		//Ä«Å×°í¸® ºÒ·¯¿À±â
+		//ì¹´í…Œê³ ë¦¬ ë¶ˆëŸ¬ì˜¤ê¸°
 		CafeBoardCatDao cafeBoardCatDao = CafeBoardCatDao.getInstance();
 		ArrayList<CafeBoardCatVo> cafeBoardCatList = cafeBoardCatDao.getCafeCat(cafeNum);
 		
-		//°Ô½ÃÆÇ ºÒ·¯¿À±â
+		//ê²Œì‹œíŒ ë¶ˆëŸ¬ì˜¤ê¸°
 		CafeBoardDao cafeBoardDao = CafeBoardDao.getInstance();
 		ArrayList<CafeBoardVo> cafeBoardList = cafeBoardDao.getList(cafeNum);
 		
@@ -60,10 +60,10 @@ public class CafeBoardUpdateController extends HttpServlet{
 			req.setAttribute("cafeNavBoardList", cafeNavBoardList);
 			req.getRequestDispatcher("/cafe/CafeBoardUpdate.jsp?cafeNum="+cafeNum).forward(req, resp);
 		} else if (cafeMemberVo.getCafeMemGradeNum() > 1) {
-			req.setAttribute("errMsg", "°ü¸®ÀÚ°¡ ¾Æ´Ï¶ó Á¢±Ù ºÒ°¡´ÉÇÑ ¸Ş´ºÀÔ´Ï´Ù.");
+			req.setAttribute("errMsg", "ê´€ë¦¬ìê°€ ì•„ë‹ˆë¼ ì ‘ê·¼ ë¶ˆê°€ëŠ¥í•œ ë©”ë‰´ì…ë‹ˆë‹¤.");
 			req.getRequestDispatcher("/jsp/cafe-main.do?cafeNum="+cafeNum).forward(req, resp);
 		} else if (session.getAttribute("userNum") != null) {
-			req.setAttribute("errMsg", "·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¸Ş´ºÀÔ´Ï´Ù.");
+			req.setAttribute("errMsg", "ë¡œê·¸ì¸ì´ í•„ìš”í•œ ë©”ë‰´ì…ë‹ˆë‹¤.");
 			resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
 		}
 	}

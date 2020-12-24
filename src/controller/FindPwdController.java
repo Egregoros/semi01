@@ -27,9 +27,9 @@ public class FindPwdController extends HttpServlet{
 		PrintWriter pw=resp.getWriter();
 		pw.print("<result>");
 		if(n!=null) {
-			pw.print("È¸¿ø´ÔÀÇ ºñ¹Ğ¹øÈ£´Â" + n + "ÀÔ´Ï´Ù.");
+			pw.print("íšŒì›ë‹˜ì˜ ë¹„ë°€ë²ˆí˜¸ëŠ” " + n + " ì…ë‹ˆë‹¤.");
 		}else {
-			pw.print("ÀÔ·ÂÇÏ½Å ¾ÆÀÌµğ ¶Ç´Â ÈŞ´ëÆù ¹øÈ£¿Í ÀÏÄ¡ÇÏ´Â ºñ¹Ğ¹øÈ£°¡ ¾ø½À´Ï´Ù.");
+			pw.print("ì…ë ¥í•˜ì‹  ì•„ì´ë”” ë˜ëŠ” íœ´ëŒ€í° ë²ˆí˜¸ì™€ ì¼ì¹˜í•˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
 		}
 		pw.print("</result>");
 	}

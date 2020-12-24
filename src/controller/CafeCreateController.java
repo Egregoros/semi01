@@ -43,7 +43,7 @@ public class CafeCreateController extends HttpServlet{
 			req.setAttribute("catList", catList);
 			req.getRequestDispatcher("/cafe/cafeCreate.jsp").forward(req, resp);
 		} else {
-			req.setAttribute("needLogin", "�α����� �ʿ��� �۾��Դϴ�. �α������ּ���.");
+			req.setAttribute("needLogin", "로그인이 필요한 작업입니다.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 		}
 	}
@@ -80,7 +80,7 @@ public class CafeCreateController extends HttpServlet{
 		
 		
 		if (n>0) {
-			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "������");
+			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "관리자");
 			CafeMemGradeDao cafeMemGradeDao = CafeMemGradeDao.getInstance();
 			cafeMemGradeDao.insert(cafeMemGradeVo);
 			
@@ -100,7 +100,7 @@ public class CafeCreateController extends HttpServlet{
 			cafeMainPicDao.insert(cafeMainPicVo);
 			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		} else {
-			req.setAttribute("errMsg", "������ ���� ī�� ������ �Ұ��մϴ�.\n���Ŀ� �ٽ� �õ����ֽñ� �ٶ��ϴ�.");
+			req.setAttribute("errMsg", "오류로 인해 카페가 생성되지 않았습니다. 다시 시도해주세요.");
 			req.getRequestDispatcher(req.getContextPath()+"/cafe/cafeCreate").forward(req, resp);
 		}
 		

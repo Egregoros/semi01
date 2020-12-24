@@ -1,7 +1,5 @@
 package vo;
 
-import java.sql.Date;
-
 public class CafeMemGradeVo {
 	private int cafeNum;
 	private int cafeMemGradeNum;

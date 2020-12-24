@@ -27,9 +27,9 @@ public class FindIdController extends HttpServlet{
 		PrintWriter pw=resp.getWriter();
 		pw.print("<result>");
 		if(n!=null) {
-			pw.print("È¸¿ø´ÔÀÇ ¾ÆÀÌµğ´Â" + n + "ÀÔ´Ï´Ù.");
+			pw.print("íšŒì›ë‹˜ì˜ ì•„ì´ë””ëŠ” " + n + " ì…ë‹ˆë‹¤.");
 		}else {
-			pw.print("ÀÔ·ÂÇÏ½Å ÈŞ´ëÆù ¹øÈ£ ¶Ç´Â ÀÌ¸ŞÀÏ°ú ÀÏÄ¡ÇÏ´Â ¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.");
+			pw.print("ì…ë ¥í•˜ì‹  íœ´ëŒ€í° ë²ˆí˜¸ ë˜ëŠ” ì´ë©”ì¼ê³¼ ì¼ì¹˜í•˜ëŠ” ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.");
 		}
 		pw.print("</result>");
 	}

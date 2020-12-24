@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet{
 			session.setAttribute("userNum", a);
 			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		}else if(a==0){
-			req.setAttribute("errMsg", "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù." + "<br>" + "ÀÔ·ÂÇÏ½Å Á¤º¸¸¦ ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä.");
+			req.setAttribute("errMsg", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤." + "<br>" + "ì…ë ¥í•˜ì‹  ì •ë³´ë¥¼ ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 		}
 	}

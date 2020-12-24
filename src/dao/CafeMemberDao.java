@@ -132,11 +132,10 @@ public class CafeMemberDao {
 					int cafeInviteCount = rs2.getInt("cafeInviteCount");
 					vo = new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGradeNum, cafeInviteCount, null);
 				} else {
-					//시스템오류
+					return null;
 				}
 			} else {
-				System.out.println("유저를 찾을수 없습니다?");
-				// 아니면 회원찾기? 
+				return null;
 			}
 			return vo;
 		} catch (SQLException se) {
