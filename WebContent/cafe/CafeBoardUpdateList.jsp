@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/cafe/CafeBoardUpdate.jsp</title>
+<title>/cafe/CafeBoardUpdateList.jsp</title>
 </head>
 <body>
 	<c:set var = "cp" value = "${pageContext.request.contextPath }" />

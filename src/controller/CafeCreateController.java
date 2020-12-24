@@ -43,7 +43,7 @@ public class CafeCreateController extends HttpServlet{
 			req.setAttribute("catList", catList);
 			req.getRequestDispatcher("/cafe/cafeCreate.jsp").forward(req, resp);
 		} else {
-			req.setAttribute("needLogin", "·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ÀÛ¾÷ÀÔ´Ï´Ù. ·Î±×ÀÎÇØÁÖ¼¼¿ä.");
+			req.setAttribute("needLogin", "ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½Ô´Ï´ï¿½. ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 			req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
 		}
 	}
@@ -76,11 +76,11 @@ public class CafeCreateController extends HttpServlet{
 		UserInfoDao userDao = new UserInfoDao();
 		UserInfoVo userVo = userDao.getOne(userNum);
 		CafeListVo cafeListVo = new CafeListVo(0, 1, catVo.getCatNum(), cafeName, userVo.getUserNum(), content, null);
-		int n = cafeListDao.insert(cafeListVo); // Ä«Æä¹øÈ£ return.
+		int n = cafeListDao.insert(cafeListVo); 
 		
 		
 		if (n>0) {
-			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "°ü¸®ÀÚ");
+			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			CafeMemGradeDao cafeMemGradeDao = CafeMemGradeDao.getInstance();
 			cafeMemGradeDao.insert(cafeMemGradeVo);
 			
@@ -100,7 +100,7 @@ public class CafeCreateController extends HttpServlet{
 			cafeMainPicDao.insert(cafeMainPicVo);
 			resp.sendRedirect(req.getContextPath()+"/cafeList");
 		} else {
-			req.setAttribute("errMsg", "¿À·ù·Î ÀÎÇØ Ä«Æä »ý¼ºÀÌ ºÒ°¡ÇÕ´Ï´Ù.\nÃßÈÄ¿¡ ´Ù½Ã ½ÃµµÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
+			req.setAttribute("errMsg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½Õ´Ï´ï¿½.\nï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ö½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.");
 			req.getRequestDispatcher(req.getContextPath()+"/cafe/cafeCreate").forward(req, resp);
 		}
 		
