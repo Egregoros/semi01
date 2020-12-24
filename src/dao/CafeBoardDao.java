@@ -37,7 +37,7 @@ public class CafeBoardDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con= DBCPBean.getConn();
+			con = DBCPBean.getConn();
 			String sql = "delete from cafeboard where boardcatnum = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardCatNum);
@@ -47,6 +47,34 @@ public class CafeBoardDao {
 			return -1;
 		} finally {
 			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public CafeBoardVo getBoard(int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CafeBoardVo cafeBoardVo = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafeboard where boardNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int cafeBoardNum = rs.getInt("cafeBoardNum");
+				int boardCatNum = rs.getInt("boardCatNum");
+				String boardName = rs.getString("boardName");
+				int useGrade = rs.getInt("useGrade");
+				int orderNum = rs.getInt("orderNum");
+				cafeBoardVo = new CafeBoardVo(boardNum, cafeBoardNum, boardCatNum, boardName, useGrade, orderNum);
+			}
+			return cafeBoardVo;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
 		}
 	}
 	
@@ -81,5 +109,48 @@ public class CafeBoardDao {
 		}
 	}
 	
+	public String getBoardName(int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String boardName = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select * from cafeboard where boardnum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int cafeBoardNum = rs.getInt("cafeBoardNum");
+				int boardCatNum = rs.getInt("boardCatNum");
+				boardName = rs.getString("boardName");
+				int useGrade = rs.getInt("useGrade");
+				int orderNum = rs.getInt("orderNum");
+			}
+			return boardName;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
 	
+	public int updateBoard(int boardNum, String boardName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "update cafeboard set boardName = ? where boardNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, boardName);
+			pstmt.setInt(2, boardNum);
+			return pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
 }

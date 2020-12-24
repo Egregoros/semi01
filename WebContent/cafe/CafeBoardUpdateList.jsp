@@ -34,7 +34,7 @@
 						<tr>
 							<td>게시판</td>
 							<td>${cafeNavBoardListBoard.boardName }</td>
-							<td><a href = "">수정</a></td>
+							<td><a href = "${cp }/cafe/cafeBoardUpdate?cafeNum=${cafeNum }&boardNum=${cafeNavBoardListBoard.boardNum }">수정</a></td>
 							<td><a href = "${cp }/cafe/cafeBoardDelete?cafeNum=${cafeNum }&boardNum=${cafeNavBoardListBoard.boardNum }">삭제</a></td>
 						</tr>
 					
