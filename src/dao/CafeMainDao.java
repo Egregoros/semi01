@@ -286,7 +286,7 @@ public class CafeMainDao {
 			con = DBCPBean.getConn();
 			String sql2 = "";
 			if(boardNum==0) {
-				sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=0 order by postnum desc) c) where rownum<=10";
+				sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=0 order by postnum desc) c) where rnum<=10";
 				pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setInt(1, cafeNum);
 				rs2 = pstmt2.executeQuery();
@@ -302,13 +302,14 @@ public class CafeMainDao {
 				rs1=pstmt1.executeQuery();
 				if(rs1.next()) {
 					if(rs1.getInt("cafeboardnum")==0) {
-						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=0 order by postnum desc) c) where rownum<=10";
+						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from cafeboardcat natural join cafeboard natural join post natural join cafemember where cafenum=? and postcatnum=0 order by postnum desc) c) where rnum<=10";
 						pstmt2 = con.prepareStatement(sql2);
 						pstmt2.setInt(1, cafeNum);
 					}else {
-						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd from (select * from post natural join cafemember where boardnum=? and postcatnum=0 order by postnum desc) c) where rownum<=10";
+						sql2 = "select * from (select c.*, to_char(postdate,'yyyy.mm.dd') pd, rownum rnum from (select * from post natural join cafemember natural join cafeboard natural join cafeboardcat where boardnum=? and postcatnum=0 and cafenum=? order by postnum desc) c) where rnum<=10";
 						pstmt2 = con.prepareStatement(sql2);
 						pstmt2.setInt(1, boardNum);
+						pstmt2.setInt(2, cafeNum);
 					}
 					rs2 = pstmt2.executeQuery();
 					ArrayList<PostListVo> list = new ArrayList<PostListVo>();
@@ -453,7 +454,7 @@ public class CafeMainDao {
 		ResultSet rs1 = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql1 = "select * from (select p.*, rownum rnum from postcomment p where postnum=? order by commentregdate desc) natural join cafemember where cafenum=? and rnum>=? and rnum<=?";
+			String sql1 = "select * from (select p.*, rownum rnum from (select * from postcomment where postnum=? order by commentregdate desc)p) natural join cafemember where cafenum=? and rnum>=? and rnum<=? order by rnum";
 			pstmt1 = con.prepareStatement(sql1);
 			pstmt1.setInt(1, postNum);
 			pstmt1.setInt(2, cafeNum);
@@ -518,7 +519,7 @@ public class CafeMainDao {
 		PreparedStatement pstmt1 = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql1 = "insert into postcomment values((select max(commentnum)+1 from postcomment),?,?,?,sysdate) ";
+			String sql1 = "insert into postcomment values((select nvl(max(commentnum),0)+1 from postcomment),?,?,?,sysdate) ";
 			pstmt1 = con.prepareStatement(sql1);
 			pstmt1.setInt(1, postNum);
 			pstmt1.setInt(2, userNum);
@@ -560,7 +561,7 @@ public class CafeMainDao {
 		PreparedStatement pstmt1 = null;
 		try {
 			con = DBCPBean.getConn();
-			String sql1 = "insert into post values((select max(postnum)+1 from post),(select max(postnum)+1 from post natural join cafeboard natural join cafeboardcat where cafenum=(select cafenum from cafeboard natural join cafeboardcat where boardnum=?)),?,?,?,sysdate,?,?,0)";
+			String sql1 = "insert into post values((select  nvl(max(postnum),0)+1 from post),(select nvl(max(postnum),0)+1 from post natural join cafeboard natural join cafeboardcat where cafenum=(select cafenum from cafeboard natural join cafeboardcat where boardnum=?)),?,?,?,sysdate,?,?,0)";
 			pstmt1 = con.prepareStatement(sql1);
 			pstmt1.setInt(1, boardNum);
 			pstmt1.setInt(2, boardNum);
@@ -574,6 +575,42 @@ public class CafeMainDao {
 			se.printStackTrace();
 			return -1;
 		} finally {
+			DBCPBean.close(con, pstmt1, null);
+		}
+	}
+	
+	public int deletePost(int postNum) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
+		try {
+			con = DBCPBean.getConn();
+			String sql1 = "delete postimg where postNum=?";
+			String sql2 = "delete postfile where postNum=?";
+			String sql3 = "delete postcomment where postNum=?";
+			String sql4 = "delete post where postNum=?";
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, postNum);
+			pstmt2 = con.prepareStatement(sql2);
+			pstmt2.setInt(1, postNum);
+			pstmt3 = con.prepareStatement(sql3);
+			pstmt3.setInt(1, postNum);
+			pstmt4 = con.prepareStatement(sql4);
+			pstmt4.setInt(1, postNum);
+			int i1 = pstmt1.executeUpdate();
+			int i2 = pstmt2.executeUpdate();
+			int i3 = pstmt3.executeUpdate();
+			int i4 = pstmt4.executeUpdate();
+			return 1;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(pstmt4);
+			DBCPBean.close(pstmt3);
+			DBCPBean.close(pstmt2);
 			DBCPBean.close(con, pstmt1, null);
 		}
 	}

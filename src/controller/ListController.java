@@ -14,7 +14,6 @@ import dao.CafeListTableDao;
 import dao.CafeMemberDao;
 import dao.CatTableDao;
 import vo.CafeListCatNameVo;
-import vo.CafeListVo;
 import vo.CatTableVo;
 
 
@@ -39,7 +38,7 @@ public class ListController extends HttpServlet{
 		CafeListTableDao dao=new CafeListTableDao();
 		ArrayList<CafeListCatNameVo> list=dao.catList(startRow, endRow, field, keyword);
 		if(catNum != null) {
-			list=dao.catList(startRow, endRow, "cl.catnum", catNum);
+			list=dao.catList(startRow, endRow, "catnum", catNum);
 		} else {
 			list=dao.catList(startRow, endRow, field, keyword);
 		}
@@ -51,7 +50,6 @@ public class ListController extends HttpServlet{
 			endPageNum=pageCount;
 		}
 		CatTableDao catDao = CatTableDao.getInstance();
-		CatTableVo catVo = new CatTableVo();
 		
 		ArrayList<CatTableVo> catList = catDao.list();
 		CafeMemberDao cafeMemDao = CafeMemberDao.getInstance();

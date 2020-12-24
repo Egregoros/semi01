@@ -10,8 +10,8 @@
 	<p style="font-size: 0.9em;margin-top:10px;border: 1px solid black; padding:10px;">${postInfo['postContent'] }</p>
 </div>
 <div style="font-size: 0.9em;margin-top:10px;">
-	<c:if test="${postInfo['userNum']==userNum }">
-		<button>수정</button> <button>삭제</button>
+	<c:if test="${postInfo['userNum']==userNum||userInfo['userGradeNum']==0}">
+		<button>수정</button> <button type="button" onclick="location.href='${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${param.cafeNum }&deletePostNum=${param.postNum }';">삭제</button>
 	</c:if>
 </div>
 <div id="post-comment" style="margin-top: 30px;">
@@ -24,7 +24,7 @@
 	</form>
 </div>
 <select onchange="if(this.value) location.href=(this.value);" id="section-content-page-count">
-	<c:set var="pageCountArray">10,15,20,25,30,50,1,2,0</c:set>
+	<c:set var="pageCountArray">10,15,20,25,30,50,1,0</c:set>
 	<c:forEach var="pageCountNum" items="${pageCountArray }">
 		<c:choose>
 			<c:when test="${pageCount==pageCountNum }">

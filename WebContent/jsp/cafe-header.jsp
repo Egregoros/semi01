@@ -6,7 +6,7 @@
 	<ul>
 		<c:choose>
 			<c:when test="${userNum==null }">
-				<li><a href="" class="underline">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath }/login/login.jsp" class="underline">로그인</a></li>
 				<li class="slash">┃</li>
 			</c:when>
 			<c:otherwise>

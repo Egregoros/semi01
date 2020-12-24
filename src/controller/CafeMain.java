@@ -48,6 +48,13 @@ public class CafeMain extends HttpServlet{
 		}catch(NullPointerException ne) {
 			userNum=-1;
 		}
+		try {
+			int deletePostNum = Integer.parseInt((String)req.getParameter("deletePostNum"));
+			cmdao.deletePost(deletePostNum);
+			resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum);
+			return;
+		}catch(Exception e) {
+		}
 		int boardNum=0;
 		try {
 			boardNum = Integer.parseInt((String)req.getParameter("boardNum"));

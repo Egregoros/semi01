@@ -25,16 +25,18 @@
 		<section>
 			<div id="section-nav">
 				<jsp:include page="cafe-section-nav.jsp">
-					<jsp:param value="${cafeInfo }" name="cafeInfo" /> 
+					<jsp:param value="${cafeInfo }" name="cafeInfo" />
+					<jsp:param value="${userInfo }" name="userInfo" />
 					<jsp:param value="${cafeNavList }" name="cafeNavList" />
 					<jsp:param value="${pageCount }" name="pageCount" />
 				</jsp:include>
 			</div>
- 
+
 			<div id="section-content">
 				<c:choose>
 					<c:when test="${postInfo != null}">
 						<jsp:include page="cafe-post.jsp">
+							<jsp:param value="${userInfo }" name="userInfo" />
 							<jsp:param value="${postInfo }" name="postInfo" />
 							<jsp:param value="${pageNum }" name="pageNum" />
 							<jsp:param value="${pageCount }" name="pageCount" />
@@ -46,7 +48,7 @@
 						<jsp:include page="cafe-write.jsp">
 							<jsp:param value="${userInfo }" name="userInfo" />
 							<jsp:param value="${cafeNavList }" name="cafeNavList" />
-							<jsp:param value="${postCatList }" name="postCatList"/>
+							<jsp:param value="${postCatList }" name="postCatList" />
 						</jsp:include>
 					</c:when>
 					<c:otherwise>

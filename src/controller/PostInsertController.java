@@ -22,11 +22,6 @@ public class PostInsertController extends HttpServlet{
 		String postContent = (String)req.getParameter("postContent");
 		HttpSession session = req.getSession();
 		int userNum = (int)session.getAttribute("userNum");
-		System.out.println("boardNum:"+boardNum);
-		System.out.println("cafeNum:"+cafeNum);
-		System.out.println("postCatNum:"+postCatNum);
-		System.out.println("postTitle:"+postTitle);
-		System.out.println("userNum:"+userNum);
 		
 		CafeMainDao cmdao = CafeMainDao.getInstance();
 		cmdao.insertPost(userNum, boardNum, postTitle, postContent, postCatNum);

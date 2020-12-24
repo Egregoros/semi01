@@ -41,13 +41,24 @@
 					</div>
 				</div>
 			</c:when>
+		</c:choose>
+		<c:choose>
+			<c:when test="${userInfo['isUser']!='true' }">
+				<a id="joinCafe" class="underline" 
+					<c:choose>
+						<c:when test="${userNum==null }">
+							href="${pageContext.request.contextPath }/login/login.jsp"
+						</c:when>
+						<c:otherwise>
+							href="${pageContext.request.contextPath }"
+						</c:otherwise>
+					</c:choose>
+				>카페 가입</a>
+			</c:when>
 			<c:otherwise>
-				<div id="section-nav-header-content-self">
-					<a id="joinCafe" class="underline" href="">카페 가입</a>
-				</div>
+				<a id="write" class="underline" href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&writeCafeNum=${cafeInfo['cafeNum']}">카페 글쓰기</a>
 			</c:otherwise>
 		</c:choose>
-		<a id="write" class="underline" href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&writeCafeNum=${cafeInfo['cafeNum']}">카페 글쓰기</a>
 	</div>
 </div>
 <div id="section-nav-list">

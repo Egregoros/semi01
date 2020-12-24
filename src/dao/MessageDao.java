@@ -101,7 +101,7 @@ public class MessageDao {
 		
 		try {
 			con=DBCPBean.getConn();
-			String sql="insert into message values((select max(messnum)+1 from message),?,?,?,?,sysdate,0)";
+			String sql="insert into message values((select nvl(max(messnum),0)+1 from message),?,?,?,?,sysdate,0)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, userNum);
 			pstmt.setInt(2, sendUserNum);
