@@ -13,12 +13,15 @@ import javax.servlet.http.HttpSession;
 import dao.CafeBoardCatDao;
 import dao.CafeBoardDao;
 import dao.CafeListTableDao;
+import dao.CafeMainDao;
 import dao.CafeMemberDao;
 import dao.UserInfoDao;
 import vo.CafeBoardCatVo;
 import vo.CafeBoardVo;
 import vo.CafeListVo;
 import vo.CafeMemberVo;
+import vo.CafeNavBoardVo;
+import vo.CafeNavCatVo;
 import vo.UserInfoVo;
 @WebServlet("/cafe/cafeBoardUpdate")
 public class CafeBoardUpdateController extends HttpServlet{
@@ -46,10 +49,14 @@ public class CafeBoardUpdateController extends HttpServlet{
 		CafeBoardDao cafeBoardDao = CafeBoardDao.getInstance();
 		ArrayList<CafeBoardVo> cafeBoardList = cafeBoardDao.getList(cafeNum);
 		
+		CafeMainDao cafeMainDao = CafeMainDao.getInstance();
+		ArrayList<CafeNavCatVo> cafeNavBoardList = cafeMainDao.getCafeNavList(cafeNum);
+		
 		if(cafeMemberVo.getCafeMemGradeNum() < 2) {
 			req.setAttribute("cafeName", cafeListVo.getCafeName());
 			req.setAttribute("cafeBoardCatList", cafeBoardCatList);
 			req.setAttribute("cafeBoardList", cafeBoardList);
+			req.setAttribute("cafeNavBoardList", cafeNavBoardList);
 			req.getRequestDispatcher("/cafe/cafeBoardUpdate.jsp?cafeNum="+cafeNum).forward(req, resp);
 		} else if (cafeMemberVo.getCafeMemGradeNum() > 1) {
 			req.setAttribute("errMsg", "관리자가 아니라 접근 불가능한 메뉴입니다.");
@@ -58,5 +65,10 @@ public class CafeBoardUpdateController extends HttpServlet{
 			req.setAttribute("errMsg", "로그인이 필요한 메뉴입니다.");
 			resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
 		}
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
+		HttpSession session = req.getSession();
+		int userNum = (Integer)session.getAttribute("userNum");
 	}
 }
