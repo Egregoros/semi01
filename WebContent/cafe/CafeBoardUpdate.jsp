@@ -9,26 +9,36 @@
 </head>
 <body>
 	<c:set var = "cp" value = "${pageContext.request.contextPath }" />
+	<c:set var = "cafeNum" value = "${param.cafeNum }" />
 	<div id = "wrapper">
 		<div id = "header">
 			<h1>${cafeName } 게시판/카테고리 수정/삭제</h1>
 		</div>
 		
 		<div id = "body">
-			<table>
+			<table border="1">
 				<tr>
 					<th>게시판/카테고리</th>
 					<th>이름</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>
-				<c:forEach var = "cafeNavBoardList" items = "${cafeNavBoardList }">
+				<c:forEach var = "cafeNavBoardList1" items = "${cafeNavBoardList }">
 					<tr>
-						<td>when</td>
-						<td>${cafeNavBoardList.catName }</td>
-						<td>수정</td>
-						<td>삭제</td>
+						<td>카테고리</td>
+						<td>${cafeNavBoardList1.catName }</td>
+						<td><a href = "${cp }/cafe/cafeBoardCatUpdate?cafeNum=${cafeNum }&boardCatNum=${cafeNavBoardList1.catNum }">수정</a></td>
+						<td><a href = "${cp }/cafe/cafeBoardCatDelete?cafeNum=${cafeNum }&boardCatNum=${cafeNavBoardList1.catNum }">삭제</a></td>
 					</tr>
+					<c:forEach var = "cafeNavBoardListBoard" items = "${cafeNavBoardList1.board }">
+						<tr>
+							<td>게시판</td>
+							<td>${cafeNavBoardListBoard.boardName }</td>
+							<td><a href = "">수정</a></td>
+							<td><a href = "${cp }/cafe/cafeBoardDelete?cafeNum=${cafeNum }&boardNum=${cafeNavBoardListBoard.boardNum }">삭제</a></td>
+						</tr>
+					
+					</c:forEach>
 				</c:forEach>
 			</table>
 		</div>
@@ -36,5 +46,6 @@
 		<div id = "footer">
 		</div>
 	</div>
+
 </body>
 </html>

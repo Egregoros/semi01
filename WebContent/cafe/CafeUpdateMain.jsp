@@ -43,7 +43,6 @@
   text-decoration: none;
   cursor: pointer;
 }
-
 </style>
 </head>
 <body>
@@ -54,8 +53,8 @@
 	
 	<div id = "body">
 		<ul>
-			<li><a href = "${cp }/cafe/cafeUpdate?cafeNum=${cafeNum }">카페수정</a></li>
-			<li><a href = "${cp }/cafe/cafeBoardUpdate?cafeNum=${cafeNum }">카페게시판 수정</a></li>
+			<li><a href = "${cp }/cafe/cafeUpdate?cafeNum=${param.cafeNum }">카페수정</a></li>
+			<li><a href = "${cp }/cafe/cafeBoardUpdate?cafeNum=${param.cafeNum }">카페게시판 수정</a></li>
 			<li><button id = "myBtn">삭제</button></li>
 		</ul>
 	</div>
@@ -70,10 +69,10 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-   	<form method = "post" action ="">
+   	<form method = "post" action ="${cp }/cafe/cafeDelete?cafeNum=${param.cafeNum }">
    		삭제를 원하시면 카페 이름을 다시 적어주세요.
     	<input type = "text" name = "confirm"><br>
-    	<input type = "submit" value = "카페삭제">
+    	<input type = "submit" value = "게시판 삭제">
     </form>
   </div>
 

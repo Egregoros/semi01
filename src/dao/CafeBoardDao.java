@@ -33,6 +33,23 @@ public class CafeBoardDao {
 		}
 	}
 	
+	public int deleteCat (int boardCatNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con= DBCPBean.getConn();
+			String sql = "delete from cafeboard where boardcatnum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardCatNum);
+			return pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
 	public ArrayList<CafeBoardVo> getList(int cafeNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
