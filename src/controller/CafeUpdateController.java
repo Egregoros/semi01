@@ -41,7 +41,7 @@ public class CafeUpdateController extends HttpServlet{
 		
 		//get userNum from cafeNum
 		if(session.getAttribute("userNum") == null) {
-			resp.sendRedirect("/login/login.jsp");
+			resp.sendRedirect(req.getContextPath()+"/login/login.jsp");
 		} else if (userNum == cafeMemVo.getUserNum() && cafeMemVo.getCafeMemGradeNum() > 1) { // 운영자 이상의 등급을 갖고 잇으면 가능. 카페 넘버도 맞아야함. &&로 해주면 될듯.
 			req.setAttribute("errMsg", "카페장 혹은 운영자가 아니므로 수정이 불가합니다.");
 		} else if (userNum != cafeMemVo.getUserNum()) {

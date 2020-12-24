@@ -36,8 +36,8 @@ public class CafeCreateController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
+		req.setCharacterEncoding("utf-8");
 		if(session.getAttribute("userNum") != null) {
-			req.setCharacterEncoding("utf-8");
 			CatTableDao catDao = CatTableDao.getInstance();
 			ArrayList<CatTableVo> catList = catDao.list();
 			req.setAttribute("catList", catList);

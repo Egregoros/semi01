@@ -54,7 +54,6 @@ public class CafeBoardDao {
 				int orderNum = rs.getInt("orderNum");
 				cafeBoardVo = new CafeBoardVo(cafeBoardNum, cafeBoardNum, boardCatNum, boardName, useGrade, orderNum);
 				list.add(cafeBoardVo);
-				
 			}
 			return list;
 		} catch (SQLException se) {
@@ -64,4 +63,6 @@ public class CafeBoardDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
+	
+	
 }

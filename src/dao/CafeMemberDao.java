@@ -225,4 +225,5 @@ public class CafeMemberDao {
 			DBCPBean.close(con, pstmt, rs);
 		}
 	}
+	
 }
