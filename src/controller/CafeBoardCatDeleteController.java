@@ -25,6 +25,6 @@ public class CafeBoardCatDeleteController extends HttpServlet{
 		CafeBoardDao cafeBoardDao = CafeBoardDao.getInstance();
 		cafeBoardCatDao.deleteBoardCatNum(boardCatNum);
 		
-		req.getRequestDispatcher(req.getContextPath()+"/cafe/cafeBoardUpdate?cafeNum="+cafeNum).forward(req, resp);;
+		req.getRequestDispatcher("/cafe/cafeBoardUpdate?cafeNum="+cafeNum).forward(req, resp);;
 	}
 }

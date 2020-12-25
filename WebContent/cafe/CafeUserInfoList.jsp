@@ -24,30 +24,28 @@
 				<th>닉네임</th>
 				<th>등급↑</th>
 				<th>등급↓</th>
-				<th>수정</th>
-				<th>삭제</th>
+				<th>강퇴</th>
 			</tr>
 			<c:forEach var = "cafeMemberGradeNameList" items ="${cafeMemberGradeNameList }">
 				<tr>
 					<td>${cafeMemberGradeNameList.userNum }</td>
 					<td>${cafeMemberGradeNameList.cafeMemGradeName }</td>
-					<td>${cafeMemberGradeNameList.cafeMemNick }</td>
+					<td><a href="${pageContext.request.contextPath }/message?messageUserNum=${cafeMemberGradeNameList.userNum }">${cafeMemberGradeNameList.cafeMemNick }</a></td>
 					<c:choose>
 						<c:when test="${cafeMemberGradeNameList.cafeMemGradeNum == 0 }">
 							<td></td>
-							<td><a href = "">등급↓</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeDown?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↓</a></td>
 						</c:when>
 						<c:when test="${(cafeMemberGradeNameList.cafeMemGradeNum < maxGradeNum) && (cafeMemberGradeNameList.cafeMemGradeNum > 0) }">
-							<td><a href = "">등급↑</a></td>
-							<td><a href = "">등급↓</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeUp?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↑</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeDown?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↓</a></td>
 						</c:when>
 						<c:when test="${cafeMemberGradeNameList.cafeMemGradeNum == maxGradeNum }">
-							<td><a href = "">등급↑</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeUp?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↑</a></td>
 							<td></td>
 						</c:when>
 					</c:choose>
-					<td><a href = "">수정</a></td>
-					<td><a href = "">삭제</a></td>
+					<td><a href = "${cp }/cafe/cafeUserInfoMemDelete">강퇴</a></td>
 				</tr>
 			</c:forEach>
 		</table>

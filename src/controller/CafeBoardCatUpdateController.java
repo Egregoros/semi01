@@ -25,7 +25,7 @@ public class CafeBoardCatUpdateController extends HttpServlet{
 		
 		req.setAttribute("cafeBoardCatVo", cafeBoardCatVo);
 	
-		req.getRequestDispatcher(req.getContextPath()+"/cafe/CafeBoardCatUpdate.jsp?boardCatNum="+boardCatNum).forward(req, resp);
+		req.getRequestDispatcher("/cafe/CafeBoardCatUpdate.jsp?boardCatNum="+boardCatNum).forward(req, resp);
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class CafeBoardCatUpdateController extends HttpServlet{
 		CafeBoardCatDao cafeBoardCatDao = CafeBoardCatDao.getInstance();
 		cafeBoardCatDao.updateBoardCatNum(boardCatNum, catName);
 		
-		req.getRequestDispatcher(req.getContextPath()+"/cafe/cafeBoardUpdate?cafeNum="+cafeNum).forward(req, resp);
+		req.getRequestDispatcher("/cafe/cafeBoardUpdate?cafeNum="+cafeNum).forward(req, resp);
 		
 	}
 }

@@ -81,4 +81,28 @@ public class CafeMemGradeDao {
 			DBCPBean.close(con, pstmt, null);
 		}
 	}
+	
+	public int getMaxNum (int cafeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int max = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select max(cafememgradenum) max where cafeNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				max = rs.getInt("max");
+			}
+			return max;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally{
+			DBCPBean.close(con, pstmt, rs);
+		}
+	}
+	
 }

@@ -9,18 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CafeBoardDao;
-@WebServlet("/cafe/cafeBoardDelete")
-public class CafeBoardDeleteController extends HttpServlet{
+import dao.CafeMemberDao;
+import vo.CafeMemberVo;
+@WebServlet("/cafe/CafeUserInfoMemGradeUp")
+public class CafeUserInfoMemGradeUp extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		int boardNum = Integer.parseInt(req.getParameter("boardNum"));
 		int cafeNum = Integer.parseInt(req.getParameter("cafeNum"));
+		int userNum = Integer.parseInt(req.getParameter("userNum"));
 		
-		CafeBoardDao cafeBoardDao = CafeBoardDao.getInstance();
-		cafeBoardDao.delete(boardNum);
-	
-		req.getRequestDispatcher("/cafe/cafeBoardUpdate?cafeNum="+cafeNum).forward(req, resp);
+		
+		
+		CafeMemberDao cafeMemberDao = CafeMemberDao.getInstance();
+		CafeMemberVo cafeMemberVo = cafeMemberDao.getOne(userNum);
+		
+		cafeMemberDao.oneGradeUp(cafeMemberVo);
+		
+		req.getRequestDispatcher("/cafe/cafeUserInfoList?cafeNum="+cafeNum).forward(req, resp);;
+		
 	}
 }

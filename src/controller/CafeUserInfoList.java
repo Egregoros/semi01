@@ -27,12 +27,4 @@ public class CafeUserInfoList extends HttpServlet{
 		req.setAttribute("maxGradeNum", maxGradeNum);
 		req.getRequestDispatcher("/cafe/CafeUserInfoList.jsp?cafeNum="+cafeNum).forward(req, resp);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		int cafeNum = Integer.parseInt(req.getParameter("cafeNum"));
-		
-		
-	}
 }
