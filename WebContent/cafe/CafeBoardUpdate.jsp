@@ -8,7 +8,7 @@
 <title>/cafe/CafeBoardUpdate.jsp</title>
 </head>
 <body>
-<c:set var = "cafeBoardVo" value = "${request.getAttribute(cafeBoardVo); }" />
+<c:set var = "cafeBoardVo" value = "${requestScope.cafeBoardVo }" />
 <div id = "wrapper">
 	<div id = "header">
 	</div>
