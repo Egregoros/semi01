@@ -338,6 +338,25 @@ public class CafeMemberDao {
 		}
 	}
 	
+	public int update(CafeMemberVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBCPBean.getConn();
+			String sql="update cafemember set cafeMemNick=? where userNum=? and cafeNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getCafeMemNick());
+			pstmt.setInt(2, vo.getUserNum());
+			pstmt.setInt(3, vo.getCafeNum());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
 	public CafeMemberVo getOne(int userNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -380,6 +399,33 @@ public class CafeMemberDao {
 			se.printStackTrace();
 			return -1;
 		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public CafeMemberVo getNum(int userNum, int cafeNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBCPBean.getConn();
+			String sql="select * from cafemember where userNum=? and cafeNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, userNum);
+			pstmt.setInt(2, cafeNum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String cafeMemNick=rs.getString("cafeMemNick");
+				int cafeMemGradeNum=rs.getInt("cafeMemGradeNum");
+				int cafeInviteCount=rs.getInt("cafeInviteCount");
+				Date cafeMemRegdate=rs.getDate("cafeMemRegdate");
+				CafeMemberVo vo=new CafeMemberVo(userNum, cafeNum, cafeMemNick, cafeMemGradeNum, cafeInviteCount, cafeMemRegdate);
+				return vo;
+			}return null;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}finally {
 			DBCPBean.close(con, pstmt, null);
 		}
 	}

@@ -30,7 +30,7 @@
 			<c:when test="${userInfo['isUser']=='true' }">
 				<div id="section-nav-header-content-self">
 					<div>
-						<p class="gray">${userInfo['userNick'] }&nbsp;&nbsp;<a href="" style="font-size: 0.8em; color:gray;">[정보수정]</a></p>
+						<p class="gray">${userInfo['userNick'] }&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/cafe/nickUpdate?userNum=${sessionScope.userNum}&cafeNum=${sessionScope.userNum}" style="font-size: 0.8em; color:gray;">[정보수정]</a></p>
 						<p class="gray">가입 ${userInfo['userRegdate'] }</p>
 					</div>
 					<div>
