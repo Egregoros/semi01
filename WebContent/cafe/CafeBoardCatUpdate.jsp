@@ -14,7 +14,7 @@
 	
 	<div id = "body">
 		<form method = "post" action = "${cp }/cafe/cafeBoardCatUpdate">
-			카테고리 이름:<input type = "text" name = "catName" value = "${cafeBoardCatVo.catName }">
+			카테고리 이름 : <input type = "text" name = "catName" value = "${cafeBoardCatVo.catName }">
 			<input type = "submit" value = "카테고리 수정">
 			<input type = "text" name = "boardCatNum" value = "${cafeBoardCatVo.boardCatNum }" hidden="hidden">
 		</form>
