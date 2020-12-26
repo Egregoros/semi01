@@ -44,6 +44,6 @@ public class CafeMemNickUpdateController extends HttpServlet{
 		}else {
 			req.setAttribute("code", "fail");
 		}
-		req.getRequestDispatcher("/cafeList.jsp").forward(req, resp);
+		resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum);
 	}
 	}

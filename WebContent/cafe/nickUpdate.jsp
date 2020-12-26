@@ -40,6 +40,10 @@
 		   function buttonClick(){
 			   alert('회원정보 수정 성공!');
 		   }
+		   
+		   function goBack(){
+			   history.go(-1);
+		   }
 </script>
 <style>
 	#cafeMemNickCheck{color: red;}
@@ -47,13 +51,13 @@
 </style>
 </head>
 <body>
-<a href="../">◀이전화면</a>
 <h2>닉네임 수정</h2>
    <form method="post" action="/semi_project/cafe/nickUpdate">
    <input type="hidden" name="userNum" value="${vo.userNum }">
    <input type="hidden" name="cafeNum" value="${vo.cafeNum }">
    <input type="text" name="cafeMemNick" id="cafeMemNick" value="${vo.cafeMemNick }" onkeyup="checkcafememnick()" required="required">
-    <input type="submit" value="확인" onclick="buttonClick()"><br>
+    <input type="submit" value="확인" onclick="buttonClick()">
+    <input type="button" value="◀ 뒤로가기" onclick="goBack()"><br>
     <span id="cafeMemNickCheck"></span><br>
    </form>
 </body>
