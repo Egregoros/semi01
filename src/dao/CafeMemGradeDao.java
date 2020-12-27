@@ -89,7 +89,7 @@ public class CafeMemGradeDao {
 		int max = 0;
 		try {
 			con = DBCPBean.getConn();
-			String sql = "select max(cafememgradenum) max where cafeNum = ?";
+			String sql = "select max(cafememgradenum) max from cafememgrade where cafeNum = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, cafeNum);
 			rs = pstmt.executeQuery();
@@ -105,4 +105,85 @@ public class CafeMemGradeDao {
 		}
 	}
 	
+	public int update(int cafeNum, String cafeMemGradeName, int cafeMemGradeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int n = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "update cafememgrade set cafeMemGradeName = ? where cafememgradenum = ? and cafenum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cafeMemGradeName);
+			pstmt.setInt(1, cafeMemGradeNum);
+			pstmt.setInt(3, cafeNum);
+			n = pstmt.executeUpdate();
+			return n;
+		} catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public int deleteOne(int cafeNum, int cafeMemGradeNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int n = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "delete from cafememgrade where cafenum = ? and cafememgradenum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeNum);
+			pstmt.setInt(2, cafeMemGradeNum);
+			n = pstmt.executeUpdate();
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public int memGradeUp(int cafeNum, int cafeMemGradeNum, String cafeMemGradeName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int n = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "update cafememgrade set cafememgradenum = ? where cafenum = ? cafememgradename = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cafeMemGradeNum+1);
+			pstmt.setInt(2, cafeNum);
+			pstmt.setString(3, cafeMemGradeName);
+			n = pstmt.executeUpdate();
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public int memGradeDown (int cafeNum, int cafeMemGradeNum, String cafeMemGradeName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int n = 0;
+		try {
+			con = DBCPBean.getConn();
+			String sql = "update cafememgrade set cafememgradenum = ? where cafenum = ? cafememgradename = ?";
+			pstmt.setInt(1, cafeMemGradeNum-1);
+			pstmt.setInt(2, cafeNum);
+			pstmt.setString(3, cafeMemGradeName);
+			n = pstmt.executeUpdate();
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBCPBean.close(con, pstmt , null);
+		}
+	}
 }

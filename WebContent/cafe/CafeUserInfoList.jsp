@@ -16,7 +16,8 @@
 	</div>
 	
 	<div id = "body">
-		<a href="${cp }/jsp/cafe-main.do?cafeNum=${cafeNum }"></a>
+		<a href="${cp }/jsp/cafe-main.do?cafeNum=${cafeNum }">카페로 돌아가기</a>
+		<a href="${cp }/cafe/CafeBoardMemGradeList?cafeNum=${cafeNum }">등급수정</a>
 		<table border= "1">
 			<tr>
 				<th>회원번호</th>
