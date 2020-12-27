@@ -80,9 +80,13 @@ public class CafeCreateController extends HttpServlet{
 		
 		
 		if (n>0) {
-			CafeMemGradeVo cafeMemGradeVo = new CafeMemGradeVo(n, 0, "관리자");
 			CafeMemGradeDao cafeMemGradeDao = CafeMemGradeDao.getInstance();
-			cafeMemGradeDao.insert(cafeMemGradeVo);
+			CafeMemGradeVo cafeMemGradeVo1 = new CafeMemGradeVo(n, 0, "관리자");
+			cafeMemGradeDao.insert(cafeMemGradeVo1);
+			CafeMemGradeVo cafeMemGradeVo2 = new CafeMemGradeVo(n, 1, "회원");
+			cafeMemGradeDao.insert(cafeMemGradeVo2);
+			CafeMemGradeVo cafeMemGradeVo3 = new CafeMemGradeVo(n, 2, "비회원");
+			cafeMemGradeDao.insert(cafeMemGradeVo3);
 			
 			CafeMainPicDao cafeMainPicDao = CafeMainPicDao.getInstance();
 			CafeMainPicVo cafeMainPicVo = null;
