@@ -12,6 +12,7 @@ import java.util.Map;
 import vo.CafeMemGradeVo;
 import vo.CafeMemberGradeNameVo;
 import vo.CafeMemberVo;
+import vo.MemberCafeListVo;
 import db.DBCPBean;
 
 public class CafeMemberDao {
@@ -427,6 +428,36 @@ public class CafeMemberDao {
 			return null;
 		}finally {
 			DBCPBean.close(con, pstmt, null);
+		}
+	}
+	
+	public ArrayList<MemberCafeListVo> getList(int userNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberCafeListVo memberCafeListVo = null;
+		ArrayList<MemberCafeListVo> list = new ArrayList<MemberCafeListVo>();
+		try {
+			con = DBCPBean.getConn();
+			String sql = "select cl.cafename cafename, cafenum, cmg.cafememgradename cafememgradename, cm.cafememnick nickname, cm.cafememregdate cafememregdate from cafemember cm natural join cafememgrade cmg natural join cafelist cl where usernum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, userNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int cafeNum = rs.getInt("cafeNum");
+				String cafeName = rs.getString("cafeName");
+				String cafeMemGradeName = rs.getString("cafeMemGradeName");
+				String nickName = rs.getString("nickName");
+				String cafeMemRegDate = rs.getString("cafeMemRegDate");
+				memberCafeListVo = new MemberCafeListVo(cafeName, cafeMemGradeName, nickName, cafeMemRegDate, cafeNum);
+				list.add(memberCafeListVo);
+			}
+			return list;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return null;
+		} finally {
+			DBCPBean.close(con, pstmt, rs);
 		}
 	}
 }
