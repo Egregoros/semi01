@@ -12,7 +12,7 @@
 			<c:otherwise>
 				<li><a href="${pageContext.request.contextPath }/logout" class="underline">로그아웃</a></li>
 				<li class="slash">┃</li>
-				<li><a href="" class="underline">내 카페</a></li>
+				<li><a href="${pageContext.request.contextPath }/cafe/MemberCafeList">내 카페</a></li>
 				<li class="slash">┃</li>
 			</c:otherwise>
 			</c:choose>
