@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,12 @@ public class CommentInsertController extends HttpServlet{
 		int userNum;
 		try {
 			userNum=(int)session.getAttribute("userNum");
+			CafeMainDao cmdao = CafeMainDao.getInstance();
+			HashMap<String, String> userInfo = cmdao.getUserInfo(userNum, cafeNum);
+			if(userInfo.get("isUser").equals("false")) {
+				resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum+"&joinCafeUserNum="+userNum);
+				return;
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			userNum=-1;
@@ -38,5 +45,6 @@ public class CommentInsertController extends HttpServlet{
 		CafeMainDao cmdao = CafeMainDao.getInstance();
 		cmdao.insertComment(userNum, postNum, comment);
 		resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum+"&postNum="+postNum+"&pageNum="+1+"&pageCount="+pageCount);
+		return;
 	}
 }
