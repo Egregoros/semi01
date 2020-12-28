@@ -104,6 +104,10 @@ public class CafeMain extends HttpServlet{
 					int postNum = Integer.parseInt((String)req.getParameter("postNum"));
 					PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
 					if(postInfo!=null) { 
+						if(userInfo.get("isUser").equals("false")) {
+							resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum+"&joinCafeUserNum="+userNum);
+							return;
+						}
 						req.setAttribute("postInfo", postInfo);
 						ArrayList<PostCommentVo> postCommentList = cmdao.getPostCommentInfo(postNum, cafeNum, startRow, endRow);
 						req.setAttribute("postCommentList", postCommentList);
