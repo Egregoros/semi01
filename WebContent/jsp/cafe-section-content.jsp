@@ -32,7 +32,7 @@
 			<tr class="notice">
 				<td class="center">공지</td>
 				<td class="left"><a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${notice.postNum}" class="underline">${notice.postTitle } <c:if test="${postCommentCount[notice.postNum]!=null }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +${postCommentCount[notice.postNum] }</c:if></a></td>
-				<td class="left"><a href="${pageContext.request.contextPath }/message?messageUserNum=${notice.postWriterNum}">${notice.postWriter }</a></td>
+				<td class="left"><a href="${pageContext.request.contextPath }/message?messageUserNum=${notice.postWriterNum}" onClick="window.open(this.href, '', 'width=450, height=650'); return false;">${notice.postWriter }</a></td>
 				<td class="center">${notice.postDate }</td>
 				<td class="center">${notice.postInviteCount }</td>
 			</tr>
@@ -43,7 +43,7 @@
 			<tr>
 				<td class="center">${post.cafePostNum }</td>
 				<td class="left"><a href="${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${cafeInfo['cafeNum'] }&postNum=${post.postNum}" class="underline">${post.postTitle } <c:if test="${postCommentCount[post.postNum]!=null }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +${postCommentCount[post.postNum] }</c:if></a></td>
-				<td class="left"><a href="${pageContext.request.contextPath }/message?messageUserNum=${post.postWriterNum}">${post.postWriter }</a></td>
+				<td class="left"><a href="${pageContext.request.contextPath }/message?messageUserNum=${post.postWriterNum}" onClick="window.open(this.href, '', 'width=450, height=650'); return false;">${post.postWriter }</a></td>
 				<td class="center">${post.postDate }</td>
 				<td class="center">${post.postInviteCount }</td>
 			</tr>

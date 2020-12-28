@@ -145,7 +145,7 @@ table {
 				<c:choose>
 					<c:when test="${sessionScope.userNum != null}">
 						<div id="welcome">
-							<a href="${cp }/message">메세지</a><br>
+							<a href="${cp }/message" onClick="window.open(this.href, '', 'width=450, height=650'); return false;">메세지</a><br>
 							 <a href="${cp }/cafe/MemberCafeList">내 카페 목록</a><br> 
 							 <a href="${pageContext.request.contextPath }/login/update?userNum=${sessionScope.userNum}">정보수정</a><br> 
 							 <a href="${cp }/cafe/cafeCreate">카페생성</a><br>
