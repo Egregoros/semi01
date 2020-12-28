@@ -25,8 +25,8 @@ public class CafeUserInfoMemGradeUp extends HttpServlet{
 		CafeMemberVo cafeMemberVo = cafeMemberDao.getOne(userNum);
 		
 		cafeMemberDao.oneGradeUp(cafeMemberVo);
-		
-		req.getRequestDispatcher("/cafe/cafeUserInfoList?cafeNum="+cafeNum).forward(req, resp);;
+
+		resp.sendRedirect(req.getContextPath()+"/cafe/cafeUserInfoList?cafeNum="+cafeNum);
 		
 	}
 }

@@ -46,7 +46,7 @@
 							<td></td>
 						</c:when>
 					</c:choose>
-					<td><a href = "${cp }/cafe/cafeUserInfoMemDelete?userNum=${cafeMemberGradeNameList.userNum }">강퇴</a></td>
+					<td><a href = "${cp }/cafe/cafeUserInfoMemDelete?userNum=${cafeMemberGradeNameList.userNum }&cafeNum=${param.cafeNum}">강퇴</a></td>
 				</tr>
 			</c:forEach>
 		</table>

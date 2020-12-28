@@ -24,7 +24,7 @@ public class CafeUserInfoMemGradeDown extends HttpServlet{
 		
 		cafeMemberDao.oneGradeDown(cafeMemberVo);
 		
-		req.getRequestDispatcher("/cafe/cafeUserInfoList?cafeNum="+cafeNum).forward(req, resp);
+		resp.sendRedirect(req.getContextPath()+"/cafe/cafeUserInfoList?cafeNum="+cafeNum);
 	
 	}
 }

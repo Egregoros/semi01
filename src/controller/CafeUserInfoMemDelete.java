@@ -22,7 +22,7 @@ public class CafeUserInfoMemDelete extends HttpServlet{
 		
 		CafeMemberDao cafeMemberDao = CafeMemberDao.getInstance();
 		int n = cafeMemberDao.deleteCafeNumUserNum(userNum, cafeNum);
-		
-		req.getRequestDispatcher("/cafe/cafeUserInfoList?cafeNum="+cafeNum).forward(req, resp);
+
+		resp.sendRedirect(req.getContextPath()+"/cafe/cafeUserInfoList?cafeNum="+cafeNum);
 	}
 }
