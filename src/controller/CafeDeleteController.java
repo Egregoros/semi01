@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CafeBoardCatDao;
 import dao.CafeBoardDao;
@@ -20,9 +21,14 @@ import vo.CafeListVo;
 public class CafeDeleteController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		
+		int userNum = (Integer)session.getAttribute("userNum");
+		
 		req.setCharacterEncoding("utf-8");
 		
 		int cafeNum = Integer.parseInt(req.getParameter("cafeNum"));
+		
 		String confirm = req.getParameter("confirm");
 		CafeListTableDao listDao = new CafeListTableDao();
 		CafeListVo listVo = listDao.getOne(cafeNum);
@@ -46,5 +52,7 @@ public class CafeDeleteController extends HttpServlet{
 			cafeBoardCatDao.delete(cafeNum);
 			listDao.delete(cafeNum);
 		}
+		
+		resp.sendRedirect(req.getContextPath()+"/cafe/cafeUpdate?userNum="+userNum);
 	}
 }

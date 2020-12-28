@@ -56,7 +56,7 @@
 <div id = "body">
 
 <c:set var = "cafeListVo" value = "${cafeListVo }"></c:set>
-<form method = "post" action = "${cp }/cafe/cafeCreate" enctype = "multipart/form-data">
+<form method = "post" action = "${cp }/cafe/cafeUpdate">
 	카페이름 : <input type = "text" name = "cafeName" value = "${cafeListVo.cafeName }"><br>
 	카테고리: 
 	<select id = "catName" name = "catName">
@@ -79,7 +79,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-   	<form method = "post" action ="/cafe/cafeUpdate">
+   	<form method = "post" action ="/cafe/cafeDelete">
    		삭제를 원하시면 카페 이름을 다시 적어주세요.
     	<input type = "text" name = "confirm"><br>
     	<input type = "submit" value = "카페삭제">

@@ -145,7 +145,6 @@ table {
 				<c:choose>
 					<c:when test="${sessionScope.userNum != null}">
 						<div id="welcome">
-							<a href="/myPage/myPageMain.jsp">마이페이지</a><br>
 							<a href="${cp }/message">메세지</a><br>
 							 <a href="${cp }/cafe/MemberCafeList">내 카페 목록</a><br> 
 							 <a href="${pageContext.request.contextPath }/login/update?userNum=${sessionScope.userNum}">정보수정</a><br> 
