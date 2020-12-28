@@ -79,7 +79,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-   	<form method = "post" action ="">
+   	<form method = "post" action ="/cafe/cafeUpdate">
    		삭제를 원하시면 카페 이름을 다시 적어주세요.
     	<input type = "text" name = "confirm"><br>
     	<input type = "submit" value = "카페삭제">

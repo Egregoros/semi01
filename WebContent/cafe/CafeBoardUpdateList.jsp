@@ -16,6 +16,7 @@
 		</div>
 		
 		<div id = "body">
+			<a>카테고리 생성</a><a>게시판 생성</a>
 			<table border="1">
 				<tr>
 					<th>게시판/카테고리</th>
