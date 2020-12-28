@@ -154,7 +154,7 @@ public class CafeMemGradeDao {
 			con = DBCPBean.getConn();
 			String sql = "update cafememgrade set cafememgradenum = ? where cafenum = ? cafememgradename = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cafeMemGradeNum+1);
+			pstmt.setInt(1, cafeMemGradeNum-1);
 			pstmt.setInt(2, cafeNum);
 			pstmt.setString(3, cafeMemGradeName);
 			n = pstmt.executeUpdate();
@@ -174,7 +174,7 @@ public class CafeMemGradeDao {
 		try {
 			con = DBCPBean.getConn();
 			String sql = "update cafememgrade set cafememgradenum = ? where cafenum = ? cafememgradename = ?";
-			pstmt.setInt(1, cafeMemGradeNum-1);
+			pstmt.setInt(1, cafeMemGradeNum+1);
 			pstmt.setInt(2, cafeNum);
 			pstmt.setString(3, cafeMemGradeName);
 			n = pstmt.executeUpdate();

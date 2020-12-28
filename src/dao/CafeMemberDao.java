@@ -291,7 +291,7 @@ public class CafeMemberDao {
 			if(vo.getCafeMemGradeNum() > 0) {
 				String sql = "update cafemember set cafememgradenum=? where usernum = ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, vo.getCafeMemGradeNum()+1);
+				pstmt.setInt(1, vo.getCafeMemGradeNum()-1);
 				pstmt.setInt(2, vo.getUserNum());
 				n = pstmt.executeUpdate();
 			} else if(vo.getCafeMemGradeNum() == 0) {
@@ -320,7 +320,7 @@ public class CafeMemberDao {
 			if(vo.getCafeMemGradeNum() <= cafeMemGradeDao.getMaxNum(vo.getCafeNum())) {
 				String sql = "update cafemember set cafememgradenum = ? where usernum = ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, vo.getCafeMemGradeNum()-1);
+				pstmt.setInt(1, vo.getCafeMemGradeNum()+1);
 				pstmt.setInt(2, vo.getUserNum());
 				n = pstmt.executeUpdate();
 			} else if (vo.getCafeMemGradeNum() == cafeMemGradeDao.getMaxNum(vo.getCafeNum())) {

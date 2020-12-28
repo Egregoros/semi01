@@ -31,7 +31,7 @@
 				</select>
 			</c:when>
 			<c:otherwise>
-				<input type="hidden" name="postCatNum" value="0">
+				<input type="hidden" name="postCatNum" value="1">
 			</c:otherwise>
 		</c:choose>
 	</span>
