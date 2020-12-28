@@ -57,6 +57,7 @@
 <c:set var = "cp" value = "${pageContext.request.contextPath }" />
 <c:set var = "cafeListVo" value = "${cafeListVo }"></c:set>
 <form method = "post" action = "${cp }/cafe/cafeUpdate">
+	<input type="hidden" name="cafeNum" value="${param.cafeNum }">
 	카페이름 : <input type = "text" name = "cafeName" value = "${cafeListVo.cafeName }"><br>
 	카테고리: 
 	<select id = "catName" name = "catName">

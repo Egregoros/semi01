@@ -8,14 +8,13 @@
 <title>cafe/MemberCafeList.jsp</title>
 </head>
 <body>
-<c:set var = "cp" value = "${param.cafeNum }"/>
 <div id = "wrapper">
 	
 	<div id = "header">
 	</div>
 	
 	<div id = "body">
-		<a href = "${cp }/cafeList">메인으로</a><br>
+		<a href = "${pageContext.request.contextPath }/cafeList">메인으로</a><br>
 		<table border="1">
 			<tr>
 				<th>카페번호</th>
@@ -27,7 +26,7 @@
 			<c:forEach var = "memberCafeList" items  = "${list }">
 				<tr>
 					<td>${memberCafeList.cafeNum }</td>
-					<td><a href = "${cp }/jsp/cafe-main.do?cafeNum=${memberCafeList.cafeNum }">${memberCafeList.cafeName }</a></td>
+					<td><a href = "${pageContext.request.contextPath }/jsp/cafe-main.do?cafeNum=${memberCafeList.cafeNum }">${memberCafeList.cafeName }</a></td>
 					<td>${memberCafeList.cafeMemGradeName }</td>
 					<td>${memberCafeList.nickName }</td>
 					<td>${memberCafeList.cafeMemRegDate }</td>

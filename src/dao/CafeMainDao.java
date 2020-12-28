@@ -34,7 +34,7 @@ public class CafeMainDao {
 		try {
 			con = DBCPBean.getConn();
 			String sql1 = "select c.*, to_char(caferegdate,'yyyy.mm.dd.') cr  from (select * from (cafelist natural join cafegrade natural join cafemember  natural join cafememgrade)) c where cafenum=?";
-			String sql2 = "select count(*) count from cafemember where cafenum=? and cafememgradenum!=(select cafememgradenum from cafememgrade where cafememgradename='��ȸ��' and cafenum=?)";
+			String sql2 = "select count(*) count from cafemember where cafenum=? and cafememgradenum!=(select cafememgradenum from cafememgrade where cafememgradenum='2' and cafenum=?)";
 			pstmt1 = con.prepareStatement(sql1);
 			pstmt1.setInt(1, cafeNum);
 			rs1 = pstmt1.executeQuery();
