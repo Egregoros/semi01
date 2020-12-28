@@ -53,6 +53,6 @@ public class CafeDeleteController extends HttpServlet{
 			listDao.delete(cafeNum);
 		}
 		
-		resp.sendRedirect(req.getContextPath()+"/cafe/cafeUpdate?userNum="+userNum);
+		resp.sendRedirect(req.getContextPath()+"/cafe/cafeList");
 	}
 }
