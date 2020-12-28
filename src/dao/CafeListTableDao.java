@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import db.DBCPBean;
+import vo.CafeBoardCatVo;
+import vo.CafeBoardVo;
 import vo.CafeListCatNameVo;
 import vo.CafeListVo;
 import vo.CafeMemberVo;
@@ -48,38 +50,84 @@ public class CafeListTableDao {
    
    public int delete(int cafeNum) {
       Connection con = null;
-      PreparedStatement pstmt = null;
       PreparedStatement pstmt1 = null;
       PreparedStatement pstmt2 = null;
       PreparedStatement pstmt3 = null;
+      PreparedStatement pstmt4 = null;
+      PreparedStatement pstmt5 = null;
+      PreparedStatement pstmt6 = null;
+      PreparedStatement pstmt7 = null;
+      PreparedStatement pstmt8 = null;
+      String sql1 = "delete from cafemember where cafenum = ?";
+      String sql2 = "delete from cafemainpic where cafenum = ?";
+      String sql3 = "delete from cafememgrade where cafenum = ?";
+      String sql7 = "delete from postfile where postnum in (select postnum from post where boardnum in (select boardnum from cafeboard where boardcatnum in (select boardcatnum from cafeboardcat where cafenum=?)))";
+      String sql4 = "delete from postimg where postnum in (select postnum from post where boardnum in (select boardnum from cafeboard where boardcatnum in (select boardcatnum from cafeboardcat where cafenum=?)))";
+      String sql8 = "delete from comment where postnum in (select postnum from post where boardnum in (select boardnum from cafeboard where boardcatnum in (select boardcatnum from cafeboardcat where cafenum=?)))";
+      String sql5 = "delete from cafeboardcat where cafeNum = ?";
+      String sql6 = "delete from cafelist where cafeNum = ?";
+     
+      CafeBoardCatDao cafeBoardCatDao = CafeBoardCatDao.getInstance();
+      ArrayList<CafeBoardCatVo> cafeBoardCatList = cafeBoardCatDao.getCafeCat(cafeNum);
+      CafeBoardDao cafeBoardDao = CafeBoardDao.getInstance();
+      ArrayList<CafeBoardVo> cafeBoardList = cafeBoardDao.getList(cafeNum);
+      CafeBoardVo cafeBoardVo = null;
+      
+      
       try {
-         con = DBCPBean.getConn();
-         String sql = "delete from cafelist where cafeNum = ?";
-         String sql1 = "delete from cafeMember where cafeNum = ?";
-         String sql2 = "delete from cafeMemGrade where cafeNum = ?";
-         String sql3 = "delete from cafeBoard where cafeNum = ?";
-         pstmt = con.prepareStatement(sql);
-         pstmt1 = con.prepareStatement(sql1);
-         pstmt2 = con.prepareStatement(sql2);
-         pstmt3 = con.prepareStatement(sql3);
-         pstmt.setInt(1, cafeNum);
-         pstmt1.setInt(1, cafeNum);
-         pstmt2.setInt(1, cafeNum);
-         pstmt3.setInt(1, cafeNum);
-         
-         pstmt3.executeUpdate();
-         pstmt2.executeUpdate();
-         pstmt1.executeUpdate();
-         return pstmt.executeUpdate();
-         
+    	  con = DBCPBean.getConn();
+    	  pstmt1 = con.prepareStatement(sql1);
+    	  pstmt1.setInt(1, cafeNum);
+    	  pstmt1.executeUpdate();
+    	  pstmt2 = con.prepareStatement(sql2);
+    	  pstmt2.setInt(1, cafeNum);
+    	  pstmt2.executeUpdate();
+    	  pstmt3 = con.prepareStatement(sql3);
+    	  pstmt3.setInt(1, cafeNum);
+    	  pstmt3.executeUpdate();
+    	  pstmt7 = con.prepareStatement(sql7);
+    	  pstmt7.setInt(1, cafeNum);
+    	  pstmt7.executeUpdate();
+    	  pstmt4 = con.prepareStatement(sql4);
+    	  pstmt4.setInt(1, cafeNum);
+    	  pstmt4.executeUpdate();
+    	  pstmt8 = con.prepareStatement(sql8);
+    	  pstmt8.setInt(1, cafeNum);
+    	  pstmt8.executeUpdate();
+    	  
+    	  
+    	  for (int i = 0; i < cafeBoardCatList.size(); i++) {
+    			int boardCatNum = cafeBoardCatDao.getOneBoardCatNum(cafeBoardCatList.get(i).getBoardCatNum()).getBoardCatNum();
+    			cafeBoardDao.deleteCat(boardCatNum);
+    	  }
+    	  
+    	  for (int j = 0; j < cafeBoardList.size(); j++) {
+    	  		cafeBoardVo = cafeBoardDao.getList(cafeNum).get(j);
+    	  		int boardNum = cafeBoardVo.getBoardNum();
+    	  		PostDao postDao = PostDao.getInstance();
+    	  		postDao.delete(boardNum);
+    	  }
+    	      
+    	  
+    	  pstmt5 = con.prepareStatement(sql5);
+    	  pstmt5.setInt(1, cafeNum);
+    	  pstmt5.executeUpdate();
+    	  pstmt6 = con.prepareStatement(sql6);
+    	  pstmt6.setInt(1, cafeNum);
+    	  return pstmt6.executeUpdate();
       } catch (SQLException se) {
-         se.printStackTrace();
-         return -1;
+    	  se.printStackTrace();
+    	  return -1;
       } finally {
-         DBCPBean.close(pstmt3);
-         DBCPBean.close(pstmt2);
-         DBCPBean.close(pstmt1);
-         DBCPBean.close(con, pstmt, null);
+    	  DBCPBean.close(pstmt6);
+    	  DBCPBean.close(pstmt5);
+    	  DBCPBean.close(pstmt4);
+    	  DBCPBean.close(pstmt8);
+    	  DBCPBean.close(pstmt7);
+    	  DBCPBean.close(pstmt3);
+    	  DBCPBean.close(pstmt2);
+    	  DBCPBean.close(con, pstmt1, null);  	  
+    
       }
    }
    

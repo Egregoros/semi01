@@ -43,16 +43,7 @@ public class CafeDeleteController extends HttpServlet{
 		
 		CafeMemGradeDao cafeMemGradeDao = CafeMemGradeDao.getInstance();
 		
-		if(cafeName.equals(confirm)) {
-			for (int i = 0; i < cafeBoardList.size(); i++) {
-				int boardNum = cafeBoardList.get(i).getBoardNum();
-				cafeBoardDao.delete(boardNum);
-			}
-			cafeMemGradeDao.delete(cafeNum);
-			cafeBoardCatDao.delete(cafeNum);
-			listDao.delete(cafeNum);
-		}
-		
-		resp.sendRedirect(req.getContextPath()+"/cafe/cafeList");
+		listDao.delete(cafeNum);
+		resp.sendRedirect(req.getContextPath()+"/cafeList");
 	}
 }

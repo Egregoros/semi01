@@ -15,6 +15,7 @@
 	</div>
 	
 	<div id = "body">
+	<a href = "${cp }/cafeList">메인으로</a>|||||<a href = "${cp }/jsp/cafe-main.do?cafeNum=${param.cafeNum }">카페로</a>
 		<table border="1">
 			<tr>
 				<th>등급 번호</th>
