@@ -24,7 +24,7 @@
 	</form>
 </div>
 <select onchange="if(this.value) location.href=(this.value);" id="section-content-page-count">
-	<c:set var="pageCountArray">10,15,20,25,30,50,1,0</c:set>
+	<c:set var="pageCountArray">10,15,20,25,30,50</c:set>
 	<c:forEach var="pageCountNum" items="${pageCountArray }">
 		<c:choose>
 			<c:when test="${pageCount==pageCountNum }">
