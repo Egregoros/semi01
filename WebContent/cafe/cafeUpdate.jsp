@@ -56,17 +56,16 @@
 <div id = "body">
 <c:set var = "cp" value = "${pageContext.request.contextPath }" />
 <c:set var = "cafeListVo" value = "${cafeListVo }"></c:set>
-<form method = "post" action = "${cp }/cafe/cafeUpdate">
-	<input type="hidden" name="cafeNum" value="${param.cafeNum }">
-	카페이름 : <input type = "text" name = "cafeName" value = "${cafeListVo.cafeName }"><br>
-	카테고리: 
-	<select id = "catName" name = "catName">
-		<c:forEach var = "cvo" items = "${catList }">
-			<option value="${cvo.catName }">${cvo.catName }</option>
-		</c:forEach>
-	</select><br>
-	<span style="vertical-align: top;">카페 설명: </span><textarea rows="5" cols="50" name = "content"></textarea><br>
-	<input type = "submit" value = "카페수정">
+<form method = "post" action = "${cp }/cafe/cafeUpdate?cafeNum=${param.cafeNum }">
+   카페이름 : <input type = "text" name = "cafeName" value = "${cafeListVo.cafeName }"><br>
+   카테고리: 
+   <select id = "catName" name = "catName">
+      <c:forEach var = "cvo" items = "${catList }">
+         <option value="${cvo.catName }">${cvo.catName }</option>
+      </c:forEach>
+   </select><br>
+   <span style="vertical-align: top;">카페 설명: </span><textarea rows="5" cols="50" name = "content"></textarea><br>
+   <input type = "submit" value = "카페수정">
 </form>
 <button id = "myBtn">삭제</button>
 </div>
@@ -80,10 +79,10 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-   	<form method = "post" action ="${cp }/cafe/cafeDelete">
-   		삭제를 원하시면 카페 이름을 다시 적어주세요.
-    	<input type = "text" name = "confirm"><br>
-    	<input type = "submit" value = "카페삭제">
+      <form method = "post" action ="${cp }/cafe/cafeDelete?cafeNum=${param.cafeNum }">
+         삭제를 원하시면 카페 이름을 다시 적어주세요.
+       <input type = "text" name = "confirm"><br>
+       <input type = "submit" value = "카페삭제">
     </form>
   </div>
 

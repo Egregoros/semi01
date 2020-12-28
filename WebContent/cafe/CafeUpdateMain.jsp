@@ -48,20 +48,21 @@
 <body>
 <c:set var = "cp" value = "${pageContext.request.contextPath }" />
 <div id = "wrapper">
-	<div id = "header">
-	</div>
-	
-	<div id = "body">
-		<ul>
-			<li><a href = "${cp }/cafe/cafeUpdate?cafeNum=${param.cafeNum }">카페수정</a></li>
-			<li><a href = "${cp }/cafe/cafeBoardUpdateList?cafeNum=${param.cafeNum }">카페게시판 수정</a></li>
-			<li><a href = "${cp }/cafe/cafeUserInfoList?cafeNum=${param.cafeNum }">카페 회원 수정</a></li>
-			<li><button id = "myBtn">삭제</button></li>
-		</ul>
-	</div>
-	
-	<div id = "footer">
-	</div>
+   <div id = "header">
+   </div>
+   
+   <div id = "body">
+   <a href = "${cp }/cafeList">메인으로</a>|||||<a href = "${cp }/jsp/cafe-main.do?cafeNum=${param.cafeNum }">카페로</a>
+      <ul>
+         <li><a href = "${cp }/cafe/cafeUpdate?cafeNum=${param.cafeNum }">카페수정</a></li>
+         <li><a href = "${cp }/cafe/cafeBoardUpdateList?cafeNum=${param.cafeNum }">카페게시판 수정</a></li>
+         <li><a href = "${cp }/cafe/cafeUserInfoList?cafeNum=${param.cafeNum }">카페 회원 수정</a></li>
+         <li><button id = "myBtn">삭제</button></li>
+      </ul>
+   </div>
+   
+   <div id = "footer">
+   </div>
 
 </div>
 
@@ -70,10 +71,10 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-   	<form method = "post" action ="${cp }/cafe/cafeDelete?cafeNum=${param.cafeNum }">
-   		삭제를 원하시면 카페 이름을 다시 적어주세요.
-    	<input type = "text" name = "confirm"><br>
-    	<input type = "submit" value = "게시판 삭제">
+      <form method = "post" action ="${cp }/cafe/cafeDelete?cafeNum=${param.cafeNum }">
+         삭제를 원하시면 카페 이름을 다시 적어주세요.
+       <input type = "text" name = "confirm"><br>
+       <input type = "submit" value = "게시판 삭제">
     </form>
   </div>
 
