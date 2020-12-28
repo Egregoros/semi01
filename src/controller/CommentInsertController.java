@@ -32,7 +32,7 @@ public class CommentInsertController extends HttpServlet{
 			userNum=(int)session.getAttribute("userNum");
 			CafeMainDao cmdao = CafeMainDao.getInstance();
 			HashMap<String, String> userInfo = cmdao.getUserInfo(userNum, cafeNum);
-			if(userInfo.get("isUser").equals("false")) {
+			if(userInfo.get("isUser").equals("false")||userInfo.get("userGradeNum").equals("2")) {
 				resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum+"&joinCafeUserNum="+userNum);
 				return;
 			}

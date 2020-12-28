@@ -104,7 +104,7 @@ public class CafeMain extends HttpServlet{
 					int postNum = Integer.parseInt((String)req.getParameter("postNum"));
 					PostVo postInfo = cmdao.getPostInfo(postNum, cafeNum);
 					if(postInfo!=null) { 
-						if(userInfo.get("isUser").equals("false")) {
+						if(userInfo.get("isUser").equals("false")||userInfo.get("userGradeNum").equals("2")) {
 							resp.sendRedirect(req.getContextPath()+"/jsp/cafe-main.do?cafeNum="+cafeNum+"&joinCafeUserNum="+userNum);
 							return;
 						}
