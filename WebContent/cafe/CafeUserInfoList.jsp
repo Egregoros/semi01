@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -35,14 +35,14 @@
 					<c:choose>
 						<c:when test="${cafeMemberGradeNameList.cafeMemGradeNum == 0 }">
 							<td></td>
-							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeDown?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↓</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeDown?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeNameList.userNum }">등급↓</a></td>
 						</c:when>
 						<c:when test="${(cafeMemberGradeNameList.cafeMemGradeNum < maxGradeNum) && (cafeMemberGradeNameList.cafeMemGradeNum > 0) }">
-							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeUp?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↑</a></td>
-							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeDown?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↓</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeUp?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeNameList.userNum }">등급↑</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeDown?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeNameList.userNum }">등급↓</a></td>
 						</c:when>
 						<c:when test="${cafeMemberGradeNameList.cafeMemGradeNum == maxGradeNum }">
-							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeUp?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeList.userNum }">등급↑</a></td>
+							<td><a href = "${cp }/cafe/CafeUserInfoMemGradeUp?cafeNum=${param.cafeNum }&userNum=${cafeMemberGradeNameList.userNum }">등급↑</a></td>
 							<td></td>
 						</c:when>
 					</c:choose>
