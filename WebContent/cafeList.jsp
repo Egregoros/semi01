@@ -161,6 +161,7 @@ table {
 									value="${param.pwd }"><br>
 								<div>${errMsg }</div>
 								<input type="submit" value="로그인">
+								<button type="button" onclick="location.href='login/join.jsp' ">회원가입</button>
 							</form>
 						</div>
 					</c:otherwise>
